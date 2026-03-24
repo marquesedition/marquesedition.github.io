@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Marques Edition | Links</title>
-    <meta name="description" content="Todos mis enlaces oficiales en un solo sitio." />
+    <title>Marques Edition</title>
+    <meta
+      name="description"
+      content="Bienvenido al sitio oficial de Marques Edition. Accede a todos los links desde una portada simple y mobile-first."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,14 +17,12 @@
     <style>
       :root {
         --bg: #050214;
-        --panel: rgba(14, 9, 38, 0.86);
-        --panel-soft: rgba(171, 120, 255, 0.12);
-        --line: rgba(159, 130, 255, 0.28);
-        --text: #f7f3ff;
-        --muted: #b8b1d6;
-        --blue: #45d7ff;
+        --text: #f8f4ff;
+        --muted: #c7bcdf;
         --pink: #ff5abf;
-        --violet: #7b45ff;
+        --blue: #45d7ff;
+        --line: rgba(168, 140, 255, 0.28);
+        --panel: rgba(12, 8, 34, 0.72);
       }
 
       * {
@@ -36,433 +37,165 @@
 
       body {
         font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-        background: var(--bg);
         color: var(--text);
-        display: grid;
-        place-items: center;
-        padding: 1rem;
-      }
-
-      .bg {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
         background:
           radial-gradient(1200px 720px at 14% 18%, rgba(255, 90, 191, 0.34), transparent 52%),
           radial-gradient(980px 600px at 82% 28%, rgba(69, 215, 255, 0.32), transparent 58%),
           radial-gradient(1200px 760px at 50% 108%, rgba(123, 69, 255, 0.27), transparent 62%),
           linear-gradient(180deg, #120533 0%, #07031b 55%, #040210 100%);
+        display: grid;
+        place-items: center;
+        padding: 1rem;
       }
 
-      .bg::after {
+      body::before {
         content: "";
-        position: absolute;
+        position: fixed;
         inset: 0;
+        pointer-events: none;
         background-image: radial-gradient(rgba(255, 255, 255, 0.18) 0.5px, transparent 0.5px);
         background-size: 3px 3px;
         opacity: 0.14;
-        pointer-events: none;
       }
 
-      .app {
+      .shell {
         width: min(100%, 430px);
       }
 
-      .card {
+      .cover {
         position: relative;
-        background:
-          radial-gradient(520px 320px at 18% 8%, rgba(255, 90, 191, 0.12), transparent 64%),
-          radial-gradient(540px 340px at 84% 12%, rgba(69, 215, 255, 0.12), transparent 66%),
-          linear-gradient(180deg, rgba(28, 18, 70, 0.9), rgba(14, 9, 38, 0.98));
-        border: 1px solid var(--line);
-        border-radius: 30px;
         overflow: hidden;
+        border-radius: 32px;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(17, 11, 46, 0.12), rgba(17, 11, 46, 0.72)),
+          var(--panel);
         box-shadow: 0 24px 62px rgba(2, 0, 12, 0.62);
-        backdrop-filter: blur(18px) saturate(130%);
-        -webkit-backdrop-filter: blur(18px) saturate(130%);
+        backdrop-filter: blur(18px) saturate(135%);
+        -webkit-backdrop-filter: blur(18px) saturate(135%);
       }
 
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        background:
-          radial-gradient(360px 240px at 18% 12%, rgba(255, 90, 191, 0.18), transparent 66%),
-          radial-gradient(380px 260px at 82% 16%, rgba(69, 215, 255, 0.16), transparent 68%),
-          radial-gradient(560px 360px at 50% 46%, rgba(123, 69, 255, 0.16), transparent 72%),
-          radial-gradient(540px 340px at 50% 88%, rgba(52, 31, 110, 0.18), transparent 74%);
-        opacity: 0.9;
-      }
-
-      .hero {
+      .cover-media {
         position: relative;
-        isolation: isolate;
-        overflow: visible;
-        z-index: 1;
-        height: 224px;
+        min-height: 70svh;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.15rem;
         background:
-          radial-gradient(280px 180px at 18% 18%, rgba(255, 90, 191, 0.16), transparent 72%),
-          radial-gradient(320px 180px at 82% 20%, rgba(69, 215, 255, 0.14), transparent 74%);
+          linear-gradient(180deg, rgba(8, 5, 22, 0.02) 0%, rgba(8, 5, 22, 0.16) 42%, rgba(8, 5, 22, 0.78) 100%),
+          url("/profile.png") center 24% / cover no-repeat;
       }
 
-      .hero-cover {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 26%;
-        z-index: 0;
-        filter: saturate(1.08) contrast(1.04);
-        -webkit-mask-image: linear-gradient(
-          180deg,
-          #000 0%,
-          #000 50%,
-          rgba(0, 0, 0, 0.92) 64%,
-          rgba(0, 0, 0, 0.55) 82%,
-          transparent 100%
-        );
-        mask-image: linear-gradient(
-          180deg,
-          #000 0%,
-          #000 50%,
-          rgba(0, 0, 0, 0.92) 64%,
-          rgba(0, 0, 0, 0.55) 82%,
-          transparent 100%
-        );
-      }
-
-      .hero::before {
+      .cover-media::before {
         content: "";
         position: absolute;
         inset: 0;
-        z-index: 1;
-        pointer-events: none;
         background:
-          radial-gradient(260px 140px at 18% 18%, rgba(255, 90, 191, 0.24), transparent 72%),
-          radial-gradient(260px 140px at 82% 18%, rgba(69, 215, 255, 0.22), transparent 74%),
-          linear-gradient(180deg, rgba(9, 6, 27, 0.06) 0%, rgba(9, 6, 27, 0.16) 62%, rgba(9, 6, 27, 0.22) 100%);
+          radial-gradient(220px 180px at 16% 18%, rgba(255, 90, 191, 0.26), transparent 72%),
+          radial-gradient(260px 220px at 82% 20%, rgba(69, 215, 255, 0.22), transparent 74%),
+          linear-gradient(180deg, rgba(9, 6, 27, 0.12) 0%, rgba(9, 6, 27, 0.06) 32%, rgba(9, 6, 27, 0.74) 100%);
+        pointer-events: none;
       }
 
-      .hero::after {
+      .cover-media::after {
         content: "";
         position: absolute;
         inset: auto 0 0;
-        height: 168px;
-        z-index: 2;
+        height: 34%;
+        background: linear-gradient(180deg, rgba(10, 6, 28, 0) 0%, rgba(10, 6, 28, 0.88) 100%);
         pointer-events: none;
-        background: linear-gradient(
-          180deg,
-          rgba(14, 9, 38, 0) 0%,
-          rgba(14, 9, 38, 0.04) 18%,
-          rgba(14, 9, 38, 0.14) 42%,
-          rgba(14, 9, 38, 0.36) 68%,
-          rgba(14, 9, 38, 0.68) 100%
-        );
       }
 
-      .avatar {
-        position: absolute;
-        left: 50%;
-        bottom: -34px;
-        transform: translateX(-50%);
-        width: 92px;
-        height: 92px;
-        border-radius: 50%;
-        border: 3px solid rgba(245, 248, 255, 0.9);
-        object-fit: cover;
-        object-position: center 24%;
-        z-index: 4;
-        background: #120b31;
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
-      }
-
-      .avatar--logo {
-        object-fit: contain;
-        object-position: center;
-        padding: 4px;
-        background:
-          radial-gradient(circle at 50% 35%, rgba(55, 20, 120, 0.95), rgba(10, 6, 28, 1) 72%);
-      }
-
-      .info {
+      .content {
         position: relative;
         z-index: 1;
-        margin-top: -40px;
-        padding: 4.65rem 1rem 1rem;
-        background: transparent;
+        width: 100%;
+        display: grid;
+        gap: 0.9rem;
         text-align: center;
+        padding: 0 0.15rem 0.25rem;
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(1.22rem, 5vw, 1.45rem);
+        font-size: clamp(2.1rem, 8vw, 3rem);
+        line-height: 0.96;
         font-weight: 800;
-        color: var(--text);
-        white-space: nowrap;
+        text-shadow: 0 10px 28px rgba(0, 0, 0, 0.36);
+      }
+
+      .cta {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.38rem;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.38);
-      }
-
-      .verified-badge {
-        width: 1.12em;
-        height: 1.12em;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-        line-height: 0;
-        vertical-align: -0.08em;
-        filter: drop-shadow(0 2px 5px rgba(69, 215, 255, 0.34));
-      }
-
-      .verified-badge svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      .user {
-        margin: 0.4rem 0 0;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .bio {
-        margin: 1rem 0 0;
-        max-width: 17rem;
-        margin-left: auto;
-        margin-right: auto;
-        color: #dfe6fb;
-        font-size: 0.94rem;
-        line-height: 1.52;
-      }
-
-      .bio strong {
-        color: #fff;
-      }
-
-      .bio a {
-        color: #dfe6fb;
-        text-decoration: none;
-        font-weight: 700;
-      }
-
-      .bio a:hover,
-      .bio a:focus-visible {
-        text-decoration: underline;
-      }
-
-      .links {
-        margin-top: 1rem;
-        display: grid;
-        gap: 0.62rem;
-      }
-
-      .link {
         min-height: 60px;
-        border-radius: 15px;
-        padding: 0.88rem 0.95rem;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        text-decoration: none;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        padding: 0.95rem 1.4rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 120, 201, 0.5);
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
-          linear-gradient(160deg, rgba(100, 88, 180, 0.14), rgba(30, 24, 68, 0.18));
-        backdrop-filter: blur(16px) saturate(120%);
-        -webkit-backdrop-filter: blur(16px) saturate(120%);
+          linear-gradient(135deg, rgba(255, 90, 191, 0.3), rgba(69, 215, 255, 0.22)),
+          rgba(23, 16, 58, 0.9);
+        color: var(--text);
+        font-size: 1rem;
+        font-weight: 800;
+        text-decoration: none;
         box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.14),
-          0 10px 24px rgba(8, 6, 22, 0.16);
-        transition: transform 0.2s ease, border-color 0.2s ease;
+          0 16px 34px rgba(0, 0, 0, 0.34),
+          inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          border-color 180ms ease;
       }
 
-      .link > span:first-child {
-        flex: 1;
-        text-align: left;
-      }
-
-      .link > span:last-child {
-        flex-shrink: 0;
-        margin-left: 0.9rem;
-      }
-
-      .link strong {
-        font-size: 0.97rem;
-        display: block;
-      }
-
-      .link small {
-        display: block;
-        margin-top: 0.24rem;
-        color: #b8c2e0;
-        font-size: 0.8rem;
-        line-height: 1.25;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-      }
-
-      .link span {
-        color: #d2dbef;
-      }
-
-      .link:hover,
-      .link:focus-visible {
+      .cta:hover {
         transform: translateY(-1px);
-        border-color: rgba(69, 215, 255, 0.62);
+        border-color: rgba(255, 120, 201, 0.72);
+        box-shadow:
+          0 20px 38px rgba(0, 0, 0, 0.38),
+          0 0 28px rgba(69, 215, 255, 0.14);
       }
 
-      .link:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.34);
-        outline-offset: 2px;
-      }
-
-      .link.primary {
-        border-color: rgba(255, 90, 191, 0.5);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
-          linear-gradient(130deg, rgba(255, 90, 191, 0.2), rgba(69, 215, 255, 0.16));
-      }
-
-      .footer {
-        margin: 0.95rem 0 0.2rem;
-        text-align: center;
-        color: #a39bc7;
-        font-size: 0.76rem;
-        line-height: 1.45;
-      }
-
-      .footer a {
-        color: #d9def2;
-        text-decoration: none;
-      }
-
-      .footer a:hover,
-      .footer a:focus-visible {
-        text-decoration: underline;
+      .cta:focus-visible {
+        outline: 3px solid rgba(69, 215, 255, 0.55);
+        outline-offset: 4px;
       }
 
       @media (min-width: 768px) {
-        body {
-          padding: 2rem;
+        .cover-media {
+          min-height: 680px;
+          padding: 1.5rem;
+          background-position: center 20%;
         }
-
-        .card {
-          border-radius: 34px;
-        }
-
-        .hero {
-          height: 246px;
-        }
-
-        .hero::before {
-          background:
-            radial-gradient(300px 160px at 18% 18%, rgba(255, 90, 191, 0.24), transparent 72%),
-            radial-gradient(300px 160px at 82% 18%, rgba(69, 215, 255, 0.22), transparent 74%),
-            linear-gradient(180deg, rgba(6, 4, 19, 0.08) 0%, rgba(6, 4, 19, 0.18) 60%, rgba(6, 4, 19, 0.24) 100%);
-        }
-
-        .hero-cover {
-          object-position: center 22%;
-        }
-
       }
 
       @media (prefers-reduced-motion: reduce) {
-        * {
-          transition-duration: 0.01ms !important;
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
+        .cta {
+          transition: none;
         }
       }
     </style>
   </head>
   <body>
-    <div class="bg" aria-hidden="true"></div>
-
-    <main class="app">
-      <section class="card" aria-label="Perfil y enlaces">
-        <div class="hero" aria-hidden="true">
-          <img class="hero-cover" src="/profile.png" alt="" loading="eager" decoding="async" />
-          <img
-            class="avatar avatar--logo"
-            src="/logo.png"
-            alt="Logo de Marques Edition"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-
-        <div class="info">
-          <h1>
-            Marques Edition
-            <span class="verified-badge" role="img" aria-label="Cuenta verificada">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M10.56 1.44a2.05 2.05 0 0 1 2.88 0l.95.92c.5.48 1.21.69 1.9.54l1.31-.28a2.05 2.05 0 0 1 2.41 2.41l-.28 1.31a2.05 2.05 0 0 0 .54 1.9l.92.95a2.05 2.05 0 0 1 0 2.88l-.92.95a2.05 2.05 0 0 0-.54 1.9l.28 1.31a2.05 2.05 0 0 1-2.41 2.41l-1.31-.28a2.05 2.05 0 0 0-1.9.54l-.95.92a2.05 2.05 0 0 1-2.88 0l-.95-.92a2.05 2.05 0 0 0-1.9-.54l-1.31.28a2.05 2.05 0 0 1-2.41-2.41l.28-1.31a2.05 2.05 0 0 0-.54-1.9l-.92-.95a2.05 2.05 0 0 1 0-2.88l.92-.95a2.05 2.05 0 0 0 .54-1.9l-.28-1.31a2.05 2.05 0 0 1 2.41-2.41l1.31.28a2.05 2.05 0 0 0 1.9-.54z" fill="#2d9cf0"></path>
-                <path d="M7.75 12.55l2.45 2.45 6.05-6.05" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </span>
-          </h1>
-          <p class="user">@marquesedition</p>
-
-          <p class="bio">
-            Del perreo al drop 🎧<br />
-            Latin vibes + club energy<br />
-            🔥 <a href="https://www.instagram.com/pensionmimosas/" target="_blank" rel="noopener noreferrer">@pensionmimosas</a> resident<br />
-            Madrid 📍<br />
-            📩 Bookings DM
-          </p>
-
-          <nav class="links" aria-label="Enlaces principales">
-            <a class="link primary" href="https://www.instagram.com/direct/t/120518152683674/" target="_blank" rel="noopener noreferrer">
-              <span>
-                <strong>Bookings / Contrataciones</strong>
-                <small>Instagram Direct</small>
-              </span>
-              <span>↗</span>
-            </a>
-            <a class="link" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">
-              <span>
-                <strong>Instagram</strong>
-                <small>899 seguidores</small>
-              </span>
-              <span>↗</span>
-            </a>
-            <a class="link" href="https://www.tiktok.com/@marquesedition" target="_blank" rel="noopener noreferrer">
-              <span>
-                <strong>TikTok</strong>
-                <small>359 seguidores · 750 me gusta</small>
-              </span>
-              <span>↗</span>
-            </a>
-            <a class="link" href="https://www.youtube.com/@marquesedition" target="_blank" rel="noopener noreferrer">
-              <span>
-                <strong>YouTube Channel</strong>
-                <small>335 suscriptores · 41.161 vistas</small>
-              </span>
-              <span>↗</span>
-            </a>
-            <a class="link" href="https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497" target="_blank" rel="noopener noreferrer">
-              <span>
-                <strong>Spotify</strong>
-                <small>Perfil oficial</small>
-              </span>
-              <span>↗</span>
-            </a>
-          </nav>
+    <main class="shell">
+      <section class="cover">
+        <div class="cover-media">
+          <div class="content">
+            <p class="eyebrow">Marques Edition</p>
+            <h1>Bienvenido</h1>
+            <a class="cta" href="/media-links/">Ver links</a>
+          </div>
         </div>
       </section>
-
-      <p class="footer">Copyright © 2026 Marques Edition. Web design by <a href="https://www.mlabsmusic.com/" target="_blank" rel="noopener noreferrer">M Labs Music</a>.</p>
     </main>
   </body>
 </html>
