@@ -44,3 +44,14 @@ http://localhost:5500
 4. Para abrirlo en el movil (misma Wi-Fi), usa la IP local que muestra el script.
 
 Para parar el servidor: `Ctrl + C`.
+
+## 🔄 Actualizar reels
+Para regenerar el listado de reels que usa `media-links`:
+
+```bash
+python3 scripts/update_reels.py
+```
+
+La página muestra 4 reels destacados y deja el resto dentro de “Ver todos los reels”.
+
+En GitHub, el workflow `.github/workflows/update-reels.yml` también puede refrescar `media-links/reels.json` automáticamente.
