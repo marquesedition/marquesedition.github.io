@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Marques Edition | Reels</title>
+    <meta
+      name="description"
+      content="Una muestra directa del trabajo de Marques Edition en cabina. Reels de clubs, bodas, residencia y pista real."
+    />
+    <meta name="theme-color" content="#09041d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #050214;
+        --line: rgba(159, 130, 255, 0.24);
+        --text: #f7f3ff;
+        --muted: #b8b1d6;
+        --muted-strong: #dde4f8;
+        --blue: #45d7ff;
+        --pink: #ff5abf;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(1200px 720px at 14% 18%, rgba(255, 90, 191, 0.34), transparent 52%),
+          radial-gradient(980px 600px at 82% 28%, rgba(69, 215, 255, 0.32), transparent 58%),
+          radial-gradient(1200px 760px at 50% 108%, rgba(123, 69, 255, 0.27), transparent 62%),
+          linear-gradient(180deg, #120533 0%, #07031b 55%, #040210 100%);
+        color: var(--text);
+        padding: 1rem;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.5px, transparent 0.5px);
+        background-size: 3px 3px;
+        opacity: 0.14;
+      }
+
+      .app {
+        width: min(100%, 1180px);
+        margin: 0 auto;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 34px;
+        border: 1px solid var(--line);
+        background:
+          radial-gradient(520px 320px at 18% 8%, rgba(255, 90, 191, 0.12), transparent 64%),
+          radial-gradient(540px 340px at 84% 12%, rgba(69, 215, 255, 0.12), transparent 66%),
+          linear-gradient(180deg, rgba(28, 18, 70, 0.9), rgba(14, 9, 38, 0.98));
+        box-shadow: 0 28px 72px rgba(2, 0, 12, 0.56);
+      }
+
+      .hero {
+        position: relative;
+        height: 236px;
+        overflow: hidden;
+      }
+
+      .hero-cover {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 24%;
+        filter: saturate(1.08) contrast(1.05);
+        -webkit-mask-image: linear-gradient(
+          180deg,
+          #000 0%,
+          #000 58%,
+          rgba(0, 0, 0, 0.8) 76%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          180deg,
+          #000 0%,
+          #000 58%,
+          rgba(0, 0, 0, 0.8) 76%,
+          transparent 100%
+        );
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(300px 180px at 14% 18%, rgba(255, 90, 191, 0.26), transparent 72%),
+          radial-gradient(300px 180px at 86% 18%, rgba(69, 215, 255, 0.22), transparent 72%),
+          linear-gradient(180deg, rgba(9, 6, 27, 0.06), rgba(9, 6, 27, 0.38));
+      }
+
+      .avatar {
+        position: absolute;
+        left: 50%;
+        bottom: -36px;
+        transform: translateX(-50%);
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 3px solid rgba(245, 248, 255, 0.9);
+        padding: 4px;
+        object-fit: contain;
+        background:
+          radial-gradient(circle at 50% 35%, rgba(55, 20, 120, 0.95), rgba(10, 6, 28, 1) 72%);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+      }
+
+      .content {
+        padding: 4.9rem 1rem 1rem;
+      }
+
+      .intro {
+        text-align: center;
+      }
+
+      .eyebrow,
+      .section-kicker,
+      .side-kicker {
+        margin: 0;
+        color: var(--blue);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0.45rem 0 0;
+        font-size: clamp(1.65rem, 5vw, 2.35rem);
+        line-height: 1.05;
+      }
+
+      .intro p {
+        margin: 0.85rem auto 0;
+        max-width: 42rem;
+        color: var(--muted-strong);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .nav-pills,
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+
+      .nav-pills {
+        margin-top: 1rem;
+        justify-content: center;
+      }
+
+      .nav-pill,
+      .stat {
+        min-height: 38px;
+        padding: 0.6rem 0.86rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .layout {
+        margin-top: 1.15rem;
+        display: grid;
+        gap: 1rem;
+      }
+
+      .section,
+      .side-card {
+        padding: 1rem;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+          linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+      }
+
+      .section h2,
+      .side-card h2 {
+        margin: 0.35rem 0 0;
+        font-size: 1.08rem;
+        line-height: 1.24;
+      }
+
+      .section-copy,
+      .side-card p {
+        margin: 0.55rem 0 0;
+        color: var(--muted-strong);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .stats {
+        margin-top: 0.9rem;
+      }
+
+      .latest {
+        margin-top: 0.9rem;
+        padding: 0.95rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .latest strong,
+      .fact strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .latest span,
+      .fact span {
+        display: block;
+        margin-top: 0.24rem;
+        color: var(--muted-strong);
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .reels {
+        margin-top: 0.9rem;
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .reel-card {
+        padding: 0.95rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+          linear-gradient(155deg, rgba(42, 30, 95, 0.48), rgba(18, 12, 44, 0.72));
+      }
+
+      .reel-card--hero {
+        border-color: rgba(255, 90, 191, 0.28);
+        background:
+          radial-gradient(360px 180px at 12% 8%, rgba(255, 90, 191, 0.18), transparent 72%),
+          radial-gradient(320px 180px at 88% 10%, rgba(69, 215, 255, 0.16), transparent 74%),
+          linear-gradient(155deg, rgba(58, 34, 118, 0.58), rgba(16, 11, 38, 0.88));
+      }
+
+      .reel-topline,
+      .reel-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+      }
+
+      .reel-topline {
+        margin-bottom: 0.65rem;
+      }
+
+      .reel-rank,
+      .reel-label {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 0.35rem 0.72rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #f8fbff;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+      }
+
+      .reel-rank {
+        min-width: 2rem;
+        justify-content: center;
+      }
+
+      .reel-flag {
+        color: #f6f7ff;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .reel-card h3 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.28;
+      }
+
+      .reel-meta {
+        margin: 0.45rem 0 0;
+        color: #c2cae2;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .reel-desc {
+        margin: 0.55rem 0 0;
+        color: #dde5fb;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .reel-embed {
+        margin-top: 0.8rem;
+        min-height: 440px;
+      }
+
+      .reel-embed .instagram-media {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 18px !important;
+      }
+
+      .reel-footer {
+        margin-top: 0.8rem;
+      }
+
+      .reel-link,
+      .side-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(69, 215, 255, 0.28);
+        background: rgba(69, 215, 255, 0.08);
+        color: var(--blue);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .facts,
+      .side-stack {
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      .fact {
+        padding: 0.88rem 0.95rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .reels-more {
+        margin-top: 0.95rem;
+      }
+
+      .reels-toggle {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0.9rem 1rem;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+          linear-gradient(155deg, rgba(36, 24, 85, 0.54), rgba(18, 12, 44, 0.78));
+        color: #f7f3ff;
+        font-size: 0.9rem;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .reels-toggle::-webkit-details-marker {
+        display: none;
+      }
+
+      .status-copy {
+        margin-top: 0.9rem;
+        color: var(--muted-strong);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .footer {
+        margin: 1rem 0 0.2rem;
+        text-align: center;
+        color: #a39bc7;
+        font-size: 0.76rem;
+        line-height: 1.45;
+      }
+
+      .footer a {
+        color: #d9def2;
+        text-decoration: none;
+      }
+
+      .footer a:hover,
+      .footer a:focus-visible {
+        text-decoration: underline;
+      }
+
+      @media (min-width: 920px) {
+        body {
+          padding: 1.5rem;
+        }
+
+        .hero {
+          height: 260px;
+        }
+
+        .content {
+          padding: 5.1rem 1.25rem 1.2rem;
+        }
+
+        .layout {
+          grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.72fr);
+          align-items: start;
+        }
+
+        .sidebar {
+          position: sticky;
+          top: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="card" aria-label="Reels de Marques Edition">
+        <div class="hero" aria-hidden="true">
+          <img class="hero-cover" src="/profile.png" alt="" loading="eager" decoding="async" />
+          <img class="avatar" src="/logo.png" alt="Logo de Marques Edition" loading="eager" decoding="async" />
+        </div>
+
+        <div class="content">
+          <header class="intro">
+            <p class="eyebrow">Reels</p>
+            <h1>Aquí puedes ver un poco de mi trabajo en cabina.</h1>
+            <p>
+              Clubs, residencia, bodas y momentos reales de pista. Esta página está para enseñar
+              energía, selección y cómo se vive la sesión cuando estoy pinchando.
+            </p>
+
+            <div class="nav-pills" aria-label="Navegación principal">
+              <a class="nav-pill" href="/">Inicio</a>
+              <a class="nav-pill" href="/media-links/">Media Links</a>
+              <a class="nav-pill" href="/booking/">Booking</a>
+            </div>
+          </header>
+
+          <div class="layout">
+            <section class="section" aria-labelledby="reels-title">
+              <p class="section-kicker">Trabajo real</p>
+              <h2 id="reels-title">Clips recientes de clubs, bodas y residencia</h2>
+              <p class="section-copy">
+                Una selección directa del perfil para que se vea rápido el tipo de energía, la
+                lectura de pista y el rango de formatos en los que trabajo.
+              </p>
+
+              <div class="reels" id="featured-reels"></div>
+
+              <details class="reels-more" id="reels-more">
+                <summary class="reels-toggle" id="reels-toggle">Ver más reels</summary>
+                <div class="reels" id="all-reels"></div>
+              </details>
+            </section>
+
+            <aside class="sidebar">
+              <div class="side-stack">
+                <section class="side-card" aria-labelledby="latest-title">
+                  <p class="side-kicker">Último movimiento</p>
+                  <h2 id="latest-title">Lo último que he subido</h2>
+                  <div class="latest" id="latest-reel">
+                    <strong>Cargando reel...</strong>
+                    <span>En un momento te enseño el último clip.</span>
+                  </div>
+                </section>
+
+                <section class="side-card" aria-labelledby="stats-title">
+                  <p class="side-kicker">Señales</p>
+                  <h2 id="stats-title">Un poco de contexto del perfil</h2>
+                  <div class="stats" id="profile-stats">
+                    <span class="stat">Cargando...</span>
+                  </div>
+                </section>
+
+                <section class="side-card" aria-labelledby="fit-title">
+                  <p class="side-kicker">Qué enseña esta página</p>
+                  <h2 id="fit-title">Una muestra corta pero clara</h2>
+                  <p>
+                    Si después de ver estos reels quieres pasar a la siguiente conversación, tienes
+                    la ruta de booking separada y lista.
+                  </p>
+
+                  <div class="facts" aria-label="Siguiente paso">
+                    <div class="fact">
+                      <strong>Cabina</strong>
+                      <span>Clubs, privados, bodas y residencia</span>
+                    </div>
+                    <div class="fact">
+                      <strong>Estilo</strong>
+                      <span>Afro / Latin / Open format</span>
+                    </div>
+                  </div>
+
+                  <div class="side-stack">
+                    <a class="side-link" href="/booking/">Ir a booking ↗</a>
+                    <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
+                  </div>
+                </section>
+              </div>
+            </aside>
+          </div>
+
+          <p class="status-copy" id="reels-meta">Cargando reels...</p>
+        </div>
+      </section>
+
+      <p class="footer">
+        Copyright © 2026 Marques Edition. Web design by
+        <a href="https://www.mlabsmusic.com/" target="_blank" rel="noopener noreferrer">M Labs Music</a>.
+      </p>
+    </main>
+
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <script>
+      function formatDisplayDate(dateValue) {
+        const date = new Date(dateValue + "T12:00:00");
+        return new Intl.DateTimeFormat("es-ES", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }).format(date);
+      }
+
+      function processInstagramEmbeds() {
+        if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
+          window.instgrm.Embeds.process();
+        }
+      }
+
+      function queueInstagramEmbeds() {
+        processInstagramEmbeds();
+        window.setTimeout(processInstagramEmbeds, 250);
+        window.setTimeout(processInstagramEmbeds, 1200);
+      }
+
+      function renderReelCard(reel, index, isHero) {
+        const article = document.createElement("article");
+        article.className = isHero ? "reel-card reel-card--hero" : "reel-card";
+
+        article.innerHTML = `
+          <div class="reel-topline">
+            <span class="reel-rank">#${index}</span>
+            <span class="reel-flag">${isHero ? "Último reel" : "Reel"}</span>
+          </div>
+          <h3>${reel.title}</h3>
+          <p class="reel-meta">${formatDisplayDate(reel.date)} · ${reel.label}</p>
+          <p class="reel-desc">${reel.summary}</p>
+          <div class="reel-embed">
+            <blockquote
+              class="instagram-media"
+              data-instgrm-permalink="${reel.url}"
+              data-instgrm-version="14"
+              style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
+            >
+              <a href="${reel.url}" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
+            </blockquote>
+          </div>
+          <div class="reel-footer">
+            <span class="reel-label">${reel.label}</span>
+            <a class="reel-link" href="${reel.url}" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
+          </div>
+        `;
+
+        return article;
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const featuredContainer = document.getElementById("featured-reels");
+        const allContainer = document.getElementById("all-reels");
+        const latestContainer = document.getElementById("latest-reel");
+        const statsContainer = document.getElementById("profile-stats");
+        const metaContainer = document.getElementById("reels-meta");
+        const toggle = document.getElementById("reels-toggle");
+        const details = document.getElementById("reels-more");
+
+        try {
+          const response = await fetch("/media-links/reels.json", { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error("fetch_failed");
+          }
+
+          const payload = await response.json();
+          const reels = payload.reels || [];
+          const profile = payload.profile || {};
+
+          if (!reels.length) {
+            throw new Error("empty_reels");
+          }
+
+          const featured = reels.slice(0, 4);
+          const remaining = reels.slice(4);
+
+          featured.forEach((reel, index) => {
+            featuredContainer.appendChild(renderReelCard(reel, index + 1, index === 0));
+          });
+
+          remaining.forEach((reel, index) => {
+            allContainer.appendChild(renderReelCard(reel, index + 5, false));
+          });
+
+          if (!remaining.length && details) {
+            details.hidden = true;
+          } else if (toggle) {
+            toggle.textContent = `Ver más reels (${reels.length})`;
+          }
+
+          latestContainer.innerHTML = `
+            <strong>${reels[0].title}</strong>
+            <span>${formatDisplayDate(reels[0].date)} · ${reels[0].label}</span>
+          `;
+
+          statsContainer.innerHTML = `
+            <span class="stat">${profile.followers || 0} seguidores</span>
+            <span class="stat">${reels.length} reels</span>
+            <span class="stat">${profile.posts || 0} posts</span>
+          `;
+
+          const generatedDate = new Date(payload.generated_at);
+          const generatedLabel = new Intl.DateTimeFormat("es-ES", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }).format(generatedDate);
+
+          metaContainer.innerHTML = `${reels.length} reels · actualizado ${generatedLabel} · <a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer" style="color:#dfe8ff">abrir perfil ↗</a>`;
+
+          queueInstagramEmbeds();
+          if (details) {
+            details.addEventListener("toggle", () => {
+              if (details.open) {
+                queueInstagramEmbeds();
+              }
+            });
+          }
+        } catch (error) {
+          featuredContainer.innerHTML = `<p class="status-copy">Ahora mismo no he podido cargar los reels. Puedes abrirlos directamente en Instagram mientras reviso el canal.</p>`;
+          latestContainer.innerHTML = `
+            <strong>Reels no disponibles</strong>
+            <span>Usa el acceso directo a Instagram mientras tanto.</span>
+          `;
+          statsContainer.innerHTML = `<span class="stat">Sin datos</span>`;
+          metaContainer.innerHTML = `<a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer" style="color:#dfe8ff">Abrir reels en Instagram ↗</a>`;
+          if (details) {
+            details.hidden = true;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
