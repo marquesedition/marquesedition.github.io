@@ -46,12 +46,10 @@ http://localhost:5500
 Para parar el servidor: `Ctrl + C`.
 
 ## 🔄 Actualizar reels
-Para regenerar el listado de reels que usa `media-links`:
+Para regenerar el JSON de reels y el bloque dinámico de la home:
 
 ```bash
 python3 scripts/update_reels.py
 ```
 
-La página muestra 4 reels destacados y deja el resto dentro de “Ver todos los reels”.
-
-En GitHub, el workflow `.github/workflows/update-reels.yml` también puede refrescar `media-links/reels.json` automáticamente.
+En GitHub, el workflow `.github/workflows/update-reels.yml` también puede refrescar `media-links/reels.json` y `index.html` automáticamente.

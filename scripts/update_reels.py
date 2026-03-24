@@ -14,7 +14,6 @@ PROFILE_URL = f"https://www.instagram.com/{PROFILE_USERNAME}/reels/"
 API_URL = f"https://www.instagram.com/api/v1/users/web_profile_info/?username={PROFILE_USERNAME}"
 OUTPUT_PATH = Path("media-links/reels.json")
 HOME_PATH = Path("index.html")
-MEDIA_LINKS_PATH = Path("media-links/index.html")
 
 
 def fetch_profile_payload():
@@ -159,10 +158,6 @@ def format_display_date(date_value):
     return f"{dt.day:02d} {months[dt.month - 1]} {dt.year}"
 
 
-def format_profile_number(value):
-    return f"{value:,}".replace(",", ".")
-
-
 def format_compact_number(value):
     if value >= 1000:
         whole = value / 1000
@@ -209,81 +204,6 @@ def render_home_latest(reel):
     )
 
 
-def render_media_proof(profile, reels):
-    items = [
-        (format_compact_number(profile["followers"]), "Seguidores"),
-        (str(len(reels)), "Reels públicos"),
-        (str(profile["posts"]), "Posts"),
-        (str(profile["highlights"]), "Highlights"),
-    ]
-    return "\n".join(
-        [
-            "                <div class=\"proof-card\">"
-            f"\n                  <strong>{html.escape(value)}</strong>"
-            f"\n                  <span>{html.escape(label)}</span>"
-            "\n                </div>"
-            for value, label in items
-        ]
-    )
-
-
-def render_reel_card(reel, index, is_hero=False):
-    card_class = "reel-card reel-card--hero" if is_hero else "reel-card"
-    rank_class = "reel-rank reel-rank--hero" if is_hero else "reel-rank"
-    flag = "Último reel" if is_hero else "Reel"
-    url = html.escape(reel["url"])
-    title = html.escape(reel["title"])
-    meta = html.escape(format_display_date(reel["date"]))
-    summary = html.escape(reel["summary"])
-    label = html.escape(reel["label"])
-
-    return f"""              <article class="{card_class}">
-                <div class="reel-topline">
-                  <span class="{rank_class}">#{index}</span>
-                  <span class="reel-flag">{html.escape(flag)}</span>
-                </div>
-                <h3>{title}</h3>
-                <p class="reel-meta">{meta}</p>
-                <p class="reel-desc">{summary}</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="{url}"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="{url}" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">{label}</span>
-                  <a class="reel-link" href="{url}" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>"""
-
-
-def render_featured_reels(reels):
-    return "\n\n".join(
-        render_reel_card(reel, index + 1, is_hero=index == 0)
-        for index, reel in enumerate(reels[:4])
-    )
-
-
-def render_all_reels(reels):
-    return "\n\n".join(
-        render_reel_card(reel, index + 5, is_hero=False)
-        for index, reel in enumerate(reels[4:])
-    )
-
-
-def render_reels_generated(payload):
-    date = format_display_date(payload["generated_at"][:10])
-    return (
-        f"{len(payload['reels'])} reels · actualizado {html.escape(date)} · "
-        f"<a href=\"{html.escape(payload['source_url'])}\" target=\"_blank\" rel=\"noopener noreferrer\">abrir perfil ↗</a>"
-    )
-
-
 def update_home_html(reels_payload):
     text = HOME_PATH.read_text(encoding="utf-8")
     text = replace_generated_block(
@@ -299,43 +219,6 @@ def update_home_html(reels_payload):
     HOME_PATH.write_text(text, encoding="utf-8")
 
 
-def update_media_links_html(reels_payload):
-    reels = reels_payload["reels"]
-    profile = reels_payload["profile"]
-    text = MEDIA_LINKS_PATH.read_text(encoding="utf-8")
-    text = replace_generated_block(
-        text,
-        "INSTAGRAM_LINK_META",
-        f"{format_profile_number(profile['followers'])} seguidores",
-    )
-    text = replace_generated_block(
-        text,
-        "MEDIA_PROOF",
-        render_media_proof(profile, reels),
-    )
-    text = replace_generated_block(
-        text,
-        "FEATURED_REELS",
-        render_featured_reels(reels),
-    )
-    text = replace_generated_block(
-        text,
-        "ALL_REELS_SUMMARY",
-        f"Ver todos los reels ({len(reels)})",
-    )
-    text = replace_generated_block(
-        text,
-        "ALL_REELS",
-        render_all_reels(reels),
-    )
-    text = replace_generated_block(
-        text,
-        "REELS_META",
-        render_reels_generated(reels_payload),
-    )
-    MEDIA_LINKS_PATH.write_text(text, encoding="utf-8")
-
-
 def main():
     payload = fetch_profile_payload()
     reels_payload = build_reels_payload(payload)
@@ -345,7 +228,6 @@ def main():
         encoding="utf-8",
     )
     update_home_html(reels_payload)
-    update_media_links_html(reels_payload)
 
     print(f"Wrote {len(reels_payload['reels'])} reels to {OUTPUT_PATH}")
 

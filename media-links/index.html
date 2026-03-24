@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Marques Edition | Reels y Contrataciones</title>
+    <title>Marques Edition | Media Links</title>
     <meta
       name="description"
-      content="Reels, contrataciones y enlaces oficiales de Marques Edition. DJ en Madrid para clubs, bodas y eventos privados."
+      content="Enlaces oficiales de Marques Edition. Instagram, TikTok, YouTube, Spotify y acceso directo a booking."
     />
     <meta name="theme-color" content="#09041d" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,7 +19,6 @@
       :root {
         --bg: #050214;
         --panel: rgba(14, 9, 38, 0.86);
-        --panel-strong: rgba(16, 10, 44, 0.94);
         --line: rgba(159, 130, 255, 0.24);
         --text: #f7f3ff;
         --muted: #b8b1d6;
@@ -60,7 +59,7 @@
       }
 
       .app {
-        width: min(100%, 1180px);
+        width: min(100%, 980px);
         margin: 0 auto;
       }
 
@@ -74,27 +73,22 @@
           radial-gradient(540px 340px at 84% 12%, rgba(69, 215, 255, 0.12), transparent 66%),
           linear-gradient(180deg, rgba(28, 18, 70, 0.9), rgba(14, 9, 38, 0.98));
         box-shadow: 0 28px 72px rgba(2, 0, 12, 0.56);
-        backdrop-filter: blur(18px) saturate(130%);
-        -webkit-backdrop-filter: blur(18px) saturate(130%);
-      }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background:
-          radial-gradient(360px 240px at 18% 12%, rgba(255, 90, 191, 0.16), transparent 66%),
-          radial-gradient(380px 260px at 82% 16%, rgba(69, 215, 255, 0.14), transparent 68%),
-          radial-gradient(560px 360px at 50% 46%, rgba(123, 69, 255, 0.14), transparent 72%);
-        opacity: 0.9;
       }
 
       .hero {
         position: relative;
         height: 236px;
-        isolation: isolate;
         overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(360px 180px at 12% 24%, rgba(255, 90, 191, 0.3), transparent 68%),
+          radial-gradient(360px 180px at 88% 24%, rgba(69, 215, 255, 0.28), transparent 68%),
+          linear-gradient(180deg, rgba(12, 8, 30, 0.1), rgba(12, 8, 30, 0.46));
       }
 
       .hero-cover {
@@ -104,8 +98,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center 24%;
-        filter: saturate(1.08) contrast(1.05);
-        z-index: 0;
+        filter: saturate(1.06) contrast(1.04);
         -webkit-mask-image: linear-gradient(
           180deg,
           #000 0%,
@@ -122,18 +115,6 @@
         );
       }
 
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-        background:
-          radial-gradient(280px 150px at 14% 18%, rgba(255, 90, 191, 0.24), transparent 72%),
-          radial-gradient(280px 150px at 86% 18%, rgba(69, 215, 255, 0.22), transparent 74%),
-          linear-gradient(180deg, rgba(9, 6, 27, 0.04) 0%, rgba(9, 6, 27, 0.14) 64%, rgba(9, 6, 27, 0.28) 100%);
-      }
-
       .avatar {
         position: absolute;
         left: 50%;
@@ -145,91 +126,78 @@
         border: 3px solid rgba(245, 248, 255, 0.9);
         padding: 4px;
         object-fit: contain;
-        object-position: center;
         background:
           radial-gradient(circle at 50% 35%, rgba(55, 20, 120, 0.95), rgba(10, 6, 28, 1) 72%);
-        z-index: 3;
         box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
       }
 
-      .info {
-        position: relative;
-        z-index: 1;
+      .content {
         padding: 4.9rem 1rem 1rem;
       }
 
-      .profile-head {
+      .intro {
         text-align: center;
       }
 
-      h1 {
+      .eyebrow {
         margin: 0;
-        font-size: clamp(1.4rem, 4.8vw, 1.85rem);
+        color: var(--blue);
+        font-size: 0.76rem;
         font-weight: 800;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.38rem;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.38);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
       }
 
-      .verified-badge {
-        width: 1.1em;
-        height: 1.1em;
-        display: inline-flex;
-        filter: drop-shadow(0 2px 5px rgba(69, 215, 255, 0.34));
+      h1 {
+        margin: 0.45rem 0 0;
+        font-size: clamp(1.55rem, 5vw, 2.2rem);
+        line-height: 1.06;
       }
 
-      .verified-badge svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      .user {
-        margin: 0.4rem 0 0;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .headline-copy {
-        margin: 0.9rem auto 0;
-        max-width: 34rem;
+      .intro p {
+        margin: 0.85rem auto 0;
+        max-width: 38rem;
         color: var(--muted-strong);
-        font-size: 0.92rem;
-        line-height: 1.58;
+        font-size: 0.94rem;
+        line-height: 1.6;
       }
 
-      .dashboard {
-        margin-top: 1.2rem;
+      .nav-pills {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+      }
+
+      .nav-pill {
+        min-height: 40px;
+        padding: 0.62rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .grid {
+        margin-top: 1.15rem;
         display: grid;
         gap: 1rem;
       }
 
-      .dashboard-main,
-      .dashboard-side {
-        min-width: 0;
-      }
-
-      .section,
-      .side-card {
+      .panel {
         padding: 1rem;
         border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.1);
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
           linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.1),
-          0 16px 34px rgba(6, 4, 20, 0.2);
       }
 
-      .side-stack {
-        display: grid;
-        gap: 0.9rem;
-      }
-
-      .section-kicker,
-      .side-kicker {
+      .panel-kicker {
         margin: 0;
         color: var(--blue);
         font-size: 0.74rem;
@@ -238,665 +206,92 @@
         text-transform: uppercase;
       }
 
-      .booking-board {
-        margin-top: 0.75rem;
-        padding: 1rem;
-        border-radius: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background:
-          radial-gradient(320px 180px at 10% 0%, rgba(255, 90, 191, 0.12), transparent 72%),
-          radial-gradient(320px 180px at 100% 0%, rgba(69, 215, 255, 0.12), transparent 74%),
-          rgba(255, 255, 255, 0.04);
+      .panel h2 {
+        margin: 0.35rem 0 0;
+        font-size: 1.08rem;
+        line-height: 1.25;
       }
 
-      .booking-board h2,
-      .side-card h2 {
-        margin: 0;
-        font-size: 1.02rem;
-        line-height: 1.26;
-      }
-
-      .booking-copy,
-      .side-copy {
-        margin: 0.5rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.88rem;
-        line-height: 1.55;
-      }
-
-      .service-chips {
-        margin-top: 0.8rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .service-chip,
-      .fact-chip {
-        display: inline-flex;
-        align-items: center;
-        min-height: 34px;
-        padding: 0.45rem 0.8rem;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.06);
-        color: #f7f9ff;
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0.03em;
-      }
-
-      .proof-grid {
-        margin-top: 0.9rem;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.65rem;
-      }
-
-      .proof-card {
-        padding: 0.85rem;
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .proof-card strong {
-        display: block;
-        font-size: 1rem;
-        color: #fff;
-      }
-
-      .proof-card span {
-        display: block;
-        margin-top: 0.2rem;
-        color: #bec8e3;
-        font-size: 0.76rem;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-      }
-
-      .quick-actions,
-      .side-actions {
-        margin-top: 0.9rem;
-        display: grid;
-        gap: 0.6rem;
-      }
-
-      .quick-action,
-      .side-action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 50px;
-        padding: 0.8rem 1rem;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
-          rgba(20, 14, 50, 0.64);
-        color: #fff;
-        font-size: 0.86rem;
-        font-weight: 800;
-        text-decoration: none;
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-
-      .quick-action:hover,
-      .side-action:hover,
-      .quick-action:focus-visible,
-      .side-action:focus-visible {
-        transform: translateY(-1px);
-        border-color: rgba(69, 215, 255, 0.48);
-        box-shadow: 0 14px 28px rgba(4, 3, 16, 0.2);
-      }
-
-      .quick-action:focus-visible,
-      .side-action:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.3);
-        outline-offset: 2px;
-      }
-
-      .facts {
-        margin-top: 0.85rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .brief-points {
-        margin-top: 0.8rem;
-        display: grid;
-        gap: 0.55rem;
-      }
-
-      .brief-point {
-        margin: 0;
-        padding: 0.7rem 0.8rem;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--muted-strong);
-        font-size: 0.84rem;
-        line-height: 1.5;
-      }
-
-      .brief-point strong {
-        color: #fff;
-      }
-
-      .contact-card {
-        margin-top: 0.95rem;
-        padding: 1rem;
-        border-radius: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          radial-gradient(320px 180px at 0% 0%, rgba(255, 90, 191, 0.12), transparent 70%),
-          radial-gradient(320px 180px at 100% 12%, rgba(69, 215, 255, 0.12), transparent 72%),
-          linear-gradient(155deg, rgba(36, 24, 85, 0.52), rgba(18, 12, 44, 0.82));
-      }
-
-      .contact-card h2 {
-        margin: 0;
-        font-size: 1.02rem;
-        line-height: 1.26;
-      }
-
-      .contact-note {
-        margin: 0.5rem 0 0;
-        color: var(--muted-strong);
-        font-size: 0.88rem;
-        line-height: 1.55;
-      }
-
-      .contact-form {
-        margin-top: 0.95rem;
-        display: grid;
-        gap: 0.78rem;
-      }
-
-      .contact-grid {
-        display: grid;
-        gap: 0.78rem;
-      }
-
-      .form-field {
-        display: grid;
-        gap: 0.42rem;
-      }
-
-      .form-field label {
-        color: #f7f3ff;
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 0.03em;
-      }
-
-      .form-field input,
-      .form-field select,
-      .form-field textarea {
-        width: 100%;
-        min-height: 50px;
-        padding: 0.82rem 0.95rem;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.06);
-        color: #fff;
-        font: inherit;
-        transition:
-          border-color 0.2s ease,
-          box-shadow 0.2s ease,
-          background-color 0.2s ease;
-      }
-
-      .form-field textarea {
-        min-height: 150px;
-        resize: vertical;
-      }
-
-      .form-field input::placeholder,
-      .form-field textarea::placeholder {
-        color: #b7c1dd;
-      }
-
-      .form-field select {
-        appearance: none;
-      }
-
-      .form-field input:focus-visible,
-      .form-field select:focus-visible,
-      .form-field textarea:focus-visible {
-        outline: none;
-        border-color: rgba(69, 215, 255, 0.58);
-        box-shadow: 0 0 0 3px rgba(69, 215, 255, 0.16);
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .form-actions {
-        display: grid;
-        gap: 0.55rem;
-      }
-
-      .summary-card {
-        padding: 0.95rem;
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .summary-card strong {
-        display: block;
-        color: #fff;
-        font-size: 0.82rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .summary-card p {
+      .panel p {
         margin: 0.55rem 0 0;
-        color: #dde5fb;
-        font-size: 0.86rem;
-        line-height: 1.6;
-        white-space: pre-line;
+        color: var(--muted-strong);
+        font-size: 0.88rem;
+        line-height: 1.55;
       }
 
-      .summary-card[data-ready="false"] p {
-        color: #b8c2e0;
-      }
-
-      .summary-tools {
+      .link-list {
+        margin-top: 0.9rem;
         display: grid;
-        gap: 0.65rem;
+        gap: 0.68rem;
       }
 
-      .summary-build {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        padding: 0.82rem 1rem;
-        border-radius: 16px;
-        border: 1px solid rgba(69, 215, 255, 0.28);
-        background: rgba(69, 215, 255, 0.08);
-        color: var(--blue);
-        font: inherit;
-        font-size: 0.86rem;
-        font-weight: 800;
-        cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease,
-          background-color 0.2s ease;
-      }
-
-      .summary-build:hover,
-      .summary-build:focus-visible {
-        transform: translateY(-1px);
-        border-color: rgba(69, 215, 255, 0.54);
-        background: rgba(69, 215, 255, 0.12);
-      }
-
-      .summary-build:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.24);
-        outline-offset: 2px;
-      }
-
-      .confirm-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.72rem;
-        padding: 0.85rem 0.9rem;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .confirm-row input {
-        margin-top: 0.18rem;
-        width: 18px;
-        height: 18px;
-        accent-color: #45d7ff;
-      }
-
-      .confirm-row label {
-        color: #e9efff;
-        font-size: 0.84rem;
-        line-height: 1.5;
-      }
-
-      .form-submit {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 52px;
-        padding: 0.9rem 1rem;
-        border: 0;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
-        color: #160b34;
-        font: inherit;
-        font-size: 0.9rem;
-        font-weight: 900;
-        letter-spacing: 0.03em;
-        cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          opacity 0.2s ease;
-      }
-
-      .form-submit:hover,
-      .form-submit:focus-visible {
-        transform: translateY(-1px);
-        box-shadow: 0 18px 28px rgba(4, 3, 16, 0.24);
-      }
-
-      .form-submit:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.28);
-        outline-offset: 2px;
-      }
-
-      .form-submit:disabled {
-        opacity: 0.7;
-        cursor: wait;
-      }
-
-      .form-status {
-        min-height: 1.4rem;
-        margin: 0;
-        color: #d9e2fb;
-        font-size: 0.8rem;
-        line-height: 1.45;
-      }
-
-      .form-status[data-state="success"] {
-        color: #9ef8d8;
-      }
-
-      .form-status[data-state="error"] {
-        color: #ffd3e9;
-      }
-
-      .links {
-        margin-top: 0.85rem;
-        display: grid;
-        gap: 0.62rem;
-      }
-
-      .link {
-        min-height: 60px;
-        border-radius: 16px;
-        padding: 0.88rem 0.95rem;
+      .link-card {
+        min-height: 68px;
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
         border: 1px solid rgba(255, 255, 255, 0.14);
         text-decoration: none;
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 0.8rem;
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
           linear-gradient(160deg, rgba(100, 88, 180, 0.14), rgba(30, 24, 68, 0.18));
-        backdrop-filter: blur(16px) saturate(120%);
-        -webkit-backdrop-filter: blur(16px) saturate(120%);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.14),
-          0 10px 24px rgba(8, 6, 22, 0.16);
         transition: transform 0.2s ease, border-color 0.2s ease;
       }
 
-      .link:hover,
-      .link:focus-visible {
+      .link-card:hover,
+      .link-card:focus-visible {
         transform: translateY(-1px);
-        border-color: rgba(69, 215, 255, 0.62);
+        border-color: rgba(69, 215, 255, 0.56);
       }
 
-      .link:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.34);
+      .link-card:focus-visible {
+        outline: 3px solid rgba(69, 215, 255, 0.28);
         outline-offset: 2px;
       }
 
-      .link.primary {
-        border-color: rgba(255, 90, 191, 0.5);
+      .link-card.primary {
+        border-color: rgba(255, 90, 191, 0.48);
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
           linear-gradient(130deg, rgba(255, 90, 191, 0.2), rgba(69, 215, 255, 0.16));
       }
 
-      .link > span:first-child {
-        flex: 1;
-        text-align: left;
-      }
-
-      .link > span:last-child {
-        flex-shrink: 0;
-        margin-left: 0.9rem;
-      }
-
-      .link strong {
+      .link-card strong,
+      .mini-card strong {
         display: block;
-        font-size: 0.97rem;
+        font-size: 0.96rem;
       }
 
-      .link small {
+      .link-card small {
         display: block;
         margin-top: 0.24rem;
-        color: #b8c2e0;
+        color: #c0c9e4;
         font-size: 0.8rem;
-        line-height: 1.3;
-        font-weight: 600;
+        line-height: 1.35;
       }
 
-      .reels {
+      .mini-grid {
         margin-top: 0.85rem;
         display: grid;
-        gap: 0.8rem;
+        gap: 0.65rem;
       }
 
-      .reel-card {
-        padding: 0.95rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-          linear-gradient(155deg, rgba(42, 30, 95, 0.48), rgba(18, 12, 44, 0.72));
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-
-      .reel-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(69, 215, 255, 0.54);
-        box-shadow: 0 18px 32px rgba(4, 3, 16, 0.28);
-      }
-
-      .reel-card--hero {
-        padding: 1.05rem;
-        border-color: rgba(255, 90, 191, 0.28);
-        background:
-          radial-gradient(360px 180px at 12% 8%, rgba(255, 90, 191, 0.18), transparent 72%),
-          radial-gradient(320px 180px at 88% 10%, rgba(69, 215, 255, 0.16), transparent 74%),
-          linear-gradient(155deg, rgba(58, 34, 118, 0.58), rgba(16, 11, 38, 0.88));
-      }
-
-      .reel-topline {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.8rem;
-        margin-bottom: 0.65rem;
-      }
-
-      .reel-rank {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 2rem;
-        height: 2rem;
-        padding: 0 0.7rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        font-size: 0.82rem;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-      }
-
-      .reel-rank--hero {
-        background: linear-gradient(135deg, rgba(255, 90, 191, 0.85), rgba(69, 215, 255, 0.75));
-        color: #170d34;
-      }
-
-      .reel-flag {
-        color: #f6f7ff;
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .reel-card h3 {
-        margin: 0;
-        font-size: 1rem;
-        line-height: 1.28;
-      }
-
-      .reel-meta {
-        margin: 0.45rem 0 0;
-        color: #c2cae2;
-        font-size: 0.82rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-
-      .reel-desc {
-        margin: 0.55rem 0 0;
-        color: #dde5fb;
-        font-size: 0.88rem;
-        line-height: 1.5;
-      }
-
-      .reel-embed {
-        margin-top: 0.8rem;
-        min-height: 440px;
-      }
-
-      .reel-embed .instagram-media {
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        border-radius: 18px !important;
-      }
-
-      .reel-footer {
-        margin-top: 0.8rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.8rem;
-      }
-
-      .reel-label {
-        display: inline-flex;
-        align-items: center;
-        min-height: 30px;
-        padding: 0.35rem 0.72rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        color: #f8fbff;
-        font-size: 0.74rem;
-        font-weight: 800;
-        letter-spacing: 0.03em;
-      }
-
-      .reel-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 38px;
-        padding: 0.5rem 0.9rem;
-        border-radius: 999px;
-        border: 1px solid rgba(69, 215, 255, 0.28);
-        background: rgba(69, 215, 255, 0.08);
-        color: var(--blue);
-        font-size: 0.82rem;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .reel-link:hover,
-      .reel-link:focus-visible {
-        border-color: rgba(69, 215, 255, 0.56);
-        background: rgba(69, 215, 255, 0.12);
-      }
-
-      .reel-link:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.3);
-        outline-offset: 2px;
-      }
-
-      .reels-more {
-        margin-top: 0.95rem;
-      }
-
-      .reels-toggle {
-        list-style: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 54px;
-        padding: 0.9rem 1rem;
+      .mini-card {
+        padding: 0.88rem 0.95rem;
         border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
-          linear-gradient(155deg, rgba(36, 24, 85, 0.54), rgba(18, 12, 44, 0.78));
-        color: #f7f3ff;
-        font-size: 0.9rem;
-        font-weight: 800;
-        cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
+        background: rgba(255, 255, 255, 0.05);
       }
 
-      .reels-toggle::-webkit-details-marker {
-        display: none;
-      }
-
-      .reels-toggle:hover,
-      .reels-toggle:focus-visible {
-        transform: translateY(-1px);
-        border-color: rgba(69, 215, 255, 0.46);
-        box-shadow: 0 16px 28px rgba(4, 3, 16, 0.2);
-      }
-
-      .reels-toggle:focus-visible {
-        outline: 3px solid rgba(69, 215, 255, 0.3);
-        outline-offset: 2px;
-      }
-
-      .reels-generated {
-        margin: 0.8rem 0 0;
-        color: #b8c2e0;
-        font-size: 0.78rem;
+      .mini-card span {
+        display: block;
+        margin-top: 0.28rem;
+        color: var(--muted-strong);
+        font-size: 0.82rem;
         line-height: 1.45;
-        text-align: center;
-      }
-
-      .reels-generated a {
-        color: #dfe8ff;
-        text-decoration: none;
-      }
-
-      .reels-generated a:hover,
-      .reels-generated a:focus-visible {
-        text-decoration: underline;
       }
 
       .footer {
@@ -917,7 +312,7 @@
         text-decoration: underline;
       }
 
-      @media (min-width: 900px) {
+      @media (min-width: 860px) {
         body {
           padding: 1.5rem;
         }
@@ -926,564 +321,126 @@
           height: 260px;
         }
 
-        .info {
+        .content {
           padding: 5.1rem 1.25rem 1.2rem;
         }
 
-        .dashboard {
-          grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.72fr);
+        .grid {
+          grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.62fr);
           align-items: start;
-        }
-
-        .dashboard-side {
-          position: sticky;
-          top: 1rem;
-        }
-
-        .quick-actions,
-        .side-actions {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .contact-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .form-field--full {
-          grid-column: 1 / -1;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          transition-duration: 0.01ms !important;
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
         }
       }
     </style>
   </head>
   <body>
     <main class="app">
-      <section class="card" aria-label="Perfil, media y bookings">
+      <section class="card" aria-label="Enlaces oficiales de Marques Edition">
         <div class="hero" aria-hidden="true">
           <img class="hero-cover" src="/profile.png" alt="" loading="eager" decoding="async" />
           <img class="avatar" src="/logo.png" alt="Logo de Marques Edition" loading="eager" decoding="async" />
         </div>
 
-        <div class="info">
-          <div class="profile-head">
-            <h1>
-              Marques Edition
-              <span class="verified-badge" role="img" aria-label="Cuenta verificada">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M10.56 1.44a2.05 2.05 0 0 1 2.88 0l.95.92c.5.48 1.21.69 1.9.54l1.31-.28a2.05 2.05 0 0 1 2.41 2.41l-.28 1.31a2.05 2.05 0 0 0 .54 1.9l.92.95a2.05 2.05 0 0 1 0 2.88l-.92.95a2.05 2.05 0 0 0-.54 1.9l.28 1.31a2.05 2.05 0 0 1-2.41 2.41l-1.31-.28a2.05 2.05 0 0 0-1.9.54l-.95.92a2.05 2.05 0 0 1-2.88 0l-.95-.92a2.05 2.05 0 0 0-1.9-.54l-1.31.28a2.05 2.05 0 0 1-2.41-2.41l.28-1.31a2.05 2.05 0 0 0-.54-1.9l-.92-.95a2.05 2.05 0 0 1 0-2.88l.92-.95a2.05 2.05 0 0 0 .54-1.9l-.28-1.31a2.05 2.05 0 0 1 2.41-2.41l1.31.28a2.05 2.05 0 0 0 1.9-.54z" fill="#2d9cf0"></path>
-                  <path d="M7.75 12.55l2.45 2.45 6.05-6.05" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </span>
-            </h1>
-            <p class="user">@marquesedition</p>
-            <p class="headline-copy">
-              Soy Marques Edition, DJ en Madrid. Aqu&iacute; tienes reels reales, links oficiales
-              y una muestra directa de c&oacute;mo suena mi cabina en clubs, bodas y eventos
-              privados.
+        <div class="content">
+          <header class="intro">
+            <p class="eyebrow">Media Links</p>
+            <h1>Todos mis enlaces oficiales en un solo sitio.</h1>
+            <p>
+              Aquí tienes mis plataformas, acceso al perfil y la ruta directa para contrataciones.
+              Si quieres cerrar una fecha, entra en booking y envíame el briefing del evento.
             </p>
-          </div>
 
-          <div class="dashboard">
-            <div class="dashboard-main">
-              <section class="section" aria-labelledby="media-title">
-                <p class="section-kicker">Reels y contrataciones</p>
-                <h2 id="media-title" style="display:none">Media y reels</h2>
-
-                <div class="booking-board" aria-label="Servicios y prueba social">
-                  <h2>Pincho en clubs, eventos privados y bodas</h2>
-                  <p class="booking-copy">
-                    Aqu&iacute; tienes una muestra real de c&oacute;mo trabajo: pista, cabina,
-                    energ&iacute;a y distintos formatos para que veas r&aacute;pido si encajo con
-                    tu fecha.
-                  </p>
-
-                  <div class="service-chips" aria-label="Tipos de evento">
-                    <span class="service-chip">Clubs</span>
-                    <span class="service-chip">Privados</span>
-                    <span class="service-chip">Bodas</span>
-                    <span class="service-chip">Open format</span>
-                  </div>
-
-                  <div class="proof-grid" aria-label="Señales de confianza">
-<!-- GENERATED:MEDIA_PROOF_START -->
-                <div class="proof-card">
-                  <strong>897</strong>
-                  <span>Seguidores</span>
-                </div>
-                <div class="proof-card">
-                  <strong>9</strong>
-                  <span>Reels públicos</span>
-                </div>
-                <div class="proof-card">
-                  <strong>15</strong>
-                  <span>Posts</span>
-                </div>
-                <div class="proof-card">
-                  <strong>12</strong>
-                  <span>Highlights</span>
-                </div>
-<!-- GENERATED:MEDIA_PROOF_END -->
-                  </div>
-
-                  <div class="quick-actions" aria-label="Acciones rápidas">
-                    <a class="quick-action" href="#booking-form">Abrir formulario ↗</a>
-                    <a class="quick-action" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir Instagram ↗</a>
-                  </div>
-                </div>
-
-                <section class="contact-card" id="booking-form" aria-labelledby="booking-form-title">
-                  <p class="section-kicker">Formulario directo</p>
-                  <h2 id="booking-form-title">Cu&eacute;ntame tu fecha y te respondo con propuesta</h2>
-                  <p class="contact-note">
-                    Rellena los datos clave del evento, genera el resumen y confirma el env&iacute;o.
-                    As&iacute; me llega un briefing claro desde el primer contacto.
-                  </p>
-
-                  <form class="contact-form" id="booking-request-form" novalidate>
-                    <input type="hidden" name="_subject" value="Nueva solicitud desde marquesedition.com" />
-                    <input type="hidden" name="_template" value="table" />
-                    <input type="hidden" name="_captcha" value="false" />
-                    <input type="hidden" name="event_summary" id="contact-summary-input" />
-
-                    <div class="contact-grid">
-                      <div class="form-field">
-                        <label for="contact-name">Nombre</label>
-                        <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre o nombre del promotor" required />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-email">Email</label>
-                        <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-phone">Tel&eacute;fono / WhatsApp</label>
-                        <input id="contact-phone" name="phone" type="text" autocomplete="tel" placeholder="+34 ..." />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-event-type">Formato</label>
-                        <select id="contact-event-type" name="event_type" required>
-                          <option value="">Selecciona una opci&oacute;n</option>
-                          <option>Club</option>
-                          <option>Evento privado</option>
-                          <option>Boda</option>
-                          <option>Marca</option>
-                          <option>Otro</option>
-                        </select>
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-date">Fecha</label>
-                        <input id="contact-date" name="event_date" type="date" required />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-location">Ciudad / venue</label>
-                        <input id="contact-location" name="location" type="text" autocomplete="address-level2" placeholder="Madrid / nombre del espacio" required />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-start-time">Hora de inicio</label>
-                        <input id="contact-start-time" name="start_time" type="time" required />
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-set-length">Duraci&oacute;n del set</label>
-                        <select id="contact-set-length" name="set_length" required>
-                          <option value="">Selecciona una opci&oacute;n</option>
-                          <option>1 hora</option>
-                          <option>2 horas</option>
-                          <option>3 horas</option>
-                          <option>4 horas</option>
-                          <option>5 horas o m&aacute;s</option>
-                          <option>Sesión completa</option>
-                        </select>
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-audience">Aforo / invitados</label>
-                        <select id="contact-audience" name="audience" required>
-                          <option value="">Selecciona una opci&oacute;n</option>
-                          <option>Hasta 80 personas</option>
-                          <option>80 a 150 personas</option>
-                          <option>150 a 300 personas</option>
-                          <option>M&aacute;s de 300 personas</option>
-                        </select>
-                      </div>
-
-                      <div class="form-field">
-                        <label for="contact-setup">Producci&oacute;n / equipo</label>
-                        <select id="contact-setup" name="setup" required>
-                          <option value="">Selecciona una opci&oacute;n</option>
-                          <option>Equipo completo en venue</option>
-                          <option>Cabina b&aacute;sica y sonido disponible</option>
-                          <option>Necesitamos propuesta t&eacute;cnica</option>
-                          <option>A&uacute;n por definir</option>
-                        </select>
-                      </div>
-
-                      <div class="form-field form-field--full">
-                        <label for="contact-notes">Notas extra</label>
-                        <textarea id="contact-notes" name="notes" placeholder="Tipo de p&uacute;blico, estilos clave, horario completo o cualquier detalle importante."></textarea>
-                      </div>
-                    </div>
-
-                    <div class="form-actions">
-                      <div class="summary-tools">
-                        <button class="summary-build" id="build-summary" type="button">Generar resumen del evento</button>
-                        <div class="summary-card" id="summary-card" data-ready="false">
-                          <strong>Resumen antes de enviar</strong>
-                          <p id="summary-preview">Todav&iacute;a no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.</p>
-                        </div>
-                        <div class="confirm-row">
-                          <input id="confirm-summary" name="confirm_summary" type="checkbox" value="yes" />
-                          <label for="confirm-summary">He revisado el resumen y confirmo que estos datos son correctos para enviar la solicitud.</label>
-                        </div>
-                      </div>
-                      <button class="form-submit" type="submit" disabled>Confirmar y enviar solicitud</button>
-                      <p class="form-status" id="form-status">
-                        Completa los campos, genera el resumen y confirma el env&iacute;o.
-                      </p>
-                    </div>
-                  </form>
-                </section>
-
-                <div class="reels" id="featured-reels">
-<!-- GENERATED:FEATURED_REELS_START -->
-              <article class="reel-card reel-card--hero">
-                <div class="reel-topline">
-                  <span class="reel-rank reel-rank--hero">#1</span>
-                  <span class="reel-flag">Último reel</span>
-                </div>
-                <h3>Este mix no falla nunca 🔥</h3>
-                <p class="reel-meta">23 mar 2026</p>
-                <p class="reel-desc">Cuando juntas We Found Love con Superestrella… pasan cosas. La pista se viene arriba sí o sí.</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DWOdsY5iHR5/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DWOdsY5iHR5/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Mezcla</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DWOdsY5iHR5/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#2</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Si suena esta canción… ya sabes lo que toca 📱🔥</h3>
-                <p class="reel-meta">23 mar 2026</p>
-                <p class="reel-desc">Todo el mundo con los celulares arriba, grabando el momento… y yo disfrutando desde la cabina. Esto fue en @pensionmimosas y la energía fue...</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DWOdCm9iC3T/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DWOdCm9iC3T/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Pension Mimosas</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DWOdCm9iC3T/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#3</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Dos años, cientos de momentos y una sola vibra: seguir...</h3>
-                <p class="reel-meta">23 mar 2026</p>
-                <p class="reel-desc">2024–2025 no han sido solo sets… han sido noches sin reloj, pistas llenas y evolución constante. Esto es solo el principio… lo que viene va...</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DWObu6DCAQv/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DWObu6DCAQv/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Reel</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DWObu6DCAQv/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#4</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Del montaje al descontrol 🔥</h3>
-                <p class="reel-meta">18 mar 2026</p>
-                <p class="reel-desc">Así se vive una noche en @pensionmimosas 🎧 Desde el primer cable conectado hasta las mezclas en directo… pura energía, pura vibra ⚡️</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DWBYhH7CNZp/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DWBYhH7CNZp/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Pension Mimosas</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DWBYhH7CNZp/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-<!-- GENERATED:FEATURED_REELS_END -->
-                </div>
-
-                <details class="reels-more">
-                  <summary class="reels-toggle">
-<!-- GENERATED:ALL_REELS_SUMMARY_START -->
-Ver todos los reels (9)
-<!-- GENERATED:ALL_REELS_SUMMARY_END -->
-                  </summary>
-                  <div class="reels" id="all-reels">
-<!-- GENERATED:ALL_REELS_START -->
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#5</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Gran fiesta En @pensionmimosas</h3>
-                <p class="reel-meta">08 mar 2026</p>
-                <p class="reel-desc">Da gusto tocar en casa</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DVnFteDiHVe/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DVnFteDiHVe/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Pension Mimosas</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DVnFteDiHVe/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#6</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Marques Edition · El Toro</h3>
-                <p class="reel-meta">03 mar 2026</p>
-                <p class="reel-desc">En esta boda ocurrió algo especial. Un DJ profesional invitado pidió sumarse a la cabina.</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DVbw64YClNh/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DVbw64YClNh/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Boda</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DVbw64YClNh/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#7</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>Cuando suena la primera mezcla y ya sabemos que esta no...</h3>
-                <p class="reel-meta">28 feb 2026</p>
-                <p class="reel-desc">Gracias por convertir cada sesión en una fiesta que se siente en el pecho. @pensionmimosas nunca falla. 🖤🎶</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DVThQ8_iDef/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DVThQ8_iDef/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">Pension Mimosas</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DVThQ8_iDef/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#8</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>DJ residente en @pensionmimosas</h3>
-                <p class="reel-meta">24 ene 2026</p>
-                <p class="reel-desc">🗓️ Viernes y sábados 🕘 21:00 — 02:30</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DT4Fk8tCHpW/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DT4Fk8tCHpW/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">DJ residente</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DT4Fk8tCHpW/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-
-              <article class="reel-card">
-                <div class="reel-topline">
-                  <span class="reel-rank">#9</span>
-                  <span class="reel-flag">Reel</span>
-                </div>
-                <h3>DJ residente en cabina.</h3>
-                <p class="reel-meta">17 ene 2026</p>
-                <p class="reel-desc">Vie/Sáb 21:00–02:30 DJ residente en cabina.</p>
-                <div class="reel-embed">
-                  <blockquote
-                    class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/DTmIxpaCOXp/"
-                    data-instgrm-version="14"
-                    style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-                  >
-                    <a href="https://www.instagram.com/reel/DTmIxpaCOXp/" target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-                  </blockquote>
-                </div>
-                <div class="reel-footer">
-                  <span class="reel-label">DJ residente</span>
-                  <a class="reel-link" href="https://www.instagram.com/reel/DTmIxpaCOXp/" target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
-                </div>
-              </article>
-<!-- GENERATED:ALL_REELS_END -->
-                  </div>
-                </details>
-
-                <p class="reels-generated">
-<!-- GENERATED:REELS_META_START -->
-9 reels · actualizado 24 mar 2026 · <a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">abrir perfil ↗</a>
-<!-- GENERATED:REELS_META_END -->
-                </p>
-              </section>
+            <div class="nav-pills" aria-label="Navegación principal">
+              <a class="nav-pill" href="/">Inicio</a>
+              <a class="nav-pill" href="/booking/">Booking</a>
+              <a class="nav-pill" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Reels en Instagram</a>
             </div>
+          </header>
 
-            <aside class="dashboard-side">
-              <div class="side-stack">
-                <section class="side-card" aria-labelledby="identity-title">
-                  <p class="side-kicker">Qui&eacute;n soy</p>
-                  <h2 id="identity-title">Marques Edition</h2>
-                  <p class="side-copy">
-                    Mezclo afro, latin y open format con energ&iacute;a de club, lectura de pista
-                    y selecci&oacute;n pensada para que la noche no se caiga.<br />
-                    Residencia en
-                    <a href="https://www.instagram.com/pensionmimosas/" target="_blank" rel="noopener noreferrer" style="color:#eef4ff">@pensionmimosas</a><br />
-                    Base en Madrid
-                  </p>
+          <div class="grid">
+            <section class="panel" aria-labelledby="links-title">
+              <p class="panel-kicker">Enlaces</p>
+              <h2 id="links-title">Accesos principales</h2>
+              <p>
+                Todo lo importante para descubrir el proyecto o mover la conversación al siguiente
+                paso.
+              </p>
 
-                  <div class="facts" aria-label="Datos rápidos">
-                    <span class="fact-chip">Base: Madrid</span>
-                    <span class="fact-chip">Open format</span>
-                    <span class="fact-chip">Afro / Latin / Club</span>
-                    <span class="fact-chip">Desplazamientos seg&uacute;n fecha</span>
-                  </div>
-                </section>
+              <div class="link-list" aria-label="Enlaces destacados">
+                <a class="link-card primary" href="/booking/">
+                  <span>
+                    <strong>Booking</strong>
+                    <small>Formulario guiado para clubs, bodas, marcas y eventos privados</small>
+                  </span>
+                  <span>↗</span>
+                </a>
 
-                <section class="side-card" aria-labelledby="booking-title">
-                  <p class="side-kicker">Solicitud</p>
-                  <h2 id="booking-title">Qu&eacute; necesito para cerrar fecha</h2>
-                  <p class="side-copy">
-                    El formulario de esta p&aacute;gina ya ordena todo esto para que me llegue un
-                    briefing claro desde el primer contacto.
-                  </p>
+                <a class="link-card" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>Instagram</strong>
+                    <small>Perfil oficial y acceso a reels</small>
+                  </span>
+                  <span>↗</span>
+                </a>
 
-                  <div class="brief-points" aria-label="Datos para contratación">
-                    <p class="brief-point"><strong>Fecha:</strong> día del evento y horario aproximado.</p>
-                    <p class="brief-point"><strong>Ciudad / venue:</strong> ubicación y tipo de espacio.</p>
-                    <p class="brief-point"><strong>Formato:</strong> club, evento privado o boda.</p>
-                    <p class="brief-point"><strong>Set:</strong> duración esperada y momento de actuación.</p>
-                    <p class="brief-point"><strong>Producción:</strong> equipo disponible o necesidades técnicas.</p>
-                  </div>
+                <a class="link-card" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>Instagram Reels</strong>
+                    <small>Clips de cabina, residencia y momentos de pista</small>
+                  </span>
+                  <span>↗</span>
+                </a>
 
-                  <div class="side-actions" aria-label="Contacto">
-                    <a class="side-action" href="#booking-form">Rellenar formulario ↗</a>
-                    <a class="side-action" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">Abrir perfil ↗</a>
-                  </div>
-                </section>
+                <a class="link-card" href="https://www.tiktok.com/@marquesedition" target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>TikTok</strong>
+                    <small>Contenido corto y momentos de sesión</small>
+                  </span>
+                  <span>↗</span>
+                </a>
 
-                <section class="side-card" aria-labelledby="links-title">
-                  <p class="side-kicker">Enlaces</p>
-                  <h2 id="links-title">Enlaces oficiales</h2>
+                <a class="link-card" href="https://www.youtube.com/@marquesedition" target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>YouTube</strong>
+                    <small>Canal oficial y material audiovisual</small>
+                  </span>
+                  <span>↗</span>
+                </a>
 
-                  <nav class="links" aria-label="Enlaces principales">
-                    <a class="link primary" href="#booking-form">
-                      <span>
-                        <strong>Formulario de booking</strong>
-                        <small>Briefing guiado en esta web</small>
-                      </span>
-                      <span>↗</span>
-                    </a>
-                    <a class="link" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">
-                      <span>
-                        <strong>Instagram</strong>
-                        <small>
-<!-- GENERATED:INSTAGRAM_LINK_META_START -->
-897 seguidores
-<!-- GENERATED:INSTAGRAM_LINK_META_END -->
-                        </small>
-                      </span>
-                      <span>↗</span>
-                    </a>
-                    <a class="link" href="https://www.tiktok.com/@marquesedition" target="_blank" rel="noopener noreferrer">
-                      <span>
-                        <strong>TikTok</strong>
-                        <small>Perfil oficial</small>
-                      </span>
-                      <span>↗</span>
-                    </a>
-                    <a class="link" href="https://www.youtube.com/@marquesedition" target="_blank" rel="noopener noreferrer">
-                      <span>
-                        <strong>YouTube</strong>
-                        <small>Canal oficial</small>
-                      </span>
-                      <span>↗</span>
-                    </a>
-                    <a class="link" href="https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497" target="_blank" rel="noopener noreferrer">
-                      <span>
-                        <strong>Spotify</strong>
-                        <small>Perfil oficial</small>
-                      </span>
-                      <span>↗</span>
-                    </a>
-                  </nav>
-                </section>
+                <a class="link-card" href="https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497" target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>Spotify</strong>
+                    <small>Perfil oficial y referencias musicales</small>
+                  </span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </section>
+
+            <aside class="panel" aria-labelledby="info-title">
+              <p class="panel-kicker">Perfil</p>
+              <h2 id="info-title">Marques Edition</h2>
+              <p>
+                DJ en Madrid con sets afro, latin y open format. Cabina para clubs, bodas, marcas
+                y eventos privados con lectura real de pista.
+              </p>
+
+              <div class="mini-grid" aria-label="Datos rápidos">
+                <div class="mini-card">
+                  <strong>Base</strong>
+                  <span>Madrid</span>
+                </div>
+                <div class="mini-card">
+                  <strong>Estilo</strong>
+                  <span>Afro / Latin / Open format</span>
+                </div>
+                <div class="mini-card">
+                  <strong>Residencia</strong>
+                  <span>@pensionmimosas</span>
+                </div>
+                <div class="mini-card">
+                  <strong>Contrataciones</strong>
+                  <span>La ruta correcta está en la página de booking</span>
+                </div>
               </div>
             </aside>
           </div>
@@ -1495,228 +452,5 @@ Ver todos los reels (9)
         <a href="https://www.mlabsmusic.com/" target="_blank" rel="noopener noreferrer">M Labs Music</a>.
       </p>
     </main>
-    <script async src="https://www.instagram.com/embed.js"></script>
-    <script>
-      const BOOKING_FORM_ENDPOINT = "https://formsubmit.co/ajax/bookings@marquesedition.com";
-
-      function processInstagramEmbeds() {
-        if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
-          window.instgrm.Embeds.process();
-        }
-      }
-
-      function queueInstagramEmbeds() {
-        processInstagramEmbeds();
-        window.setTimeout(processInstagramEmbeds, 250);
-        window.setTimeout(processInstagramEmbeds, 1200);
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const bookingForm = document.getElementById("booking-request-form");
-        const formStatus = document.getElementById("form-status");
-        const summaryButton = document.getElementById("build-summary");
-        const summaryPreview = document.getElementById("summary-preview");
-        const summaryCard = document.getElementById("summary-card");
-        const summaryInput = document.getElementById("contact-summary-input");
-        const confirmSummary = document.getElementById("confirm-summary");
-
-        if (bookingForm && formStatus) {
-          const submitButton = bookingForm.querySelector(".form-submit");
-          let summaryConfirmed = false;
-
-          function setSubmitState() {
-            if (submitButton) {
-              submitButton.disabled = !summaryConfirmed;
-            }
-          }
-
-          function formatDate(dateValue) {
-            if (!dateValue) {
-              return "fecha pendiente";
-            }
-
-            const date = new Date(dateValue + "T12:00:00");
-            if (Number.isNaN(date.getTime())) {
-              return dateValue;
-            }
-
-            return new Intl.DateTimeFormat("es-ES", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(date);
-          }
-
-          function resetSummaryState() {
-            summaryConfirmed = false;
-            if (confirmSummary) {
-              confirmSummary.checked = false;
-            }
-            if (summaryCard) {
-              summaryCard.dataset.ready = "false";
-            }
-            setSubmitState();
-          }
-
-          function buildSummary() {
-            const name = bookingForm.elements.name.value.trim();
-            const email = bookingForm.elements.email.value.trim();
-            const phone = bookingForm.elements.phone.value.trim();
-            const eventType = bookingForm.elements.event_type.value.trim();
-            const eventDate = bookingForm.elements.event_date.value;
-            const location = bookingForm.elements.location.value.trim();
-            const startTime = bookingForm.elements.start_time.value;
-            const setLength = bookingForm.elements.set_length.value.trim();
-            const audience = bookingForm.elements.audience.value.trim();
-            const setup = bookingForm.elements.setup.value.trim();
-            const notes = bookingForm.elements.notes.value.trim();
-
-            const lines = [
-              `Solicitud de ${name} para ${eventType.toLowerCase()}.`,
-              `Fecha: ${formatDate(eventDate)}.`,
-              `Lugar: ${location}.`,
-              `Inicio previsto: ${startTime}.`,
-              `Duración solicitada: ${setLength}.`,
-              `Aforo estimado: ${audience}.`,
-              `Producción disponible: ${setup}.`,
-              `Contacto: ${email}${phone ? " · " + phone : ""}.`,
-            ];
-
-            if (notes) {
-              lines.push(`Notas: ${notes}.`);
-            }
-
-            return lines.join("\n");
-          }
-
-          function refreshSummary() {
-            if (!bookingForm.reportValidity()) {
-              formStatus.dataset.state = "error";
-              formStatus.textContent = "Completa los campos obligatorios para generar el resumen.";
-              return;
-            }
-
-            const summary = buildSummary();
-
-            if (summaryPreview) {
-              summaryPreview.textContent = summary;
-            }
-            if (summaryInput) {
-              summaryInput.value = summary;
-            }
-            if (summaryCard) {
-              summaryCard.dataset.ready = "true";
-            }
-
-            summaryConfirmed = false;
-            if (confirmSummary) {
-              confirmSummary.checked = false;
-            }
-            setSubmitState();
-
-            formStatus.dataset.state = "success";
-            formStatus.textContent = "Resumen listo. Revísalo y marca la confirmación para enviar.";
-          }
-
-          bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
-            if (field.id !== "confirm-summary") {
-              field.addEventListener("input", resetSummaryState);
-              field.addEventListener("change", resetSummaryState);
-            }
-          });
-
-          if (summaryButton) {
-            summaryButton.addEventListener("click", refreshSummary);
-          }
-
-          if (confirmSummary) {
-            confirmSummary.addEventListener("change", () => {
-              summaryConfirmed = Boolean(confirmSummary.checked && summaryInput && summaryInput.value.trim());
-              setSubmitState();
-
-              if (summaryConfirmed) {
-                formStatus.dataset.state = "success";
-                formStatus.textContent = "Todo listo. Ya puedes enviar la solicitud.";
-              }
-            });
-          }
-
-          bookingForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            if (!bookingForm.reportValidity()) {
-              formStatus.dataset.state = "error";
-              formStatus.textContent = "Revisa los campos marcados y vuelve a intentarlo.";
-              return;
-            }
-
-            if (!summaryInput || !summaryInput.value.trim()) {
-              formStatus.dataset.state = "error";
-              formStatus.textContent = "Primero genera el resumen del evento.";
-              return;
-            }
-
-            if (!confirmSummary || !confirmSummary.checked) {
-              formStatus.dataset.state = "error";
-              formStatus.textContent = "Revisa el resumen y confirma antes de enviarlo.";
-              return;
-            }
-
-            const formData = new FormData(bookingForm);
-
-            formStatus.dataset.state = "loading";
-            formStatus.textContent = "Enviando solicitud...";
-            if (submitButton) {
-              submitButton.disabled = true;
-            }
-
-            try {
-              const response = await fetch(BOOKING_FORM_ENDPOINT, {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                },
-                body: formData,
-              });
-
-              if (!response.ok) {
-                throw new Error("submit_failed");
-              }
-
-              bookingForm.reset();
-              if (summaryPreview) {
-                summaryPreview.textContent = "Todavía no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.";
-              }
-              if (summaryInput) {
-                summaryInput.value = "";
-              }
-              if (summaryCard) {
-                summaryCard.dataset.ready = "false";
-              }
-              summaryConfirmed = false;
-              setSubmitState();
-              formStatus.dataset.state = "success";
-              formStatus.textContent = "Solicitud enviada. Te responderé en cuanto revise la fecha.";
-            } catch (error) {
-              formStatus.dataset.state = "error";
-              formStatus.textContent = "Ahora mismo no he podido enviar el formulario. Si te urge, escríbeme por Instagram mientras termino de activar este canal.";
-            } finally {
-              if (submitButton) {
-                submitButton.disabled = false;
-              }
-            }
-          });
-        }
-
-        queueInstagramEmbeds();
-        document.querySelectorAll(".reels-more").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open) {
-              queueInstagramEmbeds();
-            }
-          });
-        });
-      });
-    </script>
   </body>
 </html>
