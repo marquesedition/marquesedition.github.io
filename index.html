@@ -12,7 +12,7 @@
     <meta property="og:title" content="Marques Edition | DJ Madrid" />
     <meta
       property="og:description"
-      content="Open format DJ en Madrid. Club energy, latin vibes, reels y bookings."
+      content="DJ open format en Madrid. Club energy, latin vibes, reels y contrataciones."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/profile.png" />
@@ -447,11 +447,11 @@
 
               <div class="actions">
                 <div>
-                  <h1>Club energy with latin identity.</h1>
+                  <h1>Energía de club con identidad latina.</h1>
                   <p class="lede">
-                    Open format DJ en Madrid con selecci&oacute;n afro, latin y crossover.
-                    Sets pensados para clubes, private events y weddings con pista real, presencia
-                    en cabina y material actual de reels.
+                    DJ open format en Madrid con selecci&oacute;n afro, latin y crossover. Sets
+                    pensados para clubes, eventos privados y bodas con pista real, presencia en
+                    cabina y material actual de reels.
                   </p>
                 </div>
 
@@ -459,12 +459,12 @@
                   <span class="chip">Afro</span>
                   <span class="chip">Latin</span>
                   <span class="chip">Club energy</span>
-                  <span class="chip">Open format</span>
+                  <span class="chip">DJ open format</span>
                   <span class="chip">Resident @pensionmimosas</span>
                 </div>
 
                 <div class="cta-row">
-                  <a class="cta" href="https://www.instagram.com/direct/t/120518152683674/" target="_blank" rel="noopener noreferrer">Bookings / Contrataciones ↗</a>
+                  <a class="cta" href="https://www.instagram.com/direct/t/120518152683674/" target="_blank" rel="noopener noreferrer">Contrataciones ↗</a>
                   <a class="cta-secondary" href="/media-links/">Media, reels y links ↗</a>
                 </div>
               </div>
@@ -472,38 +472,42 @@
           </div>
 
           <aside class="hero-panel" aria-label="Prueba social y latest reel">
-            <p class="panel-kicker">Official Site</p>
+            <p class="panel-kicker">Sitio oficial</p>
             <h2 class="panel-title">Un punto de entrada profesional para promotores, marcas y clientes privados.</h2>
             <p class="panel-copy">
-              Bookings, links oficiales y reels reales reunidos en un solo sitio para entender el
+              Contrataciones, enlaces oficiales y reels reales reunidos en un solo sitio para entender el
               proyecto en segundos y ver la energ&iacute;a de pista sin salir de la web.
             </p>
 
             <div class="stats" aria-label="Estadísticas">
+<!-- GENERATED:HOME_STATS_START -->
               <div class="stat">
-                <strong id="hero-followers">899</strong>
-                <span>Followers</span>
+                <strong>897</strong>
+                <span>Seguidores</span>
               </div>
               <div class="stat">
-                <strong id="hero-reels">9</strong>
+                <strong>9</strong>
                 <span>Reels</span>
               </div>
               <div class="stat">
-                <strong id="hero-posts">15</strong>
+                <strong>15</strong>
                 <span>Posts</span>
               </div>
               <div class="stat">
-                <strong id="hero-highlights">12</strong>
+                <strong>12</strong>
                 <span>Highlights</span>
               </div>
+<!-- GENERATED:HOME_STATS_END -->
             </div>
 
             <div class="panel-divider"></div>
 
             <div class="latest-reel">
-              <p class="latest-label">Latest Reel</p>
-              <p class="latest-title" id="latest-reel-title">Cargando reel más reciente...</p>
-              <p class="latest-meta" id="latest-reel-meta">Instagram Reels</p>
+              <p class="latest-label">Último reel</p>
+<!-- GENERATED:HOME_LATEST_START -->
+              <p class="latest-title">Este mix no falla nunca 🔥</p>
+              <p class="latest-meta">23 mar 2026 · Mezcla</p>
+<!-- GENERATED:HOME_LATEST_END -->
             </div>
           </aside>
         </div>
@@ -511,21 +515,21 @@
 
       <section class="services" aria-label="Servicios">
         <article class="service-card">
-          <h2>Club sets</h2>
+          <h2>Clubs</h2>
           <p>
             Selección pensada para mantener la pista activa con lectura real del público y energía
             sostenida durante toda la noche.
           </p>
         </article>
         <article class="service-card">
-          <h2>Private events</h2>
+          <h2>Eventos privados</h2>
           <p>
             Formato adaptable para espacios premium, celebraciones y eventos donde la música debe
             elevar la experiencia sin perder identidad.
           </p>
         </article>
         <article class="service-card">
-          <h2>Weddings</h2>
+          <h2>Bodas</h2>
           <p>
             Sets flexibles para momentos de celebración, invitados mixtos y una pista que necesita
             conectar generaciones distintas.
@@ -538,68 +542,5 @@
         <a href="/media-links/" style="color: #dfe8ff">media-links</a>.
       </p>
     </main>
-    <script>
-      const heroFollowers = document.getElementById("hero-followers");
-      const heroReels = document.getElementById("hero-reels");
-      const heroPosts = document.getElementById("hero-posts");
-      const heroHighlights = document.getElementById("hero-highlights");
-      const latestReelTitle = document.getElementById("latest-reel-title");
-      const latestReelMeta = document.getElementById("latest-reel-meta");
-
-      function formatCompactNumber(value) {
-        return new Intl.NumberFormat("es-ES", {
-          notation: "compact",
-          maximumFractionDigits: 1
-        }).format(value);
-      }
-
-      function formatDate(dateString) {
-        return new Intl.DateTimeFormat("es-ES", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric"
-        }).format(new Date(dateString));
-      }
-
-      async function hydrateHome() {
-        try {
-          const response = await fetch("/media-links/reels.json", { cache: "no-store" });
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
-
-          const payload = await response.json();
-          const profile = payload.profile || {};
-          const reels = Array.isArray(payload.reels) ? payload.reels : [];
-          const latestReel = reels[0];
-
-          if (profile.followers && heroFollowers) {
-            heroFollowers.textContent = formatCompactNumber(profile.followers);
-          }
-
-          if (heroReels) {
-            heroReels.textContent = String(reels.length || 0);
-          }
-
-          if (profile.posts && heroPosts) {
-            heroPosts.textContent = String(profile.posts);
-          }
-
-          if (profile.highlights && heroHighlights) {
-            heroHighlights.textContent = String(profile.highlights);
-          }
-
-          if (latestReel) {
-            latestReelTitle.textContent = latestReel.title;
-            latestReelMeta.textContent = `${formatDate(latestReel.date)} · ${latestReel.label}`;
-          }
-        } catch (error) {
-          latestReelTitle.textContent = "Último reel disponible en media-links";
-          latestReelMeta.textContent = "Abre la página de media para ver la selección completa";
-        }
-      }
-
-      hydrateHome();
-    </script>
   </body>
 </html>

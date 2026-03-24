@@ -26,13 +26,13 @@ jobs:
 
       - name: Commit changes if needed
         run: |
-          if git diff --quiet -- media-links/reels.json; then
+          if git diff --quiet -- media-links/reels.json index.html media-links/index.html; then
             echo "No reels changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add media-links/reels.json
+          git add media-links/reels.json index.html media-links/index.html
           git commit -m "chore: update reels data"
           git push
