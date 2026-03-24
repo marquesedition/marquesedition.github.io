@@ -69,7 +69,7 @@ def derive_title(lines, shortcode):
 
 def derive_summary(lines):
     if not lines:
-        return "Instagram reel de Marques Edition."
+        return "Reel de Marques Edition en cabina."
 
     summary_source = " ".join(lines[1:3]) if len(lines) > 1 else lines[0]
     summary_source = strip_hashtags(summary_source) or lines[0]
@@ -86,7 +86,7 @@ def derive_label(caption):
         return "Pension Mimosas"
     if "mix" in lowered or "mashup" in lowered:
         return "Mezcla"
-    return "Instagram reel"
+    return "Reel"
 
 
 def reel_from_node(node):
