@@ -1,0 +1,238 @@
+---
+import NavPills from "./NavPills.astro";
+
+interface NavItem {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+interface Props {
+  ariaLabel: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  navItems: NavItem[];
+}
+
+const { ariaLabel, eyebrow, title, description, navItems } = Astro.props;
+---
+
+<main class="app">
+  <section class="card" aria-label={ariaLabel}>
+    <div class="hero" aria-hidden="true">
+      <img class="hero-cover" src="/profile.png" alt="" loading="eager" decoding="async" />
+      <img class="avatar" src="/logo.png" alt="Logo de Marques Edition" loading="eager" decoding="async" />
+    </div>
+
+    <div class="content">
+      <header class="intro">
+        <p class="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <NavPills items={navItems} />
+      </header>
+
+      <div class="layout">
+        <div>
+          <slot name="main" />
+        </div>
+
+        <aside class="sidebar">
+          <div class="side-stack">
+            <slot name="sidebar" />
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <slot name="footer" />
+</main>
+
+<style>
+  .app {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+  }
+
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 34px;
+    border: 1px solid var(--line);
+    background:
+      radial-gradient(520px 320px at 18% 8%, rgba(255, 90, 191, 0.12), transparent 64%),
+      radial-gradient(540px 340px at 84% 12%, rgba(69, 215, 255, 0.12), transparent 66%),
+      linear-gradient(180deg, rgba(28, 18, 70, 0.9), rgba(14, 9, 38, 0.98));
+    box-shadow: 0 28px 72px rgba(2, 0, 12, 0.56);
+  }
+
+  .hero {
+    position: relative;
+    height: 236px;
+    overflow: hidden;
+  }
+
+  .hero-cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 24%;
+    filter: saturate(1.08) contrast(1.05);
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 58%,
+      rgba(0, 0, 0, 0.8) 76%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 58%,
+      rgba(0, 0, 0, 0.8) 76%,
+      transparent 100%
+    );
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(300px 180px at 14% 18%, rgba(255, 90, 191, 0.26), transparent 72%),
+      radial-gradient(300px 180px at 86% 18%, rgba(69, 215, 255, 0.22), transparent 72%),
+      linear-gradient(180deg, rgba(9, 6, 27, 0.06), rgba(9, 6, 27, 0.38));
+  }
+
+  .avatar {
+    position: absolute;
+    left: 50%;
+    bottom: -36px;
+    transform: translateX(-50%);
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid rgba(245, 248, 255, 0.9);
+    padding: 4px;
+    object-fit: contain;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(55, 20, 120, 0.95), rgba(10, 6, 28, 1) 72%);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+  }
+
+  .content {
+    padding: 4.9rem 1rem 1rem;
+  }
+
+  .intro {
+    text-align: center;
+  }
+
+  .eyebrow,
+  :global(.section-kicker),
+  :global(.side-kicker) {
+    margin: 0;
+    color: var(--blue);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0.45rem 0 0;
+    font-size: clamp(1.65rem, 5vw, 2.35rem);
+    line-height: 1.05;
+  }
+
+  .intro p {
+    margin: 0.85rem auto 0;
+    max-width: 42rem;
+    color: var(--muted-strong);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .layout {
+    margin-top: 1.15rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  :global(.section),
+  :global(.side-card) {
+    padding: 1rem;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+      linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+  }
+
+  :global(.section h2),
+  :global(.side-card h2) {
+    margin: 0.35rem 0 0;
+    font-size: 1.08rem;
+    line-height: 1.24;
+  }
+
+  :global(.section-copy),
+  :global(.side-card p) {
+    margin: 0.55rem 0 0;
+    color: var(--muted-strong);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  :global(.facts),
+  .side-stack {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  :global(.fact-chip),
+  :global(.chip) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0.6rem 0.86rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  :global(.chip-row) {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  @media (min-width: 920px) {
+    .hero {
+      height: 260px;
+    }
+
+    .content {
+      padding: 5.1rem 1.25rem 1.2rem;
+    }
+
+    .layout {
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.72fr);
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 1rem;
+    }
+  }
+</style>

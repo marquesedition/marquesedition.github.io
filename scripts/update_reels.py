@@ -13,7 +13,7 @@ PROFILE_USERNAME = "marquesedition"
 PROFILE_URL = f"https://www.instagram.com/{PROFILE_USERNAME}/reels/"
 API_URL = f"https://www.instagram.com/api/v1/users/web_profile_info/?username={PROFILE_USERNAME}"
 OUTPUT_PATH = Path("media-links/reels.json")
-HOME_PATH = Path("index.html")
+SOURCE_DATA_PATH = Path("src/data/reels.json")
 
 
 def fetch_profile_payload():
@@ -139,95 +139,13 @@ def build_reels_payload(profile_payload):
     }
 
 
-def format_display_date(date_value):
-    months = [
-        "ene",
-        "feb",
-        "mar",
-        "abr",
-        "may",
-        "jun",
-        "jul",
-        "ago",
-        "sep",
-        "oct",
-        "nov",
-        "dic",
-    ]
-    dt = datetime.fromisoformat(date_value)
-    return f"{dt.day:02d} {months[dt.month - 1]} {dt.year}"
-
-
-def format_compact_number(value):
-    if value >= 1000:
-        whole = value / 1000
-        if whole.is_integer():
-            return f"{int(whole)}k"
-        return f"{whole:.1f}".replace(".", ",") + "k"
-    return str(value)
-
-
-def replace_generated_block(text, marker_name, content):
-    pattern = re.compile(
-        rf"(<!-- GENERATED:{marker_name}_START -->)(.*?)(<!-- GENERATED:{marker_name}_END -->)",
-        re.S,
-    )
-    replacement = f"\\1\n{content.rstrip()}\n\\3"
-    updated, count = pattern.subn(replacement, text)
-    if count != 1:
-        raise ValueError(f"Marker {marker_name} not found exactly once")
-    return updated
-
-
-def render_home_stats(profile, reels):
-    items = [
-        (format_compact_number(profile["followers"]), "Seguidores"),
-        (str(len(reels)), "Reels"),
-        (str(profile["posts"]), "Posts"),
-        (str(profile["highlights"]), "Highlights"),
-    ]
-    return "\n".join(
-        [
-            "              <div class=\"stat\">"
-            f"\n                <strong>{html.escape(value)}</strong>"
-            f"\n                <span>{html.escape(label)}</span>"
-            "\n              </div>"
-            for value, label in items
-        ]
-    )
-
-
-def render_home_latest(reel):
-    return (
-        f"              <p class=\"latest-title\">{html.escape(reel['title'])}</p>\n"
-        f"              <p class=\"latest-meta\">{html.escape(format_display_date(reel['date']))} · {html.escape(reel['label'])}</p>"
-    )
-
-
-def update_home_html(reels_payload):
-    text = HOME_PATH.read_text(encoding="utf-8")
-    text = replace_generated_block(
-        text,
-        "HOME_STATS",
-        render_home_stats(reels_payload["profile"], reels_payload["reels"]),
-    )
-    text = replace_generated_block(
-        text,
-        "HOME_LATEST",
-        render_home_latest(reels_payload["reels"][0]),
-    )
-    HOME_PATH.write_text(text, encoding="utf-8")
-
-
 def main():
     payload = fetch_profile_payload()
     reels_payload = build_reels_payload(payload)
 
-    OUTPUT_PATH.write_text(
-        json.dumps(reels_payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    update_home_html(reels_payload)
+    payload_json = json.dumps(reels_payload, ensure_ascii=False, indent=2) + "\n"
+    OUTPUT_PATH.write_text(payload_json, encoding="utf-8")
+    SOURCE_DATA_PATH.write_text(payload_json, encoding="utf-8")
 
     print(f"Wrote {len(reels_payload['reels'])} reels to {OUTPUT_PATH}")
 

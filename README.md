@@ -1,55 +1,37 @@
-# DJ Marques Edition 🎧
+# Marques Edition
 
-Open Format DJ based in Madrid 🇪🇸  
-Latin vibes + club energy
+Web oficial de Marques Edition migrada a Astro.
 
----
+## Estructura
+- `src/pages/`: rutas Astro
+- `src/components/`: componentes reutilizables
+- `src/data/reels.json`: fuente de datos de reels
+- `public/`: assets públicos
+- `scripts/update_reels.py`: refresca datos desde Instagram
+- `scripts/publish_dist.py`: sincroniza la build estática con la raíz del repo
 
-## 🔥 Bookings
-📩 Contact: marquesedition.com  
-
----
-
-## 🎧 About
-DJ focused on keeping the dancefloor active all night.  
-From reggaeton to club energy.
-
----
-
-## 🌐 Links
-- TikTok: https://www.tiktok.com/@marquesedition
-- Instagram: https://www.instagram.com/marquesedition/
-
----
-
-## 💻 Ver en local (antes de GitHub Pages)
-1. En la carpeta del proyecto, ejecuta:
-
+## Desarrollo local
 ```bash
+npm install
 ./dev.sh
 ```
 
-2. Abre en el navegador:
-
+Servidor por defecto:
 ```text
 http://localhost:5500
 ```
 
-3. Opcional: elegir otro puerto:
-
+## Build
 ```bash
-./dev.sh 8080
+npm run build:site
 ```
 
-4. Para abrirlo en el movil (misma Wi-Fi), usa la IP local que muestra el script.
+Esto genera `dist/` con Astro y luego copia la salida publicada a la raíz para mantener GitHub Pages funcionando desde `main`.
 
-Para parar el servidor: `Ctrl + C`.
-
-## 🔄 Actualizar reels
-Para regenerar el JSON de reels y el bloque dinámico de la home:
-
+## Actualizar reels
 ```bash
 python3 scripts/update_reels.py
+npm run build:site
 ```
 
-En GitHub, el workflow `.github/workflows/update-reels.yml` también puede refrescar `media-links/reels.json` y `index.html` automáticamente.
+El workflow `.github/workflows/update-reels.yml` hace este proceso automáticamente.

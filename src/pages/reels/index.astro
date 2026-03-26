@@ -1,0 +1,260 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+import ReelCard from "../../components/ReelCard.astro";
+import reelsPayload from "../../data/reels.json";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/media-links/", label: "Media Links" },
+  { href: "/booking/", label: "Booking" },
+];
+
+const reels = reelsPayload.reels;
+const profile = reelsPayload.profile;
+const featuredReels = reels.slice(0, 4);
+const extraReels = reels.slice(4);
+const latestReel = reels[0];
+
+const formatDisplayDate = (dateValue: string) => {
+  const date = new Date(`${dateValue}T12:00:00`);
+  return new Intl.DateTimeFormat("es-ES", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+};
+
+const formatUpdated = new Intl.DateTimeFormat("es-ES", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+}).format(new Date(reelsPayload.generated_at));
+---
+
+<SiteLayout
+  title="Marques Edition | Reels"
+  description="Una muestra directa del trabajo de Marques Edition en cabina. Reels de clubs, bodas, residencia y pista real."
+>
+  <InnerPage
+    ariaLabel="Reels de Marques Edition"
+    eyebrow="Reels"
+    title="Aquí puedes ver un poco de mi trabajo en cabina."
+    description="Clubs, residencia, bodas y momentos reales de pista. Esta página está para enseñar energía, selección y cómo se vive la sesión cuando estoy pinchando."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <section class="section" aria-labelledby="reels-title">
+        <p class="section-kicker">Trabajo real</p>
+        <h2 id="reels-title">Clips recientes de clubs, bodas y residencia</h2>
+        <p class="section-copy">
+          Una selección directa del perfil para que se vea rápido el tipo de energía, la lectura de
+          pista y el rango de formatos en los que trabajo.
+        </p>
+
+        <div class="reels">
+          {featuredReels.map((reel, index) => <ReelCard reel={reel} index={index + 1} isHero={index === 0} />)}
+        </div>
+
+        {
+          extraReels.length > 0 && (
+            <details class="reels-more" id="reels-more">
+              <summary class="reels-toggle">Ver más reels ({reels.length})</summary>
+              <div class="reels">
+                {extraReels.map((reel, index) => <ReelCard reel={reel} index={index + 5} />)}
+              </div>
+            </details>
+          )
+        }
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="latest-title">
+        <p class="side-kicker">Último movimiento</p>
+        <h2 id="latest-title">Lo último que he subido</h2>
+        <div class="latest">
+          <strong>{latestReel.title}</strong>
+          <span>{formatDisplayDate(latestReel.date)} · {latestReel.label}</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="stats-title">
+        <p class="side-kicker">Señales</p>
+        <h2 id="stats-title">Un poco de contexto del perfil</h2>
+        <div class="stats">
+          <span class="stat">{profile.followers} seguidores</span>
+          <span class="stat">{reels.length} reels</span>
+          <span class="stat">{profile.posts} posts</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="fit-title">
+        <p class="side-kicker">Qué enseña esta página</p>
+        <h2 id="fit-title">Una muestra corta pero clara</h2>
+        <p>
+          Si después de ver estos reels quieres pasar a la siguiente conversación, tienes la ruta
+          de booking separada y lista.
+        </p>
+
+        <div class="facts" aria-label="Siguiente paso">
+          <div class="fact">
+            <strong>Cabina</strong>
+            <span>Clubs, privados, bodas y residencia</span>
+          </div>
+          <div class="fact">
+            <strong>Estilo</strong>
+            <span>Afro / Latin / Open format</span>
+          </div>
+        </div>
+
+        <div class="side-stack">
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
+          <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <p class="status-copy">
+    {reels.length} reels · actualizado {formatUpdated} ·
+    <a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">abrir perfil ↗</a>
+  </p>
+
+  <script is:inline async src="https://www.instagram.com/embed.js"></script>
+  <script is:inline>
+    // @ts-nocheck
+    function processInstagramEmbeds() {
+      if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
+        window.instgrm.Embeds.process();
+      }
+    }
+
+    function queueInstagramEmbeds() {
+      processInstagramEmbeds();
+      window.setTimeout(processInstagramEmbeds, 250);
+      window.setTimeout(processInstagramEmbeds, 1200);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      queueInstagramEmbeds();
+      document.querySelectorAll("#reels-more").forEach((details) => {
+        details.addEventListener("toggle", () => {
+          if (details.open) queueInstagramEmbeds();
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .reels {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .latest,
+    .fact {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .latest strong,
+    .fact strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .latest span,
+    .fact span {
+      display: block;
+      margin-top: 0.24rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .stats {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .stat {
+      min-height: 38px;
+      padding: 0.6rem 0.86rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .side-stack,
+    .facts {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .reels-more {
+      margin-top: 0.95rem;
+    }
+
+    .reels-toggle {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0.9rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+        linear-gradient(155deg, rgba(36, 24, 85, 0.54), rgba(18, 12, 44, 0.78));
+      color: #f7f3ff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .reels-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .status-copy {
+      width: min(100%, 1180px);
+      margin: 0.9rem auto 0;
+      color: var(--muted-strong);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .status-copy a {
+      color: #dfe8ff;
+      text-decoration: none;
+    }
+  </style>
+</SiteLayout>

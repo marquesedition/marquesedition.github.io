@@ -1,0 +1,20 @@
+{
+  "name": "marquesedition-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "build:site": "astro build && python3 scripts/publish_dist.py",
+    "preview": "astro preview --host 0.0.0.0",
+    "refresh:reels": "python3 scripts/update_reels.py"
+  },
+  "dependencies": {
+    "astro": "^6.0.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,50 @@
+---
+interface Item {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="nav-pills" aria-label="Navegación principal">
+  {
+    items.map((item) => (
+      <a
+        class="nav-pill"
+        href={item.href}
+        target={item.external ? "_blank" : undefined}
+        rel={item.external ? "noopener noreferrer" : undefined}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .nav-pills {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .nav-pill {
+    min-height: 40px;
+    padding: 0.62rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+</style>

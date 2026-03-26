@@ -1,0 +1,50 @@
+:root {
+  --bg: #050214;
+  --line: rgba(159, 130, 255, 0.24);
+  --text: #f7f3ff;
+  --muted: #b8b1d6;
+  --muted-strong: #dde4f8;
+  --blue: #45d7ff;
+  --pink: #ff5abf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1200px 720px at 14% 18%, rgba(255, 90, 191, 0.34), transparent 52%),
+    radial-gradient(980px 600px at 82% 28%, rgba(69, 215, 255, 0.32), transparent 58%),
+    radial-gradient(1200px 760px at 50% 108%, rgba(123, 69, 255, 0.27), transparent 62%),
+    linear-gradient(180deg, #120533 0%, #07031b 55%, #040210 100%);
+  color: var(--text);
+  padding: 1rem;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+  opacity: 0.14;
+}
+
+a {
+  color: inherit;
+}
+
+@media (min-width: 900px) {
+  body {
+    padding: 1.5rem;
+  }
+}

@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import shutil
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DIST = ROOT / "dist"
+TARGETS = [
+    "index.html",
+    "booking",
+    "media-links",
+    "reels",
+    "_astro",
+    "logo.png",
+    "profile.png",
+    "CNAME",
+    "404.html",
+]
+
+
+def remove_target(path: Path):
+    if path.is_dir():
+        shutil.rmtree(path)
+    elif path.exists():
+        path.unlink()
+
+
+def copy_target(source: Path, target: Path):
+    if source.is_dir():
+        shutil.copytree(source, target)
+    else:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+
+
+def main():
+    if not DIST.exists():
+        raise SystemExit("dist directory not found. Run the Astro build first.")
+
+    for name in TARGETS:
+        target = ROOT / name
+        source = DIST / name
+        remove_target(target)
+        if source.exists():
+            copy_target(source, target)
+
+
+if __name__ == "__main__":
+    main()

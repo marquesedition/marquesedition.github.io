@@ -1,0 +1,618 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/reels/", label: "Reels" },
+  { href: "/media-links/", label: "Media Links" },
+];
+---
+
+<SiteLayout
+  title="Marques Edition | Booking"
+  description="Booking de Marques Edition. Formulario guiado para clubs, bodas, marcas y eventos privados."
+>
+  <InnerPage
+    ariaLabel="Booking de Marques Edition"
+    eyebrow="Booking"
+    title="Si quieres cerrar una fecha, aquí empieza la conversación."
+    description="Este espacio está pensado para clubs, bodas, marcas y eventos privados. Rellena el briefing, revisa el resumen y envía la solicitud con toda la información clara."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <div class="chip-row" aria-label="Formatos">
+        <span class="chip">Clubs</span>
+        <span class="chip">Bodas</span>
+        <span class="chip">Eventos privados</span>
+        <span class="chip">Marcas</span>
+        <span class="chip">Open format</span>
+      </div>
+
+      <section class="section" aria-labelledby="process-title">
+        <p class="section-kicker">Proceso</p>
+        <h2 id="process-title">La idea es ir rápido y con criterio.</h2>
+        <p class="section-copy">
+          Cuanto más claro llegue el contexto del evento, más fácil es responder con una propuesta
+          seria desde el primer mensaje.
+        </p>
+
+        <div class="steps" aria-label="Pasos para contratar">
+          <div class="step">
+            <strong>1. Rellena los datos clave</strong>
+            <span>Fecha, formato, lugar, horario, aforo y situación técnica.</span>
+          </div>
+          <div class="step">
+            <strong>2. Genera el resumen</strong>
+            <span>La web ordena todo y te enseña exactamente lo que se va a enviar.</span>
+          </div>
+          <div class="step">
+            <strong>3. Confirma y envía</strong>
+            <span>La solicitud sale con un briefing limpio para seguir la conversación.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-card" id="booking-form" aria-labelledby="booking-form-title">
+        <p class="section-kicker">Formulario</p>
+        <h2 id="booking-form-title">Cuéntame tu fecha y te respondo con propuesta</h2>
+        <p class="contact-note">
+          Rellena los datos clave del evento, genera el resumen y confirma el envío. Así me llega
+          un briefing claro desde el primer contacto.
+        </p>
+
+        <form class="contact-form" id="booking-request-form" novalidate>
+          <input type="hidden" name="_subject" value="Nueva solicitud desde marquesedition.com" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="event_summary" id="contact-summary-input" />
+
+          <div class="contact-grid">
+            <div class="form-field">
+              <label for="contact-name">Nombre</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre o nombre del promotor" required />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-phone">Teléfono / WhatsApp</label>
+              <input id="contact-phone" name="phone" type="text" autocomplete="tel" placeholder="+34 ..." />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-event-type">Formato</label>
+              <select id="contact-event-type" name="event_type" required>
+                <option value="">Selecciona una opción</option>
+                <option>Club</option>
+                <option>Evento privado</option>
+                <option>Boda</option>
+                <option>Marca</option>
+                <option>Otro</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-date">Fecha</label>
+              <input id="contact-date" name="event_date" type="date" required />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-location">Ciudad / venue</label>
+              <input id="contact-location" name="location" type="text" autocomplete="address-level2" placeholder="Madrid / nombre del espacio" required />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-start-time">Hora de inicio</label>
+              <input id="contact-start-time" name="start_time" type="time" required />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-set-length">Duración del set</label>
+              <select id="contact-set-length" name="set_length" required>
+                <option value="">Selecciona una opción</option>
+                <option>1 hora</option>
+                <option>2 horas</option>
+                <option>3 horas</option>
+                <option>4 horas</option>
+                <option>5 horas o más</option>
+                <option>Sesión completa</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-audience">Aforo / invitados</label>
+              <select id="contact-audience" name="audience" required>
+                <option value="">Selecciona una opción</option>
+                <option>Hasta 80 personas</option>
+                <option>80 a 150 personas</option>
+                <option>150 a 300 personas</option>
+                <option>Más de 300 personas</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-setup">Producción / equipo</label>
+              <select id="contact-setup" name="setup" required>
+                <option value="">Selecciona una opción</option>
+                <option>Equipo completo en venue</option>
+                <option>Cabina básica y sonido disponible</option>
+                <option>Necesitamos propuesta técnica</option>
+                <option>Aún por definir</option>
+              </select>
+            </div>
+
+            <div class="form-field form-field--full">
+              <label for="contact-notes">Notas extra</label>
+              <textarea id="contact-notes" name="notes" placeholder="Tipo de público, estilos clave, horario completo o cualquier detalle importante."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="summary-tools">
+              <button class="summary-build" id="build-summary" type="button">Generar resumen del evento</button>
+              <div class="summary-card" id="summary-card" data-ready="false">
+                <strong>Resumen antes de enviar</strong>
+                <p id="summary-preview">Todavía no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.</p>
+              </div>
+              <div class="confirm-row">
+                <input id="confirm-summary" name="confirm_summary" type="checkbox" value="yes" />
+                <label for="confirm-summary">He revisado el resumen y confirmo que estos datos son correctos para enviar la solicitud.</label>
+              </div>
+            </div>
+
+            <button class="form-submit" type="submit" disabled>Confirmar y enviar solicitud</button>
+            <p class="form-status" id="form-status">
+              Completa los campos, genera el resumen y confirma el envío.
+            </p>
+          </div>
+        </form>
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="fit-title">
+        <p class="side-kicker">Qué necesito</p>
+        <h2 id="fit-title">Lo que me ayuda a responder bien</h2>
+        <p>
+          Fecha, tipo de evento, aforo, horario y punto de partida técnico. Con eso ya se puede
+          valorar el encaje real.
+        </p>
+
+        <div class="brief-points" aria-label="Datos para booking">
+          <p class="brief-point"><strong>Fecha:</strong> día confirmado del evento.</p>
+          <p class="brief-point"><strong>Venue:</strong> ciudad, espacio y formato.</p>
+          <p class="brief-point"><strong>Set:</strong> duración y hora de actuación.</p>
+          <p class="brief-point"><strong>Producción:</strong> qué hay montado y qué falta.</p>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="profile-title">
+        <p class="side-kicker">Perfil</p>
+        <h2 id="profile-title">Marques Edition</h2>
+        <p>
+          DJ en Madrid con sets afro, latin y open format. Cabina pensada para leer la pista,
+          sostener la energía y adaptarse al formato sin perder identidad.
+        </p>
+
+        <div class="facts" aria-label="Datos rápidos">
+          <span class="fact-chip">Base: Madrid</span>
+          <span class="fact-chip">Afro / Latin / Open format</span>
+          <span class="fact-chip">Clubs / Bodas / Privados</span>
+          <span class="fact-chip">Residencia @pensionmimosas</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="genres-title">
+        <p class="side-kicker">Qué suele funcionar</p>
+        <h2 id="genres-title">Géneros que mejor conectan en España entre 18 y 50 años</h2>
+        <p>
+          Para público amplio, lo que mejor suele responder en pista es una mezcla bien medida de
+          pop, urbano latino, bloques latinos bailables y clásicos recientes.
+        </p>
+
+        <div class="facts" aria-label="Géneros que suelen funcionar mejor">
+          <span class="fact-chip">Pop español</span>
+          <span class="fact-chip">Pop internacional</span>
+          <span class="fact-chip">Pop latino</span>
+          <span class="fact-chip">Rock / pop-rock español</span>
+          <span class="fact-chip">Rock / pop-rock internacional</span>
+          <span class="fact-chip">Reggaetón</span>
+          <span class="fact-chip">Urbano latino</span>
+          <span class="fact-chip">Afrobeat / afropop</span>
+          <span class="fact-chip">Bachata</span>
+          <span class="fact-chip">Merengue / merenguetón</span>
+          <span class="fact-chip">Dance comercial</span>
+          <span class="fact-chip">Electrónica comercial</span>
+          <span class="fact-chip">Flamenco pop</span>
+          <span class="fact-chip">Canción española</span>
+          <span class="fact-chip">Hits 2000s / 2010s / 2020s</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="links-title">
+        <p class="side-kicker">Navegación</p>
+        <h2 id="links-title">Antes o después del booking</h2>
+        <p>
+          Si primero quieres revisar trabajo o plataformas oficiales, tienes las rutas separadas y
+          preparadas para eso.
+        </p>
+
+        <div class="side-stack">
+          <a class="side-link" href="/reels/">Ver reels ↗</a>
+          <a class="side-link" href="/media-links/">Abrir media-links ↗</a>
+          <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <script is:inline>
+    // @ts-nocheck
+    const BOOKING_FORM_ENDPOINT = "https://formsubmit.co/ajax/bookings@marquesedition.com";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const bookingForm = document.getElementById("booking-request-form");
+      const formStatus = document.getElementById("form-status");
+      const summaryButton = document.getElementById("build-summary");
+      const summaryPreview = document.getElementById("summary-preview");
+      const summaryCard = document.getElementById("summary-card");
+      const summaryInput = document.getElementById("contact-summary-input");
+      const confirmSummary = document.getElementById("confirm-summary");
+
+      if (!bookingForm || !formStatus) return;
+
+      const submitButton = bookingForm.querySelector(".form-submit");
+      let summaryConfirmed = false;
+
+      function setSubmitState() {
+        if (submitButton) submitButton.disabled = !summaryConfirmed;
+      }
+
+      function formatDate(dateValue) {
+        if (!dateValue) return "fecha pendiente";
+        const date = new Date(dateValue + "T12:00:00");
+        if (Number.isNaN(date.getTime())) return dateValue;
+
+        return new Intl.DateTimeFormat("es-ES", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }).format(date);
+      }
+
+      function resetSummaryState() {
+        summaryConfirmed = false;
+        if (confirmSummary) confirmSummary.checked = false;
+        if (summaryCard) summaryCard.dataset.ready = "false";
+        setSubmitState();
+      }
+
+      function buildSummary() {
+        const name = bookingForm.elements.name.value.trim();
+        const email = bookingForm.elements.email.value.trim();
+        const phone = bookingForm.elements.phone.value.trim();
+        const eventType = bookingForm.elements.event_type.value.trim();
+        const eventDate = bookingForm.elements.event_date.value;
+        const location = bookingForm.elements.location.value.trim();
+        const startTime = bookingForm.elements.start_time.value;
+        const setLength = bookingForm.elements.set_length.value.trim();
+        const audience = bookingForm.elements.audience.value.trim();
+        const setup = bookingForm.elements.setup.value.trim();
+        const notes = bookingForm.elements.notes.value.trim();
+
+        const lines = [
+          `Solicitud de ${name} para ${eventType.toLowerCase()}.`,
+          `Fecha: ${formatDate(eventDate)}.`,
+          `Lugar: ${location}.`,
+          `Inicio previsto: ${startTime}.`,
+          `Duración solicitada: ${setLength}.`,
+          `Aforo estimado: ${audience}.`,
+          `Producción disponible: ${setup}.`,
+          `Contacto: ${email}${phone ? " · " + phone : ""}.`,
+        ];
+
+        if (notes) lines.push(`Notas: ${notes}.`);
+        return lines.join("\n");
+      }
+
+      function refreshSummary() {
+        if (!bookingForm.reportValidity()) {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = "Completa los campos obligatorios para generar el resumen.";
+          return;
+        }
+
+        const summary = buildSummary();
+        if (summaryPreview) summaryPreview.textContent = summary;
+        if (summaryInput) summaryInput.value = summary;
+        if (summaryCard) summaryCard.dataset.ready = "true";
+
+        summaryConfirmed = false;
+        if (confirmSummary) confirmSummary.checked = false;
+        setSubmitState();
+
+        formStatus.dataset.state = "success";
+        formStatus.textContent = "Resumen listo. Revísalo y marca la confirmación para enviar.";
+      }
+
+      bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
+        if (field.id !== "confirm-summary") {
+          field.addEventListener("input", resetSummaryState);
+          field.addEventListener("change", resetSummaryState);
+        }
+      });
+
+      if (summaryButton) summaryButton.addEventListener("click", refreshSummary);
+
+      if (confirmSummary) {
+        confirmSummary.addEventListener("change", () => {
+          summaryConfirmed = Boolean(confirmSummary.checked && summaryInput && summaryInput.value.trim());
+          setSubmitState();
+
+          if (summaryConfirmed) {
+            formStatus.dataset.state = "success";
+            formStatus.textContent = "Todo listo. Ya puedes enviar la solicitud.";
+          }
+        });
+      }
+
+      bookingForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!bookingForm.reportValidity()) {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = "Revisa los campos marcados y vuelve a intentarlo.";
+          return;
+        }
+
+        if (!summaryInput || !summaryInput.value.trim()) {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = "Primero genera el resumen del evento.";
+          return;
+        }
+
+        if (!confirmSummary || !confirmSummary.checked) {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = "Revisa el resumen y confirma antes de enviarlo.";
+          return;
+        }
+
+        const formData = new FormData(bookingForm);
+        formStatus.dataset.state = "loading";
+        formStatus.textContent = "Enviando solicitud...";
+        if (submitButton) submitButton.disabled = true;
+
+        try {
+          const response = await fetch(BOOKING_FORM_ENDPOINT, {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: formData,
+          });
+
+          if (!response.ok) throw new Error("submit_failed");
+
+          bookingForm.reset();
+          if (summaryPreview) {
+            summaryPreview.textContent = "Todavía no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.";
+          }
+          if (summaryInput) summaryInput.value = "";
+          if (summaryCard) summaryCard.dataset.ready = "false";
+          summaryConfirmed = false;
+          setSubmitState();
+          formStatus.dataset.state = "success";
+          formStatus.textContent = "Solicitud enviada. Te responderé en cuanto revise la fecha.";
+        } catch {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = "Ahora mismo no he podido enviar el formulario. En cuanto tenga el correo de destino activo, este canal quedará operativo.";
+        } finally {
+          if (submitButton) submitButton.disabled = false;
+        }
+      });
+    });
+  </script>
+
+  <style>
+    .steps,
+    .facts,
+    .side-stack,
+    .summary-tools,
+    .form-actions {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .step,
+    .brief-point,
+    .summary-card {
+      padding: 0.82rem 0.9rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .step strong,
+    .summary-card strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .step span,
+    .brief-point,
+    .summary-card p {
+      display: block;
+      margin-top: 0.24rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .contact-card {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        radial-gradient(320px 180px at 0% 0%, rgba(255, 90, 191, 0.12), transparent 70%),
+        radial-gradient(320px 180px at 100% 12%, rgba(69, 215, 255, 0.12), transparent 72%),
+        linear-gradient(155deg, rgba(36, 24, 85, 0.52), rgba(18, 12, 44, 0.82));
+    }
+
+    .contact-card h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    .contact-note {
+      margin: 0.55rem 0 0;
+      color: var(--muted-strong);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .contact-form {
+      margin-top: 0.95rem;
+      display: grid;
+      gap: 0.78rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 0.78rem;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 0.42rem;
+    }
+
+    .form-field label {
+      color: #f7f3ff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: 0.82rem 0.95rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font: inherit;
+    }
+
+    .form-field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-field select {
+      appearance: none;
+    }
+
+    .summary-card p {
+      white-space: pre-line;
+    }
+
+    .summary-card[data-ready="false"] p {
+      color: #b8c2e0;
+    }
+
+    .summary-build,
+    .side-link,
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.82rem 1rem;
+      border-radius: 16px;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .summary-build,
+    .side-link {
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+    }
+
+    .confirm-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.72rem;
+      padding: 0.85rem 0.9rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .confirm-row input {
+      margin-top: 0.18rem;
+      width: 18px;
+      height: 18px;
+      accent-color: #45d7ff;
+    }
+
+    .confirm-row label {
+      color: #e9efff;
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .form-submit {
+      border: 0;
+      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+      color: #160b34;
+      cursor: pointer;
+    }
+
+    .form-submit:disabled {
+      opacity: 0.72;
+      cursor: wait;
+    }
+
+    .form-status {
+      min-height: 1.4rem;
+      margin: 0;
+      color: #d9e2fb;
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .form-status[data-state="success"] {
+      color: #9ef8d8;
+    }
+
+    .form-status[data-state="error"] {
+      color: #ffd3e9;
+    }
+
+    .brief-point strong {
+      color: #fff;
+    }
+
+    @media (min-width: 920px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .form-field--full {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</SiteLayout>

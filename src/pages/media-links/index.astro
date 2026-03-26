@@ -1,0 +1,189 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/reels/", label: "Reels" },
+  { href: "/booking/", label: "Booking" },
+];
+---
+
+<SiteLayout
+  title="Marques Edition | Media Links"
+  description="Enlaces oficiales de Marques Edition. Instagram, reels, TikTok, YouTube, Spotify y acceso directo a booking."
+>
+  <InnerPage
+    ariaLabel="Enlaces oficiales de Marques Edition"
+    eyebrow="Media Links"
+    title="Todos mis enlaces oficiales en un solo sitio."
+    description="Aquí tienes mis plataformas, acceso al perfil y la ruta directa para contrataciones. Si quieres cerrar una fecha, entra en booking y envíame el briefing del evento."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <section class="section" aria-labelledby="links-title">
+        <p class="section-kicker">Enlaces</p>
+        <h2 id="links-title">Accesos principales</h2>
+        <p class="section-copy">
+          Todo lo importante para descubrir el proyecto o mover la conversación al siguiente paso.
+        </p>
+
+        <div class="link-list" aria-label="Enlaces destacados">
+          <a class="link-card primary" href="/booking/">
+            <span>
+              <strong>Booking</strong>
+              <small>Formulario guiado para clubs, bodas, marcas y eventos privados</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="/reels/">
+            <span>
+              <strong>Reels</strong>
+              <small>Una muestra visual del trabajo en cabina dentro de la web</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>Instagram</strong>
+              <small>Perfil oficial y acceso a reels</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>Instagram Reels</strong>
+              <small>Clips de cabina, residencia y momentos de pista</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://www.tiktok.com/@marquesedition" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>TikTok</strong>
+              <small>Contenido corto y momentos de sesión</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://www.youtube.com/@marquesedition" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>YouTube</strong>
+              <small>Canal oficial y material audiovisual</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>Spotify</strong>
+              <small>Perfil oficial y referencias musicales</small>
+            </span>
+            <span>↗</span>
+          </a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="info-title">
+        <p class="side-kicker">Perfil</p>
+        <h2 id="info-title">Marques Edition</h2>
+        <p>
+          DJ en Madrid con sets afro, latin y open format. Cabina para clubs, bodas, marcas y
+          eventos privados con lectura real de pista.
+        </p>
+
+        <div class="mini-grid" aria-label="Datos rápidos">
+          <div class="mini-card">
+            <strong>Base</strong>
+            <span>Madrid</span>
+          </div>
+          <div class="mini-card">
+            <strong>Estilo</strong>
+            <span>Afro / Latin / Open format</span>
+          </div>
+          <div class="mini-card">
+            <strong>Residencia</strong>
+            <span>@pensionmimosas</span>
+          </div>
+          <div class="mini-card">
+            <strong>Ruta recomendada</strong>
+            <span>Reels para ver trabajo y booking para contratar</span>
+          </div>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <style>
+    .link-list {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.68rem;
+    }
+
+    .link-card {
+      min-height: 68px;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05)),
+        linear-gradient(160deg, rgba(100, 88, 180, 0.14), rgba(30, 24, 68, 0.18));
+    }
+
+    .link-card.primary {
+      border-color: rgba(255, 90, 191, 0.48);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)),
+        linear-gradient(130deg, rgba(255, 90, 191, 0.2), rgba(69, 215, 255, 0.16));
+    }
+
+    .link-card strong,
+    .mini-card strong {
+      display: block;
+      font-size: 0.96rem;
+    }
+
+    .link-card small {
+      display: block;
+      margin-top: 0.24rem;
+      color: #c0c9e4;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .mini-grid {
+      margin-top: 0.85rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .mini-card {
+      padding: 0.88rem 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .mini-card span {
+      display: block;
+      margin-top: 0.28rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+  </style>
+</SiteLayout>
