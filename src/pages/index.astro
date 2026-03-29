@@ -29,6 +29,33 @@ const formatDisplayDate = (dateValue: string) => {
   description="Marques Edition es DJ en Madrid. Afro, latin y open format para clubs, bodas y eventos privados. Reels, enlaces y contrataciones en un solo sitio."
 >
   <main class="page">
+    <section class="quick-nav" aria-labelledby="quick-nav-title">
+      <div class="quick-nav-copy">
+        <p class="quick-nav-kicker">Entrada directa</p>
+        <h2 id="quick-nav-title">Elige la ruta según lo que necesitas.</h2>
+      </div>
+
+      <div class="quick-nav-grid">
+        <a class="quick-card" href="/reels/">
+          <span class="quick-card-kicker">Trabajo real</span>
+          <strong>Reels</strong>
+          <span class="quick-card-copy">Pista, mezcla y cabina en acción.</span>
+        </a>
+
+        <a class="quick-card" href="/media-links/">
+          <span class="quick-card-kicker">Plataformas</span>
+          <strong>Media Links</strong>
+          <span class="quick-card-copy">Todos mis enlaces oficiales en un solo sitio.</span>
+        </a>
+
+        <a class="quick-card quick-card-primary" href="/booking/">
+          <span class="quick-card-kicker">Contrataciones</span>
+          <strong>Booking</strong>
+          <span class="quick-card-copy">Cuéntame tu fecha y preparo la propuesta.</span>
+        </a>
+      </div>
+    </section>
+
     <section class="hero" aria-label="Presentación principal">
       <div class="hero-grid">
         <div class="hero-media">
@@ -58,6 +85,7 @@ const formatDisplayDate = (dateValue: string) => {
               <div class="cta-row">
                 <a class="cta" href="/booking/">Contrataciones ↗</a>
                 <a class="cta-secondary" href="/reels/">Ver reels ↗</a>
+                <a class="cta-secondary" href="/media-links/">Media links ↗</a>
               </div>
             </div>
           </div>
@@ -125,12 +153,6 @@ const formatDisplayDate = (dateValue: string) => {
       </article>
     </section>
 
-    <p class="site-note">
-      Para ver trabajo entra en <a href="/reels/">reels</a>. Para enlaces oficiales entra en
-      <a href="/media-links/">media-links</a>. Para contrataciones entra en
-      <a href="/booking/">booking</a>.
-    </p>
-
     <Footer />
   </main>
 
@@ -138,6 +160,93 @@ const formatDisplayDate = (dateValue: string) => {
     .page {
       width: min(100%, 1180px);
       margin: 0 auto;
+    }
+
+    .quick-nav {
+      margin-bottom: 0.95rem;
+      padding: 0.95rem 1rem 1rem;
+      border-radius: 28px;
+      border: 1px solid rgba(171, 141, 255, 0.16);
+      background:
+        radial-gradient(420px 220px at 12% 10%, rgba(255, 90, 191, 0.1), transparent 68%),
+        radial-gradient(380px 220px at 88% 16%, rgba(69, 215, 255, 0.08), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        linear-gradient(160deg, rgba(90, 70, 180, 0.1), rgba(18, 12, 50, 0.12));
+    }
+
+    .quick-nav-copy {
+      max-width: 38rem;
+    }
+
+    .quick-nav-kicker {
+      margin: 0;
+      color: #45d7ff;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .quick-nav h2 {
+      margin: 0.4rem 0 0;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .quick-nav-grid {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .quick-card {
+      display: grid;
+      gap: 0.28rem;
+      padding: 1rem;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      text-decoration: none;
+      transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        background 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .quick-card:hover,
+    .quick-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(69, 215, 255, 0.28);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 14px 30px rgba(5, 2, 20, 0.3);
+      outline: none;
+    }
+
+    .quick-card-primary {
+      background:
+        linear-gradient(135deg, rgba(255, 90, 191, 0.16), rgba(69, 215, 255, 0.12)),
+        rgba(255, 255, 255, 0.05);
+    }
+
+    .quick-card-kicker {
+      color: #45d7ff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .quick-card strong {
+      font-size: 1.08rem;
+      line-height: 1.16;
+    }
+
+    .quick-card-copy {
+      color: #dde4f7;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
     .hero {
@@ -178,7 +287,7 @@ const formatDisplayDate = (dateValue: string) => {
       inset: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: 1rem;
       background:
         radial-gradient(420px 220px at 12% 10%, rgba(255, 90, 191, 0.18), transparent 68%),
@@ -223,6 +332,7 @@ const formatDisplayDate = (dateValue: string) => {
     .actions {
       display: grid;
       gap: 0.9rem;
+      margin-top: auto;
     }
 
     h1 {
@@ -250,6 +360,7 @@ const formatDisplayDate = (dateValue: string) => {
       display: flex;
       flex-wrap: wrap;
       gap: 0.7rem;
+      align-items: stretch;
     }
 
     .cta,
@@ -263,6 +374,7 @@ const formatDisplayDate = (dateValue: string) => {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex: 1 1 180px;
     }
 
     .cta {
@@ -395,20 +507,20 @@ const formatDisplayDate = (dateValue: string) => {
       line-height: 1.58;
     }
 
-    .site-note {
-      margin: 1rem 0 0;
-      color: #c6bddf;
-      font-size: 0.88rem;
-      line-height: 1.58;
-      text-align: center;
-    }
-
-    .site-note a {
-      color: #dfe8ff;
-      text-decoration: none;
-    }
-
     @media (min-width: 900px) {
+      .quick-nav {
+        padding: 1rem 1.15rem 1.1rem;
+      }
+
+      .quick-nav-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .quick-card {
+        min-height: 132px;
+        align-content: start;
+      }
+
       .hero {
         padding: 1.15rem;
       }
@@ -417,8 +529,26 @@ const formatDisplayDate = (dateValue: string) => {
         grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.72fr);
       }
 
+      .hero-media {
+        min-height: 600px;
+      }
+
       .hero-content {
-        padding: 1.2rem;
+        padding: 1.2rem 1.2rem 1.35rem;
+      }
+
+      h1 {
+        max-width: 7.9ch;
+        font-size: clamp(3.3rem, 6vw, 5.2rem);
+      }
+
+      .lede {
+        max-width: 35rem;
+        font-size: 1.02rem;
+      }
+
+      .cta-row {
+        max-width: 36rem;
       }
 
       .services {
