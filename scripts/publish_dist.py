@@ -34,6 +34,11 @@ def copy_target(source: Path, target: Path):
         shutil.copy2(source, target)
 
 
+def write_text_file(path: Path, content: str = ""):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
 def main():
     if not DIST.exists():
         raise SystemExit("dist directory not found. Run the Astro build first.")
@@ -44,6 +49,10 @@ def main():
         remove_target(target)
         if source.exists():
             copy_target(source, target)
+
+    # GitHub Pages ignores paths starting with "_" unless .nojekyll is present.
+    write_text_file(DIST / ".nojekyll")
+    write_text_file(ROOT / ".nojekyll")
 
 
 if __name__ == "__main__":
