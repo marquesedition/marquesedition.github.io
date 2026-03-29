@@ -1,10 +1,14 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import EventsBoard from "../components/EventsBoard.astro";
 import Footer from "../components/Footer.astro";
+import eventsPayload from "../data/events.json";
 import reelsPayload from "../data/reels.json";
+import streamsPayload from "../data/streams.json";
 
 const latestReel = reelsPayload.reels[0];
 const profile = reelsPayload.profile;
+const residency = eventsPayload.featured_residency;
 
 const formatCompactNumber = (value: number) => {
   if (value >= 1000) {
@@ -48,6 +52,12 @@ const formatDisplayDate = (dateValue: string) => {
           <span class="quick-card-copy">Todos mis enlaces oficiales en un solo sitio.</span>
         </a>
 
+        <a class="quick-card" href="/streams/">
+          <span class="quick-card-kicker">Sets largos</span>
+          <strong>Streams</strong>
+          <span class="quick-card-copy">Directos completos de YouTube sin salir de la web.</span>
+        </a>
+
         <a class="quick-card quick-card-primary" href="/booking/">
           <span class="quick-card-kicker">Contrataciones</span>
           <strong>Booking</strong>
@@ -85,6 +95,7 @@ const formatDisplayDate = (dateValue: string) => {
               <div class="cta-row">
                 <a class="cta" href="/booking/">Contrataciones ↗</a>
                 <a class="cta-secondary" href="/reels/">Ver reels ↗</a>
+                <a class="cta-secondary" href="/streams/">Ver streams ↗</a>
                 <a class="cta-secondary" href="/media-links/">Media links ↗</a>
               </div>
             </div>
@@ -95,8 +106,9 @@ const formatDisplayDate = (dateValue: string) => {
           <p class="panel-kicker">Cabina abierta</p>
           <h2 class="panel-title">Aquí está todo lo que necesitas para entender cómo trabajo.</h2>
           <p class="panel-copy">
-            Reels para ver un poco de mi trabajo, enlaces oficiales por un lado y una ruta de
-            booking aparte para hablar conmigo sobre clubs, marcas, bodas y eventos privados.
+            Reels para ver momentos concretos, streams para ver sets largos, enlaces oficiales por
+            un lado y una ruta de booking aparte para hablar conmigo sobre clubs, marcas, bodas y
+            eventos privados.
           </p>
 
           <div class="stats" aria-label="Estadísticas">
@@ -113,20 +125,63 @@ const formatDisplayDate = (dateValue: string) => {
               <span>Posts</span>
             </div>
             <div class="stat">
-              <strong>{profile.highlights}</strong>
-              <span>Highlights</span>
+              <strong>{streamsPayload.streams.length}</strong>
+              <span>Streams</span>
             </div>
           </div>
 
           <div class="panel-divider"></div>
 
-          <div class="latest-reel">
+          <a
+            class="latest-reel"
+            href={latestReel.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Abrir el último reel: ${latestReel.title}`}
+          >
             <p class="latest-label">Último reel</p>
             <p class="latest-title">{latestReel.title}</p>
             <p class="latest-meta">{formatDisplayDate(latestReel.date)} · {latestReel.label}</p>
-          </div>
+          </a>
         </aside>
       </div>
+    </section>
+
+    <section class="events-home" aria-labelledby="events-home-title">
+      <div class="events-home-copy">
+        <p class="events-home-kicker">Próximas fechas</p>
+        <h2 id="events-home-title">Dónde toco en los próximos eventos.</h2>
+        <p class="events-home-desc">
+          Una agenda clara por meses, al estilo de una página de tour: ciudad, venue y acceso
+          directo a tickets o información de cada fecha.
+        </p>
+      </div>
+
+      {
+        residency && (
+          <div class="residency-highlight">
+            <div class="residency-highlight-copy">
+              <p class="residency-label">Residencia fija</p>
+              <strong>{residency.schedule_label}</strong>
+              <span>{residency.venue} · {residency.time_label}</span>
+              <span>{residency.address}</span>
+            </div>
+
+            <div class="residency-highlight-actions">
+              <a class="quick-card-link" href="/events/">Ver agenda ↗</a>
+              <a class="quick-card-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a>
+            </div>
+          </div>
+        )
+      }
+
+      <EventsBoard
+        events={eventsPayload.events}
+        previewLimit={4}
+        moreHref="/events/"
+        emptyTitle="Todavía no hay fechas publicadas."
+        emptyCopy="Dejo la sección lista para que las próximas actuaciones aparezcan aquí en cuanto carguemos el bloque de Bandsintown o el JSON manual."
+      />
     </section>
 
     <section class="services" aria-label="Servicios">
@@ -193,11 +248,11 @@ const formatDisplayDate = (dateValue: string) => {
       line-height: 1.25;
     }
 
-    .quick-nav-grid {
-      margin-top: 0.9rem;
-      display: grid;
-      gap: 0.75rem;
-    }
+      .quick-nav-grid {
+        margin-top: 0.9rem;
+        display: grid;
+        gap: 0.75rem;
+      }
 
     .quick-card {
       display: grid;
@@ -273,7 +328,7 @@ const formatDisplayDate = (dateValue: string) => {
     }
 
     .hero-media {
-      min-height: 450px;
+      min-height: 740px;
       border-radius: 28px;
       background:
         linear-gradient(180deg, rgba(7, 4, 18, 0.2), rgba(7, 4, 18, 0.62)),
@@ -288,7 +343,7 @@ const formatDisplayDate = (dateValue: string) => {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding: 1rem;
+      padding: 1rem 1rem 1.2rem;
       background:
         radial-gradient(420px 220px at 12% 10%, rgba(255, 90, 191, 0.18), transparent 68%),
         radial-gradient(360px 220px at 88% 18%, rgba(69, 215, 255, 0.16), transparent 70%),
@@ -357,8 +412,8 @@ const formatDisplayDate = (dateValue: string) => {
     }
 
     .cta-row {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.7rem;
       align-items: stretch;
     }
@@ -374,7 +429,8 @@ const formatDisplayDate = (dateValue: string) => {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 1 1 180px;
+      min-width: 0;
+      text-align: center;
     }
 
     .cta {
@@ -453,6 +509,33 @@ const formatDisplayDate = (dateValue: string) => {
       background: rgba(255, 255, 255, 0.08);
     }
 
+    .latest-reel {
+      display: block;
+      padding: 0.2rem 0;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 16px;
+      transition:
+        transform 160ms ease,
+        color 160ms ease,
+        opacity 160ms ease;
+    }
+
+    .latest-reel:hover,
+    .latest-reel:focus-visible {
+      transform: translateY(-1px);
+      opacity: 0.96;
+      outline: none;
+    }
+
+    .latest-reel:hover .latest-title,
+    .latest-reel:focus-visible .latest-title {
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-color: rgba(69, 215, 255, 0.6);
+      text-underline-offset: 0.16em;
+    }
+
     .latest-label,
     .latest-title,
     .latest-meta {
@@ -486,6 +569,100 @@ const formatDisplayDate = (dateValue: string) => {
       gap: 0.85rem;
     }
 
+    .events-home {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+        linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+    }
+
+    .events-home-copy {
+      max-width: 42rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .residency-highlight {
+      margin-bottom: 0.95rem;
+      padding: 1rem;
+      border-radius: 22px;
+      border: 1px solid rgba(69, 215, 255, 0.18);
+      background:
+        radial-gradient(380px 180px at 12% 8%, rgba(69, 215, 255, 0.12), transparent 72%),
+        radial-gradient(320px 180px at 88% 12%, rgba(255, 90, 191, 0.12), transparent 74%),
+        linear-gradient(155deg, rgba(34, 67, 118, 0.32), rgba(16, 11, 38, 0.62));
+    }
+
+    .residency-highlight-copy {
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .residency-label {
+      margin: 0;
+      color: #45d7ff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .residency-highlight strong {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .residency-highlight span {
+      color: #dbe5fd;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .residency-highlight-actions {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .quick-card-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0.6rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .events-home-kicker {
+      margin: 0;
+      color: #45d7ff;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .events-home h2 {
+      margin: 0.42rem 0 0;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .events-home-desc {
+      margin: 0.55rem 0 0;
+      color: #dde4f7;
+      font-size: 0.9rem;
+      line-height: 1.58;
+    }
+
     .service-card {
       padding: 1rem;
       border-radius: 24px;
@@ -513,7 +690,7 @@ const formatDisplayDate = (dateValue: string) => {
       }
 
       .quick-nav-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .quick-card {
@@ -530,7 +707,7 @@ const formatDisplayDate = (dateValue: string) => {
       }
 
       .hero-media {
-        min-height: 600px;
+        min-height: 720px;
       }
 
       .hero-content {
@@ -548,11 +725,31 @@ const formatDisplayDate = (dateValue: string) => {
       }
 
       .cta-row {
+        display: flex;
+        flex-wrap: wrap;
         max-width: 36rem;
+      }
+
+      .cta,
+      .cta-secondary {
+        flex: 1 1 180px;
       }
 
       .services {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .residency-highlight {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: end;
+      }
+
+      .residency-highlight-actions {
+        grid-template-columns: repeat(2, max-content);
+        justify-content: end;
+        margin-top: 0;
       }
     }
   </style>

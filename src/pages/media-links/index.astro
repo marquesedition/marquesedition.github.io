@@ -6,6 +6,8 @@ import Footer from "../../components/Footer.astro";
 const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/reels/", label: "Reels" },
+  { href: "/streams/", label: "Streams" },
+  { href: "/events/", label: "Events" },
   { href: "/booking/", label: "Booking" },
 ];
 ---
@@ -46,6 +48,22 @@ const navItems = [
             <span>↗</span>
           </a>
 
+          <a class="link-card" href="/streams/">
+            <span>
+              <strong>Streams</strong>
+              <small>Directos completos de YouTube embebidos dentro de la web</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="/events/">
+            <span>
+              <strong>Events</strong>
+              <small>Residencia en Pensión Mimosas y próximas fechas con ciudad, venue y accesos</small>
+            </span>
+            <span>↗</span>
+          </a>
+
           <a class="link-card" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">
             <span>
               <strong>Instagram</strong>
@@ -74,6 +92,14 @@ const navItems = [
             <span>
               <strong>YouTube</strong>
               <small>Canal oficial y material audiovisual</small>
+            </span>
+            <span>↗</span>
+          </a>
+
+          <a class="link-card" href="https://www.youtube.com/@marquesedition/streams" target="_blank" rel="noopener noreferrer">
+            <span>
+              <strong>YouTube Streams</strong>
+              <small>Todos los directos archivados en la pestaña de streams</small>
             </span>
             <span>↗</span>
           </a>
@@ -113,7 +139,7 @@ const navItems = [
           </div>
           <div class="mini-card">
             <strong>Ruta recomendada</strong>
-            <span>Reels para ver trabajo y booking para contratar</span>
+            <span>Reels, streams y events para ver proyecto; booking para contratar</span>
           </div>
         </div>
       </section>

@@ -1,0 +1,266 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+import StreamCard from "../../components/StreamCard.astro";
+import streamsPayload from "../../data/streams.json";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/reels/", label: "Reels" },
+  { href: "/events/", label: "Events" },
+  { href: "/media-links/", label: "Media Links" },
+  { href: "/booking/", label: "Booking" },
+];
+
+const streams = streamsPayload.streams;
+const profile = streamsPayload.profile;
+const featuredStreams = streams.slice(0, 4);
+const extraStreams = streams.slice(4);
+const latestStream = streams[0];
+
+const formatCompactNumber = (value: number) => {
+  if (value >= 1000) {
+    const whole = value / 1000;
+    return Number.isInteger(whole) ? `${whole.toFixed(0)}k` : `${whole.toFixed(1).replace(".", ",")}k`;
+  }
+  return String(value);
+};
+
+const formatUpdated = new Intl.DateTimeFormat("es-ES", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+}).format(new Date(streamsPayload.generated_at));
+---
+
+<SiteLayout
+  title="Marques Edition | Streams"
+  description="Streams y directos de Marques Edition dentro de la web. Sets completos, sesiones largas y archivo de YouTube embebido."
+>
+  <InnerPage
+    ariaLabel="Streams de Marques Edition"
+    eyebrow="Streams"
+    title="Aquí puedes ver los directos completos del canal."
+    description="Si los reels enseñan momentos concretos, esta página enseña sets largos. Streams de YouTube embebidos dentro de la web para ver la sesión entera sin salir de aquí."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <section class="section" aria-labelledby="streams-title">
+        <p class="section-kicker">Sets completos</p>
+        <h2 id="streams-title">Archivo de streams y directos publicados</h2>
+        <p class="section-copy">
+          Aquí aparecen los streams del canal de YouTube para ver sesiones más largas, transición,
+          selección musical y energía sostenida.
+        </p>
+
+        {
+          streams.length > 0 ? (
+            <>
+              <div class="streams">
+                {featuredStreams.map((stream, index) => (
+                  <StreamCard stream={stream} index={index + 1} isHero={index === 0} />
+                ))}
+              </div>
+
+              {
+                extraStreams.length > 0 && (
+                  <details class="streams-more">
+                    <summary class="streams-toggle">Ver más streams ({streams.length})</summary>
+                    <div class="streams">
+                      {extraStreams.map((stream, index) => (
+                        <StreamCard stream={stream} index={index + 5} />
+                      ))}
+                    </div>
+                  </details>
+                )
+              }
+            </>
+          ) : (
+            <div class="empty-state">
+              <strong>Todavía no hay streams archivados en esta fuente.</strong>
+              <p>
+                Cuando el canal publique o archive nuevos directos, aparecerán aquí embebidos
+                automáticamente.
+              </p>
+            </div>
+          )
+        }
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="latest-title">
+        <p class="side-kicker">Último directo</p>
+        <h2 id="latest-title">Lo más reciente del canal</h2>
+        {
+          latestStream ? (
+            <div class="latest">
+              <strong>{latestStream.title}</strong>
+              <span>{latestStream.published_text} · {latestStream.duration || latestStream.status}</span>
+            </div>
+          ) : (
+            <p class="side-note">Todavía no hay streams publicados para mostrar aquí.</p>
+          )
+        }
+      </section>
+
+      <section class="side-card" aria-labelledby="stats-title">
+        <p class="side-kicker">Canal</p>
+        <h2 id="stats-title">Contexto rápido de YouTube</h2>
+        <div class="stats">
+          <span class="stat">{formatCompactNumber(profile.subscribers)} suscriptores</span>
+          <span class="stat">{streams.length} streams</span>
+          <span class="stat">{profile.videos} vídeos</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="fit-title">
+        <p class="side-kicker">Cómo usar esta página</p>
+        <h2 id="fit-title">Reels para impactos cortos, streams para sets completos</h2>
+        <p>
+          Si quieres ver el trabajo en formato largo, esta es la ruta. Si quieres pasar a la
+          conversación comercial, booking sigue separado y listo.
+        </p>
+
+        <div class="facts" aria-label="Qué enseña esta página">
+          <div class="fact">
+            <strong>Formato</strong>
+            <span>Sesiones largas y directos archivados</span>
+          </div>
+          <div class="fact">
+            <strong>Plataforma</strong>
+            <span>YouTube integrado dentro de la web</span>
+          </div>
+        </div>
+
+        <div class="side-stack">
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
+          <a class="side-link" href="/reels/">Ver reels ↗</a>
+          <a class="side-link" href="/events/">Ver events ↗</a>
+          <a class="side-link" href="https://www.youtube.com/@marquesedition/streams" target="_blank" rel="noopener noreferrer">Abrir streams en YouTube ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <p class="status-copy">
+    {streams.length} streams · actualizado {formatUpdated} ·
+    <a href="https://www.youtube.com/@marquesedition/streams" target="_blank" rel="noopener noreferrer">abrir canal ↗</a>
+  </p>
+
+  <style>
+    .streams {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .latest,
+    .fact,
+    .empty-state {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .latest strong,
+    .fact strong,
+    .empty-state strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .latest span,
+    .fact span,
+    .empty-state p,
+    .side-note {
+      display: block;
+      margin-top: 0.24rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .stats {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .stat {
+      min-height: 38px;
+      padding: 0.6rem 0.86rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .side-stack,
+    .facts {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .streams-more {
+      margin-top: 0.95rem;
+    }
+
+    .streams-toggle {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0.9rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+        linear-gradient(155deg, rgba(24, 51, 85, 0.54), rgba(18, 12, 44, 0.78));
+      color: #f7f3ff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .streams-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .status-copy {
+      width: min(100%, 1180px);
+      margin: 0.9rem auto 0;
+      color: var(--muted-strong);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .status-copy a {
+      color: #dfe8ff;
+      text-decoration: none;
+    }
+  </style>
+</SiteLayout>

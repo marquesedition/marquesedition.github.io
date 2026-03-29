@@ -1,0 +1,213 @@
+---
+interface Stream {
+  video_id: string;
+  url: string;
+  embed_url: string;
+  title: string;
+  summary: string;
+  published_text: string;
+  view_count_text: string;
+  duration: string;
+  label: string;
+  status: string;
+  thumbnail_url: string;
+  embeddable: boolean;
+  embed_error: string;
+}
+
+interface Props {
+  stream: Stream;
+  index: number;
+  isHero?: boolean;
+}
+
+const { stream, index, isHero = false } = Astro.props;
+---
+
+<article class:list={["stream-card", isHero && "stream-card--hero"]}>
+  <div class="stream-topline">
+    <span class="stream-rank">#{index}</span>
+    <span class="stream-flag">{isHero ? "Último stream" : "Stream"}</span>
+  </div>
+  <h3>{stream.title}</h3>
+  <p class="stream-meta">
+    {stream.published_text}
+    {stream.duration && ` · ${stream.duration}`}
+  </p>
+  <p class="stream-desc">{stream.summary}</p>
+  {
+    stream.embeddable ? (
+      <div class="stream-embed">
+        <iframe
+          src={`${stream.embed_url}?rel=0`}
+          title={`Stream de YouTube: ${stream.title}`}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    ) : (
+      <a class="stream-fallback" href={stream.url} target="_blank" rel="noopener noreferrer">
+        <img src={stream.thumbnail_url} alt={`Miniatura del stream ${stream.title}`} loading="lazy" />
+        <span class="stream-fallback-copy">
+          <strong>No se puede reproducir aquí</strong>
+          <span>{stream.embed_error || "Ábrelo directamente en YouTube."}</span>
+        </span>
+      </a>
+    )
+  }
+  <div class="stream-footer">
+    <span class="stream-label">{stream.label}</span>
+    <span class="stream-views">{stream.view_count_text || stream.status}</span>
+    <a class="stream-link" href={stream.url} target="_blank" rel="noopener noreferrer">Abrir stream ↗</a>
+  </div>
+</article>
+
+<style>
+  .stream-card {
+    padding: 0.95rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+      linear-gradient(155deg, rgba(42, 30, 95, 0.48), rgba(18, 12, 44, 0.72));
+  }
+
+  .stream-card--hero {
+    border-color: rgba(69, 215, 255, 0.34);
+    background:
+      radial-gradient(360px 180px at 12% 8%, rgba(69, 215, 255, 0.14), transparent 72%),
+      radial-gradient(320px 180px at 88% 10%, rgba(255, 90, 191, 0.14), transparent 74%),
+      linear-gradient(155deg, rgba(34, 67, 118, 0.58), rgba(16, 11, 38, 0.88));
+  }
+
+  .stream-topline,
+  .stream-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .stream-topline {
+    margin-bottom: 0.65rem;
+  }
+
+  .stream-rank,
+  .stream-label,
+  .stream-views {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0.35rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fbff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+  }
+
+  .stream-rank {
+    min-width: 2rem;
+    justify-content: center;
+  }
+
+  .stream-flag {
+    color: #f6f7ff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+
+  .stream-meta {
+    margin: 0.45rem 0 0;
+    color: #c2cae2;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .stream-desc {
+    margin: 0.55rem 0 0;
+    color: #dde5fb;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .stream-embed {
+    margin-top: 0.8rem;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 18px;
+    background: rgba(7, 4, 19, 0.86);
+  }
+
+  .stream-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .stream-fallback {
+    margin-top: 0.8rem;
+    display: grid;
+    gap: 0.8rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .stream-fallback img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 4, 19, 0.86);
+  }
+
+  .stream-fallback-copy {
+    display: grid;
+    gap: 0.28rem;
+    padding: 0.88rem 0.95rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .stream-fallback-copy strong {
+    font-size: 0.92rem;
+  }
+
+  .stream-fallback-copy span {
+    color: #dde5fb;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .stream-footer {
+    margin-top: 0.8rem;
+  }
+
+  .stream-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(69, 215, 255, 0.28);
+    background: rgba(69, 215, 255, 0.08);
+    color: var(--blue);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+ </style>

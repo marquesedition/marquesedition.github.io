@@ -9,8 +9,10 @@ DIST = ROOT / "dist"
 TARGETS = [
     "index.html",
     "booking",
+    "events",
     "media-links",
     "reels",
+    "streams",
     "_astro",
     "logo.png",
     "profile.png",

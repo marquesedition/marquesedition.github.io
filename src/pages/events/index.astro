@@ -1,0 +1,249 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+import EventsBoard from "../../components/EventsBoard.astro";
+import eventsPayload from "../../data/events.json";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/reels/", label: "Reels" },
+  { href: "/streams/", label: "Streams" },
+  { href: "/media-links/", label: "Media Links" },
+  { href: "/booking/", label: "Booking" },
+];
+
+const events = eventsPayload.events;
+const residency = eventsPayload.featured_residency;
+const nextEvent = events[0];
+const monthCount = new Set(events.map((event) => event.month_id)).size;
+const formatUpdated = eventsPayload.generated_at
+  ? new Intl.DateTimeFormat("es-ES", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(new Date(eventsPayload.generated_at))
+  : "";
+---
+
+<SiteLayout
+  title="Marques Edition | Events"
+  description="Próximos eventos y fechas de Marques Edition. Dónde toca, venues y accesos directos a entradas."
+>
+  <InnerPage
+    ariaLabel="Próximos eventos de Marques Edition"
+    eyebrow="Events"
+    title="Aquí puedes ver las próximas fechas."
+    description="Una vista clara de los próximos eventos: ciudad, venue y accesos directos a entradas o información de cada fecha."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      {
+        residency && (
+          <section class="section residency-section" aria-labelledby="residency-title">
+            <p class="section-kicker">Residencia fija</p>
+            <h2 id="residency-title">{residency.schedule_label} en {residency.venue}</h2>
+            <p class="section-copy">
+              Una presencia estable en Madrid con horario claro, venue identificado y acceso
+              directo para llegar o revisar el local.
+            </p>
+
+            <div class="residency-card">
+              <div class="residency-copy">
+                <strong>{residency.title}</strong>
+                <span>{residency.time_label}</span>
+                <span>{residency.address}</span>
+              </div>
+
+              <div class="residency-actions">
+                <a class="side-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a>
+                <a class="side-link" href={residency.venue_url} target="_blank" rel="noopener noreferrer">Ver local ↗</a>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      <section class="section" aria-labelledby="events-title">
+        <p class="section-kicker">Próximas fechas</p>
+        <h2 id="events-title">Dónde toco en los próximos eventos</h2>
+        <p class="section-copy">
+          Esta sección sigue el formato de agenda por mes para que se vea rápido qué viene,
+          dónde es cada fecha y cómo entrar a tickets o info.
+        </p>
+
+        <EventsBoard
+          events={events}
+          emptyTitle="Todavía no hay fechas publicadas."
+          emptyCopy="Cuando cierres nuevas actuaciones o pegues el bloque de Bandsintown, aparecerán aquí agrupadas por mes."
+        />
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="next-title">
+        <p class="side-kicker">Siguiente fecha</p>
+        <h2 id="next-title">Lo próximo en agenda</h2>
+        {
+          nextEvent ? (
+            <div class="next-card">
+              <strong>{nextEvent.date_label}</strong>
+              <span>{nextEvent.location}</span>
+              <span>{nextEvent.venue}</span>
+            </div>
+          ) : (
+            <p class="side-note">Todavía no hay eventos cargados.</p>
+          )
+        }
+      </section>
+
+      <section class="side-card" aria-labelledby="stats-title">
+        <p class="side-kicker">Agenda</p>
+        <h2 id="stats-title">Contexto rápido</h2>
+        <div class="stats">
+          <span class="stat">{events.length} fechas</span>
+          <span class="stat">{monthCount} meses</span>
+          <span class="stat">{eventsPayload.source === "bandsintown_html" ? "Bandsintown" : "Manual"}</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="actions-title">
+        <p class="side-kicker">Siguiente paso</p>
+        <h2 id="actions-title">¿Quieres cerrar una fecha?</h2>
+        <p>
+          Si esta agenda te sirve como referencia y quieres hablar de contratación, booking está
+          listo para eso.
+        </p>
+
+        <div class="side-stack">
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
+          <a class="side-link" href="/reels/">Ver reels ↗</a>
+          <a class="side-link" href="/streams/">Ver streams ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  {
+    formatUpdated && (
+      <p class="status-copy">
+        {events.length} fechas · actualizado {formatUpdated}
+      </p>
+    )
+  }
+
+  <style>
+    .next-card,
+    .residency-card,
+    .side-note {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .residency-section {
+      margin-bottom: 1rem;
+    }
+
+    .residency-copy,
+    .residency-actions {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .residency-copy strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .residency-copy span {
+      color: var(--muted-strong);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .residency-actions {
+      margin-top: 0.9rem;
+    }
+
+    .next-card strong,
+    .next-card span {
+      display: block;
+    }
+
+    .next-card strong {
+      font-size: 0.94rem;
+    }
+
+    .next-card span,
+    .side-note {
+      margin-top: 0.24rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .stats {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .stat {
+      min-height: 38px;
+      padding: 0.6rem 0.86rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (min-width: 900px) {
+      .residency-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: end;
+      }
+
+      .residency-actions {
+        grid-template-columns: repeat(2, max-content);
+        justify-content: end;
+      }
+    }
+
+    .status-copy {
+      width: min(100%, 1180px);
+      margin: 0.9rem auto 0;
+      color: var(--muted-strong);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+  </style>
+</SiteLayout>

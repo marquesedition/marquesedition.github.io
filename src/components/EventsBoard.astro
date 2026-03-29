@@ -1,0 +1,241 @@
+---
+interface Offer {
+  label: string;
+  url: string;
+}
+
+interface EventItem {
+  month_id: string;
+  month_label?: string;
+  date_label: string;
+  artist?: string;
+  location: string;
+  venue: string;
+  offers?: Offer[];
+}
+
+interface Props {
+  events: EventItem[];
+  previewLimit?: number;
+  moreHref?: string;
+  moreLabel?: string;
+  emptyTitle?: string;
+  emptyCopy?: string;
+}
+
+const {
+  events,
+  previewLimit,
+  moreHref,
+  moreLabel = "Ver todas las fechas ↗",
+  emptyTitle = "Próximas fechas pronto.",
+  emptyCopy = "Cuando cierres nuevas fechas, aparecerán aquí agrupadas por mes.",
+} = Astro.props;
+
+const selectedEvents = typeof previewLimit === "number" ? events.slice(0, previewLimit) : events;
+
+const formatMonthLabel = (monthId: string, monthLabel?: string) => {
+  if (monthLabel) return monthLabel;
+  if (!monthId || !/^\d{4}-\d{2}$/.test(monthId)) return "Próximas fechas";
+
+  const date = new Date(`${monthId}-01T12:00:00`);
+  const label = new Intl.DateTimeFormat("es-ES", {
+    month: "long",
+    year: "numeric",
+  }).format(date);
+
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
+
+const monthMap = new Map<string, { label: string; events: EventItem[] }>();
+for (const event of selectedEvents) {
+  const key = event.month_id || "sin-mes";
+  if (!monthMap.has(key)) {
+    monthMap.set(key, {
+      label: formatMonthLabel(event.month_id, event.month_label),
+      events: [],
+    });
+  }
+  monthMap.get(key)?.events.push(event);
+}
+
+const months = Array.from(monthMap.entries()).map(([monthId, month]) => ({
+  monthId,
+  ...month,
+}));
+---
+
+{
+  months.length > 0 ? (
+    <div class="events-board">
+      {months.map((month) => (
+        <div class="events-month">
+          <h3 class="event-month-header" id={month.monthId}>
+            {month.label}
+            <span class="event-count">({month.events.length})</span>
+          </h3>
+
+          <div class="events-list">
+            {month.events.map((event) => (
+              <article class="event-item">
+                <p class="event-date">{event.date_label}</p>
+                {event.artist && <p class="event-artist">{event.artist}</p>}
+                <p class="event-location">{event.location}</p>
+                <p class="event-venue">{event.venue}</p>
+
+                {event.offers && event.offers.length > 0 && (
+                  <p class="event-offers">
+                    {event.offers.map((offer) => (
+                      <a
+                        href={offer.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="event-ticket-link"
+                      >
+                        {offer.label}
+                      </a>
+                    ))}
+                  </p>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {previewLimit && events.length > previewLimit && moreHref && (
+        <a class="events-more" href={moreHref}>{moreLabel}</a>
+      )}
+    </div>
+  ) : (
+    <div class="events-empty">
+      <strong>{emptyTitle}</strong>
+      <p>{emptyCopy}</p>
+      {moreHref && <a class="events-more" href={moreHref}>Ir a eventos ↗</a>}
+    </div>
+  )
+}
+
+<style>
+  .events-board,
+  .events-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .events-month + .events-month {
+    margin-top: 0.25rem;
+  }
+
+  .event-month-header {
+    margin: 0 0 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .event-count {
+    color: #c6d3f8;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .event-item,
+  .events-empty {
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+      linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+  }
+
+  .event-item p,
+  .events-empty p {
+    margin: 0;
+  }
+
+  .event-item p + p {
+    margin-top: 0.34rem;
+  }
+
+  .event-date {
+    color: #45d7ff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .event-artist {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  .event-location {
+    color: #eef3ff;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .event-venue {
+    color: #c2cae2;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .event-offers {
+    margin-top: 0.8rem !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .event-ticket-link,
+  .events-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(69, 215, 255, 0.28);
+    background: rgba(69, 215, 255, 0.08);
+    color: var(--blue);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .events-more {
+    justify-self: start;
+    margin-top: 0.1rem;
+  }
+
+  .events-empty strong {
+    display: block;
+    font-size: 0.98rem;
+  }
+
+  .events-empty p {
+    margin-top: 0.35rem;
+    color: var(--muted-strong);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .events-empty .events-more {
+    margin-top: 0.85rem;
+  }
+
+  @media (min-width: 900px) {
+    .events-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
