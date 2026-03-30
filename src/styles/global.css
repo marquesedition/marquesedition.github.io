@@ -26,7 +26,8 @@ body {
     radial-gradient(1200px 760px at 50% 108%, rgba(123, 69, 255, 0.27), transparent 62%),
     linear-gradient(180deg, #120533 0%, #07031b 55%, #040210 100%);
   color: var(--text);
-  padding: 1rem;
+  padding: clamp(0.9rem, 2vw, 1.25rem);
+  line-height: 1.5;
 }
 
 body::before {
