@@ -1,0 +1,239 @@
+---
+import { formatShortSpanishDate } from "../../lib/format";
+
+interface Reel {
+  url: string;
+  date: string;
+  title: string;
+  summary: string;
+  label: string;
+  thumbnail_url?: string;
+}
+
+interface Props {
+  reel: Reel;
+  index: number;
+  isHero?: boolean;
+}
+
+const { reel, index, isHero = false } = Astro.props;
+
+---
+
+<article class:list={["reel-card", isHero && "reel-card--hero"]}>
+  <div class="reel-topline">
+    <span class="reel-rank">#{index}</span>
+    <span class="reel-flag">{isHero ? "Último reel" : "Reel"}</span>
+  </div>
+  <h3>{reel.title}</h3>
+  <p class="reel-meta">{formatShortSpanishDate(reel.date)} · {reel.label}</p>
+  <p class="reel-desc">{reel.summary}</p>
+  <a class="reel-embed" href={reel.url} target="_blank" rel="noopener noreferrer">
+    {
+      reel.thumbnail_url ? (
+        <>
+          <img
+            class="reel-thumb-bg"
+            src={reel.thumbnail_url}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          />
+          <img
+            class="reel-thumb"
+            src={reel.thumbnail_url}
+            alt={`Miniatura del reel ${reel.title}`}
+            loading="lazy"
+            decoding="async"
+          />
+        </>
+      ) : (
+        <div class="reel-thumb reel-thumb--fallback"></div>
+      )
+    }
+    <span class="reel-preview-badge">Ver reel ↗</span>
+  </a>
+  <div class="reel-footer">
+    <span class="reel-label">{reel.label}</span>
+    <a class="reel-link" href={reel.url} target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
+  </div>
+</article>
+
+<style>
+  .reel-card {
+    padding: 0.95rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+      linear-gradient(155deg, rgba(42, 30, 95, 0.48), rgba(18, 12, 44, 0.72));
+  }
+
+  .reel-card--hero {
+    border-color: rgba(255, 90, 191, 0.28);
+    background:
+      radial-gradient(360px 180px at 12% 8%, rgba(255, 90, 191, 0.18), transparent 72%),
+      radial-gradient(320px 180px at 88% 10%, rgba(69, 215, 255, 0.16), transparent 74%),
+      linear-gradient(155deg, rgba(58, 34, 118, 0.58), rgba(16, 11, 38, 0.88));
+  }
+
+  .reel-topline,
+  .reel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .reel-topline {
+    margin-bottom: 0.65rem;
+  }
+
+  .reel-rank,
+  .reel-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0.35rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fbff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+  }
+
+  .reel-rank {
+    min-width: 2rem;
+    justify-content: center;
+  }
+
+  .reel-flag {
+    color: #f6f7ff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+
+  .reel-meta {
+    margin: 0.45rem 0 0;
+    color: #c2cae2;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .reel-desc {
+    margin: 0.55rem 0 0;
+    color: #dde5fb;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .reel-embed {
+    margin-top: 0.8rem;
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(220px 160px at 18% 12%, rgba(255, 90, 191, 0.18), transparent 72%),
+      radial-gradient(220px 160px at 82% 10%, rgba(69, 215, 255, 0.14), transparent 74%),
+      rgba(7, 4, 19, 0.9);
+    text-decoration: none;
+  }
+
+  .reel-thumb-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(24px) saturate(1.05);
+    transform: scale(1.06);
+    opacity: 0.36;
+  }
+
+  .reel-thumb {
+    position: relative;
+    z-index: 1;
+    width: calc(100% - 0.8rem);
+    height: calc(100% - 0.8rem);
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(5, 2, 20, 0.34);
+  }
+
+  .reel-thumb--fallback {
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(260px 180px at 18% 12%, rgba(255, 90, 191, 0.24), transparent 72%),
+      radial-gradient(260px 180px at 82% 10%, rgba(69, 215, 255, 0.2), transparent 74%),
+      linear-gradient(180deg, rgba(36, 24, 85, 0.9), rgba(18, 12, 44, 0.96));
+  }
+
+  .reel-preview-badge {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(8, 5, 22, 0.72);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    backdrop-filter: blur(12px);
+  }
+
+  .reel-footer {
+    margin-top: 0.8rem;
+  }
+
+  .reel-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(69, 215, 255, 0.28);
+    background: rgba(69, 215, 255, 0.08);
+    color: var(--blue);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  @media (max-width: 560px) {
+    .reel-card {
+      padding: 0.85rem;
+    }
+
+    .reel-embed {
+      border-radius: 16px;
+    }
+
+    .reel-thumb {
+      width: calc(100% - 0.7rem);
+      height: calc(100% - 0.7rem);
+      border-radius: 12px;
+    }
+  }
+</style>

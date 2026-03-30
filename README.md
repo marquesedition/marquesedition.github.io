@@ -3,16 +3,26 @@
 Web oficial de Marques Edition migrada a Astro.
 
 ## Estructura
+
+### Código fuente
 - `src/pages/`: rutas Astro
-- `src/components/`: componentes reutilizables
-- `src/data/reels.json`: fuente de datos de reels
-- `src/data/streams.json`: fuente de datos de streams de YouTube
-- `src/data/events.json`: fuente de datos de próximos eventos
+- `src/components/layout/`: estructura compartida de páginas
+- `src/components/content/`: tarjetas y bloques de contenido
+- `src/config/`: configuración compartida, como la navegación
+- `src/lib/`: utilidades pequeñas de formato
+- `src/data/`: fuentes JSON internas de reels, streams y eventos
 - `public/`: assets públicos
-- `scripts/update_reels.py`: refresca datos desde Instagram
-- `scripts/update_streams.py`: refresca datos desde YouTube
-- `scripts/import_bandsintown_events.py`: importa un bloque HTML de Bandsintown a eventos
-- `scripts/publish_dist.py`: sincroniza la build estática con la raíz del repo
+
+### Scripts
+- `scripts/content/update_reels.py`: refresca datos desde Instagram
+- `scripts/content/update_streams.py`: refresca datos desde YouTube
+- `scripts/content/update_events.py`: genera la agenda recurrente
+- `scripts/events/import_bandsintown_events.py`: importa un bloque HTML de Bandsintown a eventos
+
+### Publicación
+- GitHub Pages se despliega desde `dist/` mediante Actions
+- la fuente real está en `src/`, `public/` y `scripts/`
+- si va a editar algo, empiece siempre por ahí
 
 ## Desarrollo local
 ```bash
@@ -30,17 +40,17 @@ http://localhost:5500
 npm run build:site
 ```
 
-Esto genera `dist/` con Astro y luego copia la salida publicada a la raíz para mantener GitHub Pages funcionando desde `main`.
+Esto genera `dist/` con Astro. La publicación de GitHub Pages se hace desde GitHub Actions.
 
 ## Actualizar reels
 ```bash
-python3 scripts/update_reels.py
+python3 scripts/content/update_reels.py
 npm run build:site
 ```
 
 ## Actualizar streams
 ```bash
-python3 scripts/update_streams.py
+python3 scripts/content/update_streams.py
 npm run build:site
 ```
 
@@ -52,7 +62,7 @@ npm run build:site
 
 ## Actualizar agenda recurrente
 ```bash
-python3 scripts/update_events.py
+python3 scripts/content/update_events.py
 npm run build:site
 ```
 

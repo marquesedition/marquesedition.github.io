@@ -1,19 +1,13 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import InnerPage from "../../components/InnerPage.astro";
-import Footer from "../../components/Footer.astro";
-import StreamCard from "../../components/StreamCard.astro";
+import InnerPage from "../../components/layout/InnerPage.astro";
+import Footer from "../../components/layout/Footer.astro";
+import StreamCard from "../../components/content/StreamCard.astro";
 import streamsPayload from "../../data/streams.json";
+import { getInnerPageNav } from "../../config/navigation";
+import { formatCompactNumber, formatShortSpanishDate } from "../../lib/format";
 
-const navItems = [
-  { href: "/", label: "Inicio" },
-  { href: "/about/", label: "About" },
-  { href: "/reels/", label: "Reels" },
-  { href: "/sets/", label: "Sets" },
-  { href: "/events/", label: "Events" },
-  { href: "/media-links/", label: "Media Links" },
-  { href: "/booking/", label: "Booking" },
-];
+const navItems = getInnerPageNav("/streams/");
 
 const remixPlaylistUrl = "https://www.youtube.com/playlist?list=PL7GdsPwT1udakuOCTCLXEI8NliXaAm0PA";
 
@@ -23,19 +17,7 @@ const featuredStreams = streams.slice(0, 4);
 const extraStreams = streams.slice(4);
 const latestStream = streams[0];
 
-const formatCompactNumber = (value: number) => {
-  if (value >= 1000) {
-    const whole = value / 1000;
-    return Number.isInteger(whole) ? `${whole.toFixed(0)}k` : `${whole.toFixed(1).replace(".", ",")}k`;
-  }
-  return String(value);
-};
-
-const formatUpdated = new Intl.DateTimeFormat("es-ES", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-}).format(new Date(streamsPayload.generated_at));
+const formatUpdated = formatShortSpanishDate(new Date(streamsPayload.generated_at));
 ---
 
 <SiteLayout

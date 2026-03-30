@@ -1,17 +1,10 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import InnerPage from "../../components/InnerPage.astro";
-import Footer from "../../components/Footer.astro";
+import InnerPage from "../../components/layout/InnerPage.astro";
+import Footer from "../../components/layout/Footer.astro";
+import { getInnerPageNav } from "../../config/navigation";
 
-const navItems = [
-  { href: "/", label: "Inicio" },
-  { href: "/reels/", label: "Reels" },
-  { href: "/streams/", label: "Remixes" },
-  { href: "/sets/", label: "Sets" },
-  { href: "/events/", label: "Events" },
-  { href: "/media-links/", label: "Media Links" },
-  { href: "/booking/", label: "Booking" },
-];
+const navItems = getInnerPageNav("/about/");
 const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "Person",

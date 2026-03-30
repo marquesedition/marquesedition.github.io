@@ -1,10 +1,11 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import EventsBoard from "../components/EventsBoard.astro";
-import Footer from "../components/Footer.astro";
+import EventsBoard from "../components/content/EventsBoard.astro";
+import Footer from "../components/layout/Footer.astro";
 import eventsPayload from "../data/events.json";
 import reelsPayload from "../data/reels.json";
 import streamsPayload from "../data/streams.json";
+import { formatCompactNumber, formatShortSpanishDate } from "../lib/format";
 
 const latestReel = reelsPayload.reels[0];
 const profile = reelsPayload.profile;
@@ -32,22 +33,6 @@ const homepageSchema = {
   ],
 };
 
-const formatCompactNumber = (value: number) => {
-  if (value >= 1000) {
-    const whole = value / 1000;
-    return Number.isInteger(whole) ? `${whole.toFixed(0)}k` : `${whole.toFixed(1).replace(".", ",")}k`;
-  }
-  return String(value);
-};
-
-const formatDisplayDate = (dateValue: string) => {
-  const date = new Date(`${dateValue}T12:00:00`);
-  return new Intl.DateTimeFormat("es-ES", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-};
 ---
 
 <SiteLayout
@@ -178,7 +163,7 @@ const formatDisplayDate = (dateValue: string) => {
           >
             <p class="latest-label">Último reel</p>
             <p class="latest-title">{latestReel.title}</p>
-            <p class="latest-meta">{formatDisplayDate(latestReel.date)} · {latestReel.label}</p>
+            <p class="latest-meta">{formatShortSpanishDate(latestReel.date)} · {latestReel.label}</p>
           </a>
         </aside>
       </div>

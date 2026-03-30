@@ -1,19 +1,13 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import InnerPage from "../../components/InnerPage.astro";
-import Footer from "../../components/Footer.astro";
-import ReelCard from "../../components/ReelCard.astro";
+import InnerPage from "../../components/layout/InnerPage.astro";
+import Footer from "../../components/layout/Footer.astro";
+import ReelCard from "../../components/content/ReelCard.astro";
 import reelsPayload from "../../data/reels.json";
+import { getInnerPageNav } from "../../config/navigation";
+import { formatShortSpanishDate } from "../../lib/format";
 
-const navItems = [
-  { href: "/", label: "Inicio" },
-  { href: "/about/", label: "About" },
-  { href: "/streams/", label: "Remixes" },
-  { href: "/sets/", label: "Sets" },
-  { href: "/events/", label: "Events" },
-  { href: "/media-links/", label: "Media Links" },
-  { href: "/booking/", label: "Booking" },
-];
+const navItems = getInnerPageNav("/reels/");
 
 const reels = reelsPayload.reels;
 const profile = reelsPayload.profile;
@@ -21,20 +15,7 @@ const latestReel = reels[0];
 const featuredReels = reels.slice(1, 5);
 const extraReels = reels.slice(5);
 
-const formatDisplayDate = (dateValue: string) => {
-  const date = new Date(`${dateValue}T12:00:00`);
-  return new Intl.DateTimeFormat("es-ES", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-};
-
-const formatUpdated = new Intl.DateTimeFormat("es-ES", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-}).format(new Date(reelsPayload.generated_at));
+const formatUpdated = formatShortSpanishDate(new Date(reelsPayload.generated_at));
 ---
 
 <SiteLayout
@@ -68,7 +49,7 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
           <div class="hero-copy">
             <div class="hero-chip-row" aria-label="Resumen del reel">
               <span class="hero-chip">Último reel</span>
-              <span class="hero-chip">{formatDisplayDate(latestReel.date)}</span>
+              <span class="hero-chip">{formatShortSpanishDate(latestReel.date)}</span>
               <span class="hero-chip">{latestReel.label}</span>
             </div>
 

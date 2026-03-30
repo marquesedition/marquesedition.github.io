@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  update-reels:
+  update-content:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,20 +32,20 @@ jobs:
 
       - name: Refresh reels and streams data
         run: |
-          python3 scripts/update_events.py
-          python3 scripts/update_reels.py
-          python3 scripts/update_streams.py
-          npm run build:site
+          python3 scripts/content/update_events.py
+          python3 scripts/content/update_reels.py
+          python3 scripts/content/update_streams.py
+          npm run build
 
       - name: Commit changes if needed
         run: |
-          if git diff --quiet -- src/data/reels.json src/data/streams.json src/data/events.json media-links/reels.json media-links/streams.json media-links/events.json index.html booking events media-links reels streams _astro logo.png profile.png CNAME .nojekyll; then
+          if git diff --quiet -- src/data/reels.json src/data/streams.json src/data/events.json public/reel-thumbs; then
             echo "No content changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/reels.json src/data/streams.json src/data/events.json media-links/reels.json media-links/streams.json media-links/events.json index.html booking events media-links reels streams _astro logo.png profile.png CNAME .nojekyll
+          git add src/data/reels.json src/data/streams.json src/data/events.json public/reel-thumbs
           git commit -m "chore: update social content"
           git push
