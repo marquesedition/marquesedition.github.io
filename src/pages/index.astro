@@ -9,6 +9,7 @@ import streamsPayload from "../data/streams.json";
 const latestReel = reelsPayload.reels[0];
 const profile = reelsPayload.profile;
 const residency = eventsPayload.featured_residency;
+const publishedSets = 1;
 const homepageSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -78,9 +79,15 @@ const formatDisplayDate = (dateValue: string) => {
         </a>
 
         <a class="quick-card" href="/streams/">
-          <span class="quick-card-kicker">Sets largos</span>
-          <strong>Streams</strong>
-          <span class="quick-card-copy">Directos completos de YouTube sin salir de la web.</span>
+          <span class="quick-card-kicker">Material propio</span>
+          <strong>Remixes</strong>
+          <span class="quick-card-copy">Playlist de remixes y edits publicados en YouTube.</span>
+        </a>
+
+        <a class="quick-card" href="/sets/">
+          <span class="quick-card-kicker">Sesión larga</span>
+          <strong>Sets</strong>
+          <span class="quick-card-copy">Ya puedes escuchar un set largo dentro de la web.</span>
         </a>
 
         <a class="quick-card quick-card-primary" href="/booking/">
@@ -124,7 +131,8 @@ const formatDisplayDate = (dateValue: string) => {
                 <a class="cta" href="/booking/">Contrataciones ↗</a>
                 <a class="cta-secondary" href="/about/">About ↗</a>
                 <a class="cta-secondary" href="/reels/">Ver reels ↗</a>
-                <a class="cta-secondary" href="/streams/">Ver streams ↗</a>
+                <a class="cta-secondary" href="/streams/">Ver remixes ↗</a>
+                <a class="cta-secondary" href="/sets/">Escuchar set ↗</a>
                 <a class="cta-secondary" href="/media-links/">Media links ↗</a>
               </div>
             </div>
@@ -135,9 +143,9 @@ const formatDisplayDate = (dateValue: string) => {
           <p class="panel-kicker">Cabina abierta</p>
           <h2 class="panel-title">Aquí está todo lo que necesitas para entender cómo trabajo.</h2>
           <p class="panel-copy">
-            Reels para ver momentos concretos, streams para ver sets largos, enlaces oficiales por
-            un lado y una ruta de booking aparte para hablar conmigo sobre clubs, marcas, bodas y
-            eventos privados.
+            Reels para ver cabina real, remixes para escuchar material propio y sets para escuchar
+            sesiones largas dentro de la web, enlaces oficiales por un lado y una ruta de booking
+            aparte para hablar conmigo sobre clubs, marcas, bodas y eventos privados.
           </p>
 
           <div class="stats" aria-label="Estadísticas">
@@ -150,12 +158,12 @@ const formatDisplayDate = (dateValue: string) => {
               <span>Reels</span>
             </div>
             <div class="stat">
-              <strong>{profile.posts}</strong>
-              <span>Posts</span>
+              <strong>{streamsPayload.streams.length}</strong>
+              <span>Remixes</span>
             </div>
             <div class="stat">
-              <strong>{streamsPayload.streams.length}</strong>
-              <span>Streams</span>
+              <strong>{publishedSets}</strong>
+              <span>Sets</span>
             </div>
           </div>
 
@@ -739,7 +747,7 @@ const formatDisplayDate = (dateValue: string) => {
       }
 
       .quick-nav-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
       }
 
       .quick-card {

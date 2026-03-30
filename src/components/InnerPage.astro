@@ -186,6 +186,12 @@ const { ariaLabel, eyebrow, title, description, navItems } = Astro.props;
       linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
   }
 
+  :global(.side-card) {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+  }
+
   :global(.section h2),
   :global(.side-card h2) {
     margin: 0.35rem 0 0;
@@ -199,6 +205,19 @@ const { ariaLabel, eyebrow, title, description, navItems } = Astro.props;
     color: var(--muted-strong);
     font-size: 0.88rem;
     line-height: 1.55;
+  }
+
+  :global(.side-card h2),
+  :global(.side-card p),
+  :global(.side-card .facts),
+  :global(.side-card .side-stack),
+  :global(.side-card .stats),
+  :global(.side-card .latest),
+  :global(.side-card .fact),
+  :global(.side-card .next-card),
+  :global(.side-card .brief-points),
+  :global(.side-card .mini-grid) {
+    margin-top: 0;
   }
 
   :global(.facts),
@@ -276,6 +295,10 @@ const { ariaLabel, eyebrow, title, description, navItems } = Astro.props;
     :global(.side-card) {
       padding: 0.95rem;
       border-radius: 20px;
+    }
+
+    :global(.side-card) {
+      gap: 0.7rem;
     }
 
     :global(.section h2),

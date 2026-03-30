@@ -8,7 +8,8 @@ import reelsPayload from "../../data/reels.json";
 const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/about/", label: "About" },
-  { href: "/streams/", label: "Streams" },
+  { href: "/streams/", label: "Remixes" },
+  { href: "/sets/", label: "Sets" },
   { href: "/events/", label: "Events" },
   { href: "/media-links/", label: "Media Links" },
   { href: "/booking/", label: "Booking" },
@@ -16,9 +17,9 @@ const navItems = [
 
 const reels = reelsPayload.reels;
 const profile = reelsPayload.profile;
-const featuredReels = reels.slice(0, 4);
-const extraReels = reels.slice(4);
 const latestReel = reels[0];
+const featuredReels = reels.slice(1, 5);
+const extraReels = reels.slice(5);
 
 const formatDisplayDate = (dateValue: string) => {
   const date = new Date(`${dateValue}T12:00:00`);
@@ -38,26 +39,66 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
 
 <SiteLayout
   title="Marques Edition | Reels"
-  description="Una muestra directa del trabajo de Marques Edition en cabina. Reels de clubs, bodas, residencia y pista real."
+  description="Una selección de reels de Marques Edition en cabina. Clubs, bodas, residencia y momentos reales de pista."
 >
   <InnerPage
     ariaLabel="Reels de Marques Edition"
     eyebrow="Reels"
-    title="Aquí puedes ver un poco de mi trabajo en cabina."
-    description="Clubs, residencia, bodas y momentos reales de pista. Esta página está para enseñar energía, selección y cómo se vive la sesión cuando estoy pinchando."
+    title="Aquí puedes ver cómo se vive una sesión conmigo en cabina."
+    description="He reunido algunos reels de clubs, bodas y noches en Pensión Mimosas para que se entienda rápido mi forma de pinchar, leer la pista y mover una sala."
     navItems={navItems}
   >
     <Fragment slot="main">
-      <section class="section" aria-labelledby="reels-title">
-        <p class="section-kicker">Trabajo real</p>
-        <h2 id="reels-title">Clips recientes de clubs, bodas y residencia</h2>
+      <section class="section hero-reel" aria-labelledby="hero-reel-title">
+        <p class="section-kicker">Reel destacado</p>
+        <h2 id="hero-reel-title">Un vistazo rápido a cómo se siente una noche en cabina</h2>
         <p class="section-copy">
-          Una selección directa del perfil para que se vea rápido el tipo de energía, la lectura de
-          pista y el rango de formatos en los que trabajo.
+          Si quiere entender rápido el tipo de energía que llevo a una sala, empiece por aquí. Es
+          una muestra corta, pero bastante fiel, del ambiente que busco cuando la pista ya está
+          arriba.
+        </p>
+
+        <div class="hero-reel-grid">
+          <a class="hero-media" href={latestReel.url} target="_blank" rel="noopener noreferrer">
+            <img class="hero-media-bg" src={latestReel.thumbnail_url} alt="" loading="eager" decoding="async" aria-hidden="true" />
+            <img class="hero-media-image" src={latestReel.thumbnail_url} alt={`Miniatura del reel ${latestReel.title}`} loading="eager" decoding="async" />
+            <span class="hero-media-badge">Ver reel ↗</span>
+          </a>
+
+          <div class="hero-copy">
+            <div class="hero-chip-row" aria-label="Resumen del reel">
+              <span class="hero-chip">Último reel</span>
+              <span class="hero-chip">{formatDisplayDate(latestReel.date)}</span>
+              <span class="hero-chip">{latestReel.label}</span>
+            </div>
+
+            <h3 class="hero-title">{latestReel.title}</h3>
+            <p class="hero-text">{latestReel.summary}</p>
+
+            <div class="hero-stats" aria-label="Resumen del perfil">
+              <span class="hero-stat">{profile.followers} seguidores</span>
+              <span class="hero-stat">{reels.length} reels</span>
+              <span class="hero-stat">Afro / Latin / Open format</span>
+            </div>
+
+            <div class="hero-actions">
+              <a class="hero-link hero-link--primary" href="/booking/">Hablar de booking ↗</a>
+              <a class="hero-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="reels-title">
+        <p class="section-kicker">Más reels</p>
+        <h2 id="reels-title">Más momentos recientes</h2>
+        <p class="section-copy">
+          Aquí puede ver más situaciones reales: residencia, clubs, bodas y cambios de energía en
+          distintos contextos.
         </p>
 
         <div class="reels">
-          {featuredReels.map((reel, index) => <ReelCard reel={reel} index={index + 1} isHero={index === 0} />)}
+          {featuredReels.map((reel, index) => <ReelCard reel={reel} index={index + 2} />)}
         </div>
 
         {
@@ -65,7 +106,7 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
             <details class="reels-more" id="reels-more">
               <summary class="reels-toggle">Ver más reels ({reels.length})</summary>
               <div class="reels">
-                {extraReels.map((reel, index) => <ReelCard reel={reel} index={index + 5} />)}
+                {extraReels.map((reel, index) => <ReelCard reel={reel} index={index + 6} />)}
               </div>
             </details>
           )
@@ -74,48 +115,30 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
     </Fragment>
 
     <Fragment slot="sidebar">
-      <section class="side-card" aria-labelledby="latest-title">
-        <p class="side-kicker">Último movimiento</p>
-        <h2 id="latest-title">Lo último que he subido</h2>
-        <div class="latest">
-          <strong>{latestReel.title}</strong>
-          <span>{formatDisplayDate(latestReel.date)} · {latestReel.label}</span>
-        </div>
-      </section>
-
-      <section class="side-card" aria-labelledby="stats-title">
-        <p class="side-kicker">Señales</p>
-        <h2 id="stats-title">Un poco de contexto del perfil</h2>
-        <div class="stats">
-          <span class="stat">{profile.followers} seguidores</span>
-          <span class="stat">{reels.length} reels</span>
-          <span class="stat">{profile.posts} posts</span>
-        </div>
-      </section>
-
-      <section class="side-card" aria-labelledby="fit-title">
-        <p class="side-kicker">Qué enseña esta página</p>
-        <h2 id="fit-title">Una muestra corta pero clara</h2>
+      <section class="side-card" aria-labelledby="summary-title">
+        <p class="side-kicker">Resumen</p>
+        <h2 id="summary-title">Si le encaja esta línea, siga por aquí</h2>
         <p>
-          Si después de ver estos reels quieres pasar a la siguiente conversación, tienes la ruta
-          de booking separada y lista.
-        </p>
+          Esta página está pensada para enseñar cabina y ambiente. Si quiere escuchar más material
+          o hablar de una fecha, estas son las rutas más útiles.
+        </div>
 
-        <div class="facts" aria-label="Siguiente paso">
+        <div class="facts" aria-label="Dónde encaja mejor">
           <div class="fact">
-            <strong>Cabina</strong>
+            <strong>Encaje</strong>
             <span>Clubs, privados, bodas y residencia</span>
           </div>
           <div class="fact">
-            <strong>Estilo</strong>
-            <span>Afro / Latin / Open format</span>
+            <strong>Sonido</strong>
+            <span>Afro, latin, reggaetón y open format</span>
           </div>
         </div>
 
         <div class="side-stack">
-          <a class="side-link" href="/booking/">Ir a booking ↗</a>
-          <a class="side-link" href="/streams/">Ver streams ↗</a>
-          <a class="side-link" href="/events/">Ver events ↗</a>
+          <a class="side-link side-link--primary" href="/booking/">Hablar de booking ↗</a>
+          <a class="side-link" href="/streams/">Escuchar remixes ↗</a>
+          <a class="side-link" href="/sets/">Escuchar sets ↗</a>
+          <a class="side-link" href="/events/">Ver agenda ↗</a>
           <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
         </div>
       </section>
@@ -128,68 +151,94 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
     {reels.length} reels · actualizado {formatUpdated} ·
     <a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">abrir perfil ↗</a>
   </p>
-
-  <script is:inline async src="https://www.instagram.com/embed.js"></script>
-  <script is:inline>
-    // @ts-nocheck
-    function processInstagramEmbeds() {
-      if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function") {
-        window.instgrm.Embeds.process();
-      }
-    }
-
-    function queueInstagramEmbeds() {
-      processInstagramEmbeds();
-      window.setTimeout(processInstagramEmbeds, 250);
-      window.setTimeout(processInstagramEmbeds, 1200);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      queueInstagramEmbeds();
-      document.querySelectorAll("#reels-more").forEach((details) => {
-        details.addEventListener("toggle", () => {
-          if (details.open) queueInstagramEmbeds();
-        });
-      });
-    });
-  </script>
-
   <style>
-    .reels {
-      margin-top: 0.9rem;
+    .hero-reel {
+      overflow: hidden;
+    }
+
+    .hero-reel-grid {
+      margin-top: 1rem;
       display: grid;
+      gap: 0.95rem;
+    }
+
+    .hero-media {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        radial-gradient(260px 180px at 18% 12%, rgba(255, 90, 191, 0.18), transparent 72%),
+        radial-gradient(260px 180px at 82% 10%, rgba(69, 215, 255, 0.14), transparent 74%),
+        rgba(7, 4, 19, 0.9);
+      text-decoration: none;
+    }
+
+    .hero-media-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(26px) saturate(1.05);
+      transform: scale(1.08);
+      opacity: 0.38;
+    }
+
+    .hero-media-image {
+      position: relative;
+      z-index: 1;
+      width: calc(100% - 1rem);
+      height: calc(100% - 1rem);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(5, 2, 20, 0.32);
+    }
+
+    .hero-media-badge {
+      position: absolute;
+      right: 0.85rem;
+      bottom: 0.85rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0.55rem 0.82rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 5, 22, 0.72);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-copy {
+      display: grid;
+      align-content: start;
       gap: 0.85rem;
     }
 
-    .latest,
-    .fact {
-      padding: 0.95rem;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .latest strong,
-    .fact strong {
-      display: block;
-      font-size: 0.95rem;
-    }
-
-    .latest span,
-    .fact span {
-      display: block;
-      margin-top: 0.24rem;
-      color: var(--muted-strong);
-      font-size: 0.82rem;
-      line-height: 1.45;
-    }
-
-    .stats {
-      margin-top: 0.9rem;
+    .hero-chip-row,
+    .hero-stats {
       display: flex;
       flex-wrap: wrap;
       gap: 0.55rem;
     }
 
+    .hero-chip,
+    .hero-stat,
+    .reels {
+      margin-top: 0.9rem;
+    }
+
+    .hero-chip,
+    .hero-stat,
     .stat {
       min-height: 38px;
       padding: 0.6rem 0.86rem;
@@ -199,6 +248,88 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
       color: #fff;
       font-size: 0.8rem;
       font-weight: 800;
+    }
+
+    .hero-chip {
+      min-height: 34px;
+      padding: 0.45rem 0.74rem;
+      font-size: 0.75rem;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.24;
+    }
+
+    .hero-text {
+      margin: 0;
+      color: var(--muted-strong);
+      font-size: 0.92rem;
+      line-height: 1.62;
+    }
+
+    .hero-actions {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .hero-link--primary,
+    .side-link--primary {
+      color: #160b34;
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+    }
+
+    .reels {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 960px) {
+      .hero-reel-grid {
+        grid-template-columns: minmax(300px, 0.92fr) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .reels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+    }
+
+    .fact {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .fact span {
+      display: block;
+      margin-top: 0.24rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
     }
 
     .side-stack,
@@ -260,6 +391,18 @@ const formatUpdated = new Intl.DateTimeFormat("es-ES", {
     .status-copy a {
       color: #dfe8ff;
       text-decoration: none;
+    }
+
+    @media (max-width: 560px) {
+      .hero-media {
+        border-radius: 18px;
+      }
+
+      .hero-media-image {
+        width: calc(100% - 0.7rem);
+        height: calc(100% - 0.7rem);
+        border-radius: 14px;
+      }
     }
   </style>
 </SiteLayout>

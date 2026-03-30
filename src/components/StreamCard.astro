@@ -27,7 +27,7 @@ const { stream, index, isHero = false } = Astro.props;
 <article class:list={["stream-card", isHero && "stream-card--hero"]}>
   <div class="stream-topline">
     <span class="stream-rank">#{index}</span>
-    <span class="stream-flag">{isHero ? "Último stream" : "Stream"}</span>
+    <span class="stream-flag">{isHero ? "Destacado" : stream.label}</span>
   </div>
   <h3>{stream.title}</h3>
   <p class="stream-meta">
@@ -60,7 +60,7 @@ const { stream, index, isHero = false } = Astro.props;
   <div class="stream-footer">
     <span class="stream-label">{stream.label}</span>
     <span class="stream-views">{stream.view_count_text || stream.status}</span>
-    <a class="stream-link" href={stream.url} target="_blank" rel="noopener noreferrer">Abrir stream ↗</a>
+    <a class="stream-link" href={stream.url} target="_blank" rel="noopener noreferrer">Abrir en YouTube ↗</a>
   </div>
 </article>
 

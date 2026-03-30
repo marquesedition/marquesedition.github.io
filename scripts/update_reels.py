@@ -14,6 +14,7 @@ PROFILE_URL = f"https://www.instagram.com/{PROFILE_USERNAME}/reels/"
 API_URL = f"https://www.instagram.com/api/v1/users/web_profile_info/?username={PROFILE_USERNAME}"
 OUTPUT_PATH = Path("media-links/reels.json")
 SOURCE_DATA_PATH = Path("src/data/reels.json")
+THUMBNAILS_DIR = Path("public/reel-thumbs")
 
 
 def fetch_profile_payload():
@@ -88,6 +89,38 @@ def derive_label(caption):
     return "Reel"
 
 
+def fetch_binary(url):
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://www.instagram.com/",
+        },
+    )
+
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return response.read()
+
+
+def clear_existing_thumbnails():
+    THUMBNAILS_DIR.mkdir(parents=True, exist_ok=True)
+    for path in THUMBNAILS_DIR.glob("*"):
+        if path.is_file():
+            path.unlink()
+
+
+def store_thumbnail(shortcode, thumbnail_url):
+    if not thumbnail_url:
+        return ""
+
+    target = THUMBNAILS_DIR / f"{shortcode}.jpg"
+    try:
+        target.write_bytes(fetch_binary(thumbnail_url))
+        return f"/reel-thumbs/{target.name}"
+    except Exception:
+        return ""
+
+
 def reel_from_node(node):
     caption_edges = node.get("edge_media_to_caption", {}).get("edges", [])
     caption = ""
@@ -98,12 +131,15 @@ def reel_from_node(node):
     shortcode = node["shortcode"]
     timestamp = node["taken_at_timestamp"]
     date = datetime.fromtimestamp(timestamp, tz=timezone.utc).date().isoformat()
+    thumbnail_url = node.get("thumbnail_src") or node.get("display_url", "")
 
     return {
         "shortcode": shortcode,
         "url": f"https://www.instagram.com/reel/{shortcode}/",
         "date": date,
         "timestamp": timestamp,
+        "thumbnail_url": store_thumbnail(shortcode, thumbnail_url),
+        "view_count": node.get("video_view_count", 0),
         "title": derive_title(lines, shortcode),
         "summary": derive_summary(lines),
         "label": derive_label(caption),
@@ -141,6 +177,7 @@ def build_reels_payload(profile_payload):
 
 def main():
     payload = fetch_profile_payload()
+    clear_existing_thumbnails()
     reels_payload = build_reels_payload(payload)
 
     payload_json = json.dumps(reels_payload, ensure_ascii=False, indent=2) + "\n"

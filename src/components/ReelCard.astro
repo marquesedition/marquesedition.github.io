@@ -5,6 +5,7 @@ interface Reel {
   title: string;
   summary: string;
   label: string;
+  thumbnail_url?: string;
 }
 
 interface Props {
@@ -33,16 +34,32 @@ const formatDisplayDate = (dateValue: string) => {
   <h3>{reel.title}</h3>
   <p class="reel-meta">{formatDisplayDate(reel.date)} · {reel.label}</p>
   <p class="reel-desc">{reel.summary}</p>
-  <div class="reel-embed">
-    <blockquote
-      class="instagram-media"
-      data-instgrm-permalink={reel.url}
-      data-instgrm-version="14"
-      style="background:#120b31; border:0; margin:0; padding:0; width:100%;"
-    >
-      <a href={reel.url} target="_blank" rel="noopener noreferrer">Ver reel en Instagram</a>
-    </blockquote>
-  </div>
+  <a class="reel-embed" href={reel.url} target="_blank" rel="noopener noreferrer">
+    {
+      reel.thumbnail_url ? (
+        <>
+          <img
+            class="reel-thumb-bg"
+            src={reel.thumbnail_url}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          />
+          <img
+            class="reel-thumb"
+            src={reel.thumbnail_url}
+            alt={`Miniatura del reel ${reel.title}`}
+            loading="lazy"
+            decoding="async"
+          />
+        </>
+      ) : (
+        <div class="reel-thumb reel-thumb--fallback"></div>
+      )
+    }
+    <span class="reel-preview-badge">Ver reel ↗</span>
+  </a>
   <div class="reel-footer">
     <span class="reel-label">{reel.label}</span>
     <a class="reel-link" href={reel.url} target="_blank" rel="noopener noreferrer">Abrir reel ↗</a>
@@ -128,15 +145,67 @@ const formatDisplayDate = (dateValue: string) => {
 
   .reel-embed {
     margin-top: 0.8rem;
-    min-height: 440px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(220px 160px at 18% 12%, rgba(255, 90, 191, 0.18), transparent 72%),
+      radial-gradient(220px 160px at 82% 10%, rgba(69, 215, 255, 0.14), transparent 74%),
+      rgba(7, 4, 19, 0.9);
+    text-decoration: none;
   }
 
-  .reel-embed :global(.instagram-media) {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    border-radius: 18px !important;
+  .reel-thumb-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(24px) saturate(1.05);
+    transform: scale(1.06);
+    opacity: 0.36;
+  }
+
+  .reel-thumb {
+    position: relative;
+    z-index: 1;
+    width: calc(100% - 0.8rem);
+    height: calc(100% - 0.8rem);
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(5, 2, 20, 0.34);
+  }
+
+  .reel-thumb--fallback {
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(260px 180px at 18% 12%, rgba(255, 90, 191, 0.24), transparent 72%),
+      radial-gradient(260px 180px at 82% 10%, rgba(69, 215, 255, 0.2), transparent 74%),
+      linear-gradient(180deg, rgba(36, 24, 85, 0.9), rgba(18, 12, 44, 0.96));
+  }
+
+  .reel-preview-badge {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(8, 5, 22, 0.72);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    backdrop-filter: blur(12px);
   }
 
   .reel-footer {
@@ -156,5 +225,21 @@ const formatDisplayDate = (dateValue: string) => {
     font-size: 0.82rem;
     font-weight: 800;
     text-decoration: none;
+  }
+
+  @media (max-width: 560px) {
+    .reel-card {
+      padding: 0.85rem;
+    }
+
+    .reel-embed {
+      border-radius: 16px;
+    }
+
+    .reel-thumb {
+      width: calc(100% - 0.7rem);
+      height: calc(100% - 0.7rem);
+      border-radius: 12px;
+    }
   }
 </style>
