@@ -17,6 +17,7 @@ TARGETS = [
     "_astro",
     "logo.png",
     "profile.png",
+    "favicon.ico",
     "favicon.svg",
     "favicon-48x48.png",
     "apple-touch-icon.png",
