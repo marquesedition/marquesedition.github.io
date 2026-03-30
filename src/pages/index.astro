@@ -9,6 +9,27 @@ import streamsPayload from "../data/streams.json";
 const latestReel = reelsPayload.reels[0];
 const profile = reelsPayload.profile;
 const residency = eventsPayload.featured_residency;
+const homepageSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marques Edition",
+  url: "https://www.marquesedition.com/",
+  image: "https://www.marquesedition.com/profile.png",
+  jobTitle: "DJ en Madrid crossover",
+  description:
+    "Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Mezcla afro, latin, reggaeton y open format para clubs, bodas y eventos privados.",
+  homeLocation: {
+    "@type": "Place",
+    name: "Madrid, Spain",
+  },
+  knowsAbout: ["DJ en Madrid", "DJ en Madrid crossover", "Afro", "Latin", "Reggaeton", "Open format"],
+  sameAs: [
+    "https://www.instagram.com/marquesedition/",
+    "https://www.tiktok.com/@marquesedition",
+    "https://www.youtube.com/@marquesedition",
+    "https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497",
+  ],
+};
 
 const formatCompactNumber = (value: number) => {
   if (value >= 1000) {
@@ -29,9 +50,13 @@ const formatDisplayDate = (dateValue: string) => {
 ---
 
 <SiteLayout
-  title="Marques Edition | DJ Madrid"
-  description="Marques Edition es DJ en Madrid. Afro, latin y open format para clubs, bodas y eventos privados. Reels, enlaces y contrataciones en un solo sitio."
+  title="Marques Edition | DJ en Madrid Crossover"
+  description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Afro, latin, reggaeton y open format para clubs, bodas y eventos privados."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(homepageSchema)} />
+  </Fragment>
+
   <main class="page">
     <section class="quick-nav" aria-labelledby="quick-nav-title">
       <div class="quick-nav-copy">
@@ -79,14 +104,17 @@ const formatDisplayDate = (dateValue: string) => {
               <div>
                 <h1>Energía de club con identidad latina.</h1>
                 <p class="lede">
-                  Soy Marques Edition, DJ en Madrid. Mezclo afro, latin y open format para clubs,
-                  bodas y eventos privados donde la pista tiene que responder de verdad.
+                  Soy Marques Edition, DJ en Madrid crossover. Mezclo afro, latin, reggaeton y
+                  open format para clubs, bodas y eventos privados donde la pista tiene que
+                  responder de verdad.
                 </p>
               </div>
 
               <div class="chips" aria-label="Estilo musical">
                 <span class="chip">Afro</span>
                 <span class="chip">Latin</span>
+                <span class="chip">Reggaeton</span>
+                <span class="chip">Crossover</span>
                 <span class="chip">Open format</span>
                 <span class="chip">Cabina en vivo</span>
                 <span class="chip">Residente @pensionmimosas</span>
@@ -94,6 +122,7 @@ const formatDisplayDate = (dateValue: string) => {
 
               <div class="cta-row">
                 <a class="cta" href="/booking/">Contrataciones ↗</a>
+                <a class="cta-secondary" href="/about/">About ↗</a>
                 <a class="cta-secondary" href="/reels/">Ver reels ↗</a>
                 <a class="cta-secondary" href="/streams/">Ver streams ↗</a>
                 <a class="cta-secondary" href="/media-links/">Media links ↗</a>
@@ -185,6 +214,19 @@ const formatDisplayDate = (dateValue: string) => {
     </section>
 
     <section class="services" aria-label="Servicios">
+      <article class="service-card service-card-wide">
+        <h2>DJ en Madrid crossover para clubs, bodas y eventos privados</h2>
+        <p>
+          Si alguien busca un DJ en Madrid crossover, esta web deja clara la propuesta: una mezcla
+          pensada para mover la pista con afro, latin, reggaeton, hits comerciales y cambios de
+          energía medidos según el público.
+        </p>
+        <p>
+          La base está en Madrid y la residencia en Pensión Mimosas refuerza una presencia real en
+          cabina. La idea es adaptar el set con criterio a cada formato sin perder identidad.
+        </p>
+      </article>
+
       <article class="service-card">
         <h2>Clubs</h2>
         <p>
@@ -195,8 +237,8 @@ const formatDisplayDate = (dateValue: string) => {
       <article class="service-card">
         <h2>Eventos privados</h2>
         <p>
-          Adapto el set al espacio y al público sin perder mi identidad: afro, latin y crossover
-          con criterio.
+          Adapto el set al espacio y al público sin perder mi identidad: afro, latin, reggaeton y
+          crossover con criterio.
         </p>
       </article>
       <article class="service-card">
@@ -682,6 +724,10 @@ const formatDisplayDate = (dateValue: string) => {
       color: #dde4f7;
       font-size: 0.9rem;
       line-height: 1.58;
+    }
+
+    .service-card-wide {
+      grid-column: 1 / -1;
     }
 
     @media (min-width: 900px) {

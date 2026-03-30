@@ -1,0 +1,178 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/InnerPage.astro";
+import Footer from "../../components/Footer.astro";
+
+const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/reels/", label: "Reels" },
+  { href: "/streams/", label: "Streams" },
+  { href: "/events/", label: "Events" },
+  { href: "/media-links/", label: "Media Links" },
+  { href: "/booking/", label: "Booking" },
+];
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marques Edition",
+  url: "https://www.marquesedition.com/about/",
+  image: "https://www.marquesedition.com/profile.png",
+  jobTitle: "DJ en Madrid crossover",
+  description:
+    "Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Su propuesta mezcla Afro, Latin House, Reggaeton y open format para clubs, bodas, marcas y eventos privados.",
+  homeLocation: {
+    "@type": "Place",
+    name: "Madrid, Spain",
+  },
+  knowsAbout: ["DJ en Madrid crossover", "Afro", "Latin House", "Reggaeton", "Open format"],
+  sameAs: [
+    "https://www.instagram.com/marquesedition/",
+    "https://www.tiktok.com/@marquesedition",
+    "https://www.youtube.com/@marquesedition",
+  ],
+};
+---
+
+<SiteLayout
+  title="Marques Edition – DJ en Madrid Crossover | Afro, Latin House, Reggaeton"
+  description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Afro, Latin House, Reggaeton y open format para clubs, eventos privados, marcas y bodas."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+  </Fragment>
+
+  <InnerPage
+    ariaLabel="About de Marques Edition"
+    eyebrow="About"
+    title="Marques Edition, DJ en Madrid crossover."
+    description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Su propuesta mezcla Afro, Latin House, Reggaeton y open format para clubs, bodas, marcas y eventos privados."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <div class="chip-row" aria-label="Keywords principales">
+        <span class="chip">DJ en Madrid</span>
+        <span class="chip">DJ en Madrid crossover</span>
+        <span class="chip">Residente en Pensión Mimosas</span>
+        <span class="chip">Afro</span>
+        <span class="chip">Latin House</span>
+        <span class="chip">Reggaeton</span>
+      </div>
+
+      <section class="section" aria-labelledby="about-title">
+        <p class="section-kicker">Perfil</p>
+        <h2 id="about-title">Una presentación clara para Google y para quien llega por primera vez</h2>
+        <p class="section-copy">
+          Marques Edition es un DJ en Madrid crossover enfocado en sets con identidad, lectura de
+          pista y energía real de club. Actualmente es residente en Pensión Mimosas, una base
+          estable desde la que desarrolla sesiones pensadas para conectar con público local,
+          internacional y eventos privados.
+        </p>
+        <p class="section-copy">
+          Su selección combina Afro, Latin House, Reggaeton y formato crossover con enfoque open
+          format cuando el evento lo pide. El resultado es una propuesta flexible, pero
+          reconocible, pensada para clubs, bodas, marcas y fiestas privadas en Madrid.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="keywords-title">
+        <p class="section-kicker">Keywords</p>
+        <h2 id="keywords-title">Términos clave que definen el proyecto</h2>
+        <div class="keyword-grid" aria-label="Keywords SEO">
+          <div class="keyword-card">
+            <strong>DJ en Madrid crossover</strong>
+            <span>Base local clara para búsquedas relacionadas con contratación y cabina.</span>
+          </div>
+          <div class="keyword-card">
+            <strong>Residente en Pensión Mimosas</strong>
+            <span>Señal de continuidad real en venue y presencia estable en Madrid.</span>
+          </div>
+          <div class="keyword-card">
+            <strong>Afro, Latin House, Reggaeton y crossover</strong>
+            <span>Estilos principales con enfoque directo a pista y mezcla en vivo.</span>
+          </div>
+        </div>
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="summary-title">
+        <p class="side-kicker">Resumen</p>
+        <h2 id="summary-title">Marques Edition</h2>
+        <p>
+          DJ en Madrid crossover con residencia en Pensión Mimosas y una línea musical centrada en
+          Afro, Latin House y Reggaeton.
+        </p>
+
+        <div class="facts" aria-label="Datos rápidos">
+          <span class="fact-chip">Base: Madrid</span>
+          <span class="fact-chip">Residencia: Pensión Mimosas</span>
+          <span class="fact-chip">Afro / Latin House / Reggaeton / Crossover</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="actions-title">
+        <p class="side-kicker">Siguiente paso</p>
+        <h2 id="actions-title">Rutas para seguir explorando</h2>
+        <p>
+          Si quieres ver el trabajo en acción, reels y streams enseñan la cabina. Si quieres hablar
+          de una fecha, booking está listo.
+        </p>
+
+        <div class="side-stack">
+          <a class="side-link" href="/reels/">Ver reels ↗</a>
+          <a class="side-link" href="/events/">Ver events ↗</a>
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <style>
+    .keyword-grid {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .keyword-card {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .keyword-card strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .keyword-card span {
+      display: block;
+      margin-top: 0.28rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+  </style>
+</SiteLayout>
