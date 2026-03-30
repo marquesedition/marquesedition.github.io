@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <clipPath id="rounded-square">
+      <rect x="0" y="0" width="1024" height="1024" rx="220" ry="220" />
+    </clipPath>
+  </defs>
+  <image
+    href="/logo.png"
+    x="0"
+    y="0"
+    width="1024"
+    height="1024"
+    preserveAspectRatio="xMidYMid slice"
+    clip-path="url(#rounded-square)"
+  />
+</svg>
