@@ -1,16 +1,20 @@
 ---
+import profileImage from "../../assets/profile.png";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import InnerPage from "../../components/layout/InnerPage.astro";
 import Footer from "../../components/layout/Footer.astro";
+import { buildAbsoluteUrl } from "../../config/site";
 import { getInnerPageNav } from "../../config/navigation";
+import { getLocaleHref } from "../../lib/i18n";
 
 const navItems = getInnerPageNav("/about/");
+const profileImageUrl = buildAbsoluteUrl(profileImage.src);
 const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Marques Edition",
   url: "https://www.marquesedition.com/about/",
-  image: "https://www.marquesedition.com/profile.png",
+  image: profileImageUrl,
   jobTitle: "DJ en Madrid crossover",
   description:
     "Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Su propuesta mezcla Afro, Latin House, Reggaeton y open format para clubs, bodas, marcas y eventos privados.",
@@ -30,9 +34,11 @@ const aboutSchema = {
 <SiteLayout
   title="Marques Edition – DJ en Madrid Crossover | Afro, Latin House, Reggaeton"
   description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Afro, Latin House, Reggaeton y open format para clubs, eventos privados, marcas y bodas."
+  lang="es"
+  alternateHref={getLocaleHref("en", "/about/")}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
   </Fragment>
 
   <InnerPage

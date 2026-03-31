@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.png";
+import profileImage from "../../assets/profile.png";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import InnerPage from "../../components/layout/InnerPage.astro";
 import Footer from "../../components/layout/Footer.astro";
@@ -39,7 +42,12 @@ const setAudioUrl = "/audio/set-2026-03-28.mp3";
           </div>
 
           <div class="set-body">
-            <img src="/profile.png" alt="Imagen de Marques Edition" loading="lazy" />
+            <Image
+              src={profileImage}
+              alt="Imagen de Marques Edition"
+              loading="lazy"
+              sizes="(max-width: 719px) 100vw, 168px"
+            />
 
             <div class="set-copy">
               <h3>{setTitle}</h3>
@@ -80,8 +88,8 @@ const setAudioUrl = "/audio/set-2026-03-28.mp3";
                 aria-label="Mover reproducción del set"
               >
                 <div class="waveform-overlay">
-                  <div class="waveform-avatar">
-                    <img src="/logo.png" alt="" loading="lazy" />
+                <div class="waveform-avatar">
+                    <Image src={logoImage} alt="" loading="lazy" />
                   </div>
                   <div class="waveform-tag">
                     <strong>Marques Edition</strong>
@@ -538,7 +546,8 @@ const setAudioUrl = "/audio/set-2026-03-28.mp3";
 
       const loadWaveform = async () => {
         try {
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+          const audioContext = new AudioContextCtor();
           const response = await fetch(audio.currentSrc || audio.src);
           const arrayBuffer = await response.arrayBuffer();
           const buffer = await audioContext.decodeAudioData(arrayBuffer.slice(0));

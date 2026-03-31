@@ -1,17 +1,25 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import profileImage from "../assets/profile.png";
+import LanguageSwitch from "../components/layout/LanguageSwitch.astro";
+import { buildAbsoluteUrl } from "../config/site";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  lang?: "es" | "en";
+  alternateHref?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = "es", alternateHref } = Astro.props;
 const canonicalUrl = Astro.url.href;
+const profileImageUrl = buildAbsoluteUrl(profileImage.src);
+const alternateUrl = alternateHref ? new URL(alternateHref, Astro.site ?? canonicalUrl).href : null;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -20,17 +28,21 @@ const canonicalUrl = Astro.url.href;
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#09041d" />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={lang} href={canonicalUrl} />
+    {alternateUrl && (
+      <link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternateUrl} />
+    )}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Marques Edition" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={lang === "en" ? "en_GB" : "es_ES"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/profile.png" />
+    <meta property="og:image" content={profileImageUrl} />
     <meta property="og:url" content={canonicalUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/profile.png" />
+    <meta name="twitter:image" content={profileImageUrl} />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -42,9 +54,11 @@ const canonicalUrl = Astro.url.href;
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
     <slot name="head" />
   </head>
   <body>
+    <LanguageSwitch locale={lang} alternateHref={alternateHref} />
     <slot />
   </body>
 </html>

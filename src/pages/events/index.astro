@@ -3,19 +3,17 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import InnerPage from "../../components/layout/InnerPage.astro";
 import Footer from "../../components/layout/Footer.astro";
 import EventsBoard from "../../components/content/EventsBoard.astro";
-import eventsPayload from "../../data/events.json";
 import { getInnerPageNav } from "../../config/navigation";
+import { getEventsData } from "../../lib/content";
 import { formatShortSpanishDate } from "../../lib/format";
 
 const navItems = getInnerPageNav("/events/");
 
-const events = eventsPayload.events;
-const residency = eventsPayload.featured_residency;
+const { events, featuredResidency, generatedAt, source } = await getEventsData();
+const residency = featuredResidency;
 const nextEvent = events[0];
 const monthCount = new Set(events.map((event) => event.month_id)).size;
-const formatUpdated = eventsPayload.generated_at
-  ? formatShortSpanishDate(new Date(eventsPayload.generated_at))
-  : "";
+const formatUpdated = generatedAt ? formatShortSpanishDate(new Date(generatedAt)) : "";
 ---
 
 <SiteLayout
@@ -95,7 +93,7 @@ const formatUpdated = eventsPayload.generated_at
         <div class="stats">
           <span class="stat">{events.length} fechas</span>
           <span class="stat">{monthCount} meses</span>
-          <span class="stat">{eventsPayload.source === "bandsintown_html" ? "Bandsintown" : "Manual"}</span>
+          <span class="stat">{source === "bandsintown_html" ? "Bandsintown" : "Manual"}</span>
         </div>
       </section>
 

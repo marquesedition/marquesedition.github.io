@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import profileImage from "../assets/profile.png";
-import SiteLayout from "../layouts/SiteLayout.astro";
-import EventsBoard from "../components/content/EventsBoard.astro";
-import Footer from "../components/layout/Footer.astro";
-import { buildAbsoluteUrl } from "../config/site";
-import { getLocaleHref } from "../lib/i18n";
-import { getEventsData, getReelsData, getStreamsData } from "../lib/content";
-import { formatCompactNumber, formatShortSpanishDate } from "../lib/format";
+import profileImage from "../../assets/profile.png";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import EventsBoard from "../../components/content/EventsBoard.astro";
+import Footer from "../../components/layout/Footer.astro";
+import { buildAbsoluteUrl } from "../../config/site";
+import { getLocaleHref } from "../../lib/i18n";
+import { getEventsData, getReelsData, getStreamsData } from "../../lib/content";
+import { formatCompactNumber, formatShortDate } from "../../lib/format";
 
 const [{ reels, profile }, { streams }, { events, featuredResidency }] = await Promise.all([
   getReelsData(),
@@ -23,16 +23,16 @@ const homepageSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Marques Edition",
-  url: "https://www.marquesedition.com/",
+  url: "https://www.marquesedition.com/en/",
   image: profileImageUrl,
-  jobTitle: "DJ en Madrid crossover",
+  jobTitle: "DJ in Madrid crossover",
   description:
-    "Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Mezcla afro, latin, reggaeton y open format para clubs, bodas y eventos privados.",
+    "Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. Afro, latin, reggaeton and open format for clubs, weddings and private events.",
   homeLocation: {
     "@type": "Place",
     name: "Madrid, Spain",
   },
-  knowsAbout: ["DJ en Madrid", "DJ en Madrid crossover", "Afro", "Latin", "Reggaeton", "Open format"],
+  knowsAbout: ["DJ in Madrid", "Madrid crossover DJ", "Afro", "Latin", "Reggaeton", "Open format"],
   sameAs: [
     "https://www.instagram.com/marquesedition/",
     "https://www.tiktok.com/@marquesedition",
@@ -40,14 +40,13 @@ const homepageSchema = {
     "https://open.spotify.com/user/k4d0hpomyssmueak9hh5wyvue?si=520ebb1aac944497",
   ],
 };
-
 ---
 
 <SiteLayout
-  title="Marques Edition | DJ en Madrid Crossover"
-  description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Afro, latin, reggaeton y open format para clubs, bodas y eventos privados."
-  lang="es"
-  alternateHref={getLocaleHref("en", "/")}
+  title="Marques Edition | DJ in Madrid Crossover"
+  description="Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. Afro, latin, reggaeton and open format for clubs, weddings and private events."
+  lang="en"
+  alternateHref={getLocaleHref("es", "/")}
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(homepageSchema)} />
@@ -56,104 +55,104 @@ const homepageSchema = {
   <main class="page">
     <section class="quick-nav" aria-labelledby="quick-nav-title">
       <div class="quick-nav-copy">
-        <p class="quick-nav-kicker">Entrada directa</p>
-        <h2 id="quick-nav-title">Elige la ruta según lo que necesitas.</h2>
+        <p class="quick-nav-kicker">Direct paths</p>
+        <h2 id="quick-nav-title">Pick the route that makes the most sense for you.</h2>
       </div>
 
       <div class="quick-nav-grid">
         <a class="quick-card" href="/reels/">
-          <span class="quick-card-kicker">Trabajo real</span>
+          <span class="quick-card-kicker">Live work</span>
           <strong>Reels</strong>
-          <span class="quick-card-copy">Pista, mezcla y cabina en acción.</span>
+          <span class="quick-card-copy">Real booth moments, crowd energy and transitions.</span>
         </a>
 
         <a class="quick-card" href="/media-links/">
-          <span class="quick-card-kicker">Plataformas</span>
+          <span class="quick-card-kicker">Platforms</span>
           <strong>Media Links</strong>
-          <span class="quick-card-copy">Todos mis enlaces oficiales en un solo sitio.</span>
+          <span class="quick-card-copy">Every official link in one place.</span>
         </a>
 
         <a class="quick-card" href="/streams/">
-          <span class="quick-card-kicker">Material propio</span>
+          <span class="quick-card-kicker">Original material</span>
           <strong>Remixes</strong>
-          <span class="quick-card-copy">Playlist de remixes y edits publicados en YouTube.</span>
+          <span class="quick-card-copy">Published edits and remixes from the YouTube playlist.</span>
         </a>
 
         <a class="quick-card" href="/sets/">
-          <span class="quick-card-kicker">Sesión larga</span>
+          <span class="quick-card-kicker">Long-form listen</span>
           <strong>Sets</strong>
-          <span class="quick-card-copy">Ya puedes escuchar un set largo dentro de la web.</span>
+          <span class="quick-card-copy">Listen to a longer DJ session directly on the site.</span>
         </a>
 
-        <a class="quick-card quick-card-primary" href="/booking/">
-          <span class="quick-card-kicker">Contrataciones</span>
+        <a class="quick-card quick-card-primary" href="/en/booking/">
+          <span class="quick-card-kicker">Enquiries</span>
           <strong>Booking</strong>
-          <span class="quick-card-copy">Cuéntame tu fecha y preparo la propuesta.</span>
+          <span class="quick-card-copy">Tell me about the date and I will reply with a proposal.</span>
         </a>
       </div>
     </section>
 
-    <section class="hero" aria-label="Presentación principal">
+    <section class="hero" aria-label="Main presentation">
       <div class="hero-grid">
         <div class="hero-media">
           <Image
             class="hero-photo"
             src={profileImage}
-            alt="Marques Edition en cabina"
+            alt="Marques Edition performing"
             loading="eager"
             sizes="(max-width: 959px) 100vw, 60vw"
           />
           <div class="hero-content">
             <div class="topline">
               <span class="eyebrow">Marques Edition</span>
-              <span class="status-pill">DJ en Madrid</span>
+              <span class="status-pill">DJ in Madrid</span>
             </div>
 
             <div class="actions">
               <div>
-                <h1>Energía de club con identidad latina.</h1>
+                <h1>Club energy with a latin identity.</h1>
                 <p class="lede">
-                  Soy Marques Edition, DJ en Madrid crossover. Mezclo afro, latin, reggaeton y
-                  open format para clubs, bodas y eventos privados donde la pista tiene que
-                  responder de verdad.
+                  I am Marques Edition, a crossover DJ based in Madrid. I mix afro, latin,
+                  reggaeton and open format for clubs, weddings and private events where the dance
+                  floor needs to respond for real.
                 </p>
               </div>
 
-              <div class="chips" aria-label="Estilo musical">
+              <div class="chips" aria-label="Music style">
                 <span class="chip">Afro</span>
                 <span class="chip">Latin</span>
                 <span class="chip">Reggaeton</span>
                 <span class="chip">Crossover</span>
                 <span class="chip">Open format</span>
-                <span class="chip">Cabina en vivo</span>
-                <span class="chip">Residente @pensionmimosas</span>
+                <span class="chip">Live booth energy</span>
+                <span class="chip">Resident @pensionmimosas</span>
               </div>
 
               <div class="cta-row">
-                <a class="cta" href="/booking/">Contrataciones ↗</a>
-                <a class="cta-secondary" href="/about/">About ↗</a>
-                <a class="cta-secondary" href="/reels/">Ver reels ↗</a>
-                <a class="cta-secondary" href="/streams/">Ver remixes ↗</a>
-                <a class="cta-secondary" href="/sets/">Escuchar set ↗</a>
+                <a class="cta" href="/en/booking/">Booking enquiries ↗</a>
+                <a class="cta-secondary" href="/en/about/">About ↗</a>
+                <a class="cta-secondary" href="/reels/">See reels ↗</a>
+                <a class="cta-secondary" href="/streams/">See remixes ↗</a>
+                <a class="cta-secondary" href="/sets/">Listen to a set ↗</a>
                 <a class="cta-secondary" href="/media-links/">Media links ↗</a>
               </div>
             </div>
           </div>
         </div>
 
-        <aside class="hero-panel" aria-label="Prueba social y latest reel">
-          <p class="panel-kicker">Cabina abierta</p>
-          <h2 class="panel-title">Aquí está todo lo que necesitas para entender cómo trabajo.</h2>
+        <aside class="hero-panel" aria-label="Social proof and latest reel">
+          <p class="panel-kicker">Open booth</p>
+          <h2 class="panel-title">Everything you need to understand how I work is here.</h2>
           <p class="panel-copy">
-            Reels para ver cabina real, remixes para escuchar material propio y sets para escuchar
-            sesiones largas dentro de la web, enlaces oficiales por un lado y una ruta de booking
-            aparte para hablar conmigo sobre clubs, marcas, bodas y eventos privados.
+            Reels to see the booth in action, remixes to hear original material, a set page for
+            longer listening, official links kept separate and a booking route focused on clubs,
+            brands, weddings and private events.
           </p>
 
-          <div class="stats" aria-label="Estadísticas">
+          <div class="stats" aria-label="Statistics">
             <div class="stat">
-              <strong>{formatCompactNumber(profile.followers)}</strong>
-              <span>Seguidores</span>
+              <strong>{formatCompactNumber(profile.followers, "en-GB")}</strong>
+              <span>Followers</span>
             </div>
             <div class="stat">
               <strong>{reels.length}</strong>
@@ -176,11 +175,11 @@ const homepageSchema = {
             href={latestReel.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Abrir el último reel: ${latestReel.title}`}
+            aria-label={`Open latest reel: ${latestReel.title}`}
           >
-            <p class="latest-label">Último reel</p>
+            <p class="latest-label">Latest reel</p>
             <p class="latest-title">{latestReel.title}</p>
-            <p class="latest-meta">{formatShortSpanishDate(latestReel.date)} · {latestReel.label}</p>
+            <p class="latest-meta">{formatShortDate(latestReel.date, "en-GB")} · {latestReel.label}</p>
           </a>
         </aside>
       </div>
@@ -188,11 +187,11 @@ const homepageSchema = {
 
     <section class="events-home" aria-labelledby="events-home-title">
       <div class="events-home-copy">
-        <p class="events-home-kicker">Próximas fechas</p>
-        <h2 id="events-home-title">Dónde toco en los próximos eventos.</h2>
+        <p class="events-home-kicker">Upcoming dates</p>
+        <h2 id="events-home-title">Where I am playing next.</h2>
         <p class="events-home-desc">
-          Una agenda clara por meses, al estilo de una página de tour: ciudad, venue y acceso
-          directo a tickets o información de cada fecha.
+          A clear month-by-month schedule with city, venue and direct access to tickets or venue
+          info for each date.
         </p>
       </div>
 
@@ -200,15 +199,15 @@ const homepageSchema = {
         residency && (
           <div class="residency-highlight">
             <div class="residency-highlight-copy">
-              <p class="residency-label">Residencia fija</p>
+              <p class="residency-label">Residency</p>
               <strong>{residency.schedule_label}</strong>
               <span>{residency.venue} · {residency.time_label}</span>
               <span>{residency.address}</span>
             </div>
 
             <div class="residency-highlight-actions">
-              <a class="quick-card-link" href="/events/">Ver agenda ↗</a>
-              <a class="quick-card-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a>
+              <a class="quick-card-link" href="/events/">See schedule ↗</a>
+              <a class="quick-card-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Directions ↗</a>
             </div>
           </div>
         )
@@ -218,45 +217,37 @@ const homepageSchema = {
         events={events}
         previewLimit={4}
         moreHref="/events/"
-        emptyTitle="Todavía no hay fechas publicadas."
-        emptyCopy="Dejo la sección lista para que las próximas actuaciones aparezcan aquí en cuanto carguemos el bloque de Bandsintown o el JSON manual."
+        moreLabel="See all dates ↗"
+        emptyTitle="No published dates yet."
+        emptyCopy="This area is ready for upcoming shows as soon as we update the events feed."
       />
     </section>
 
-    <section class="services" aria-label="Servicios">
+    <section class="services" aria-label="Services">
       <article class="service-card service-card-wide">
-        <h2>DJ en Madrid crossover para clubs, bodas y eventos privados</h2>
+        <h2>DJ in Madrid crossover for clubs, weddings and private events</h2>
         <p>
-          Si alguien busca un DJ en Madrid crossover, esta web deja clara la propuesta: una mezcla
-          pensada para mover la pista con afro, latin, reggaeton, hits comerciales y cambios de
-          energía medidos según el público.
+          If someone is looking for a crossover DJ in Madrid, this site makes the proposition
+          clear: a dance-floor focused mix built with afro, latin, reggaeton, commercial hits and
+          energy changes shaped around the room.
         </p>
         <p>
-          La base está en Madrid y la residencia en Pensión Mimosas refuerza una presencia real en
-          cabina. La idea es adaptar el set con criterio a cada formato sin perder identidad.
+          The base is Madrid and the residency at Pension Mimosas reinforces a real presence in
+          the booth. The goal is to adapt each set without losing identity.
         </p>
       </article>
 
       <article class="service-card">
         <h2>Clubs</h2>
-        <p>
-          Leo la pista, subo la tensión en el momento justo y mantengo la energía arriba durante
-          toda la noche.
-        </p>
+        <p>I read the room, raise the tension at the right time and keep the energy moving.</p>
       </article>
       <article class="service-card">
-        <h2>Eventos privados</h2>
-        <p>
-          Adapto el set al espacio y al público sin perder mi identidad: afro, latin, reggaeton y
-          crossover con criterio.
-        </p>
+        <h2>Private events</h2>
+        <p>I adapt the set to the space and the crowd without losing my own sound.</p>
       </article>
       <article class="service-card">
-        <h2>Bodas</h2>
-        <p>
-          Construyo sesiones para invitados distintos, cambios de ritmo y una pista conectada desde
-          el primer tema hasta el cierre.
-        </p>
+        <h2>Weddings</h2>
+        <p>I build flexible sets for mixed guests, changing tempos and a connected dance floor.</p>
       </article>
     </section>
 
@@ -452,13 +443,13 @@ const homepageSchema = {
 
     h1 {
       margin: 0;
-      max-width: 8.5ch;
+      max-width: 9.5ch;
       font-size: clamp(2.15rem, 7.6vw, 4.7rem);
       line-height: 0.92;
     }
 
     .lede {
-      max-width: 32rem;
+      max-width: 34rem;
       margin: 0.8rem 0 0;
       color: #f0f4ff;
       font-size: 0.96rem;
@@ -544,24 +535,22 @@ const homepageSchema = {
     }
 
     .stat {
-      padding: 0.82rem;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.95rem;
+      border-radius: 20px;
       background: rgba(255, 255, 255, 0.05);
+      display: grid;
+      gap: 0.14rem;
     }
 
     .stat strong {
-      display: block;
-      font-size: 1rem;
+      font-size: 1.18rem;
+      line-height: 1.1;
     }
 
     .stat span {
-      display: block;
-      margin-top: 0.22rem;
-      color: #bec8e3;
-      font-size: 0.76rem;
+      color: #d8e2fb;
+      font-size: 0.82rem;
       font-weight: 700;
-      text-transform: uppercase;
     }
 
     .panel-divider {
@@ -571,162 +560,125 @@ const homepageSchema = {
     }
 
     .latest-reel {
-      display: block;
-      padding: 0.2rem 0;
-      color: inherit;
-      text-decoration: none;
-      border-radius: 16px;
-      transition:
-        transform 160ms ease,
-        color 160ms ease,
-        opacity 160ms ease;
-    }
-
-    .latest-reel:hover,
-    .latest-reel:focus-visible {
-      transform: translateY(-1px);
-      opacity: 0.96;
-      outline: none;
-    }
-
-    .latest-reel:hover .latest-title,
-    .latest-reel:focus-visible .latest-title {
+      display: grid;
+      gap: 0.32rem;
+      padding: 0.95rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.05);
       color: #fff;
-      text-decoration: underline;
-      text-decoration-color: rgba(69, 215, 255, 0.6);
-      text-underline-offset: 0.16em;
+      text-decoration: none;
     }
 
     .latest-label,
-    .latest-title,
-    .latest-meta {
+    .residency-label,
+    .events-home-kicker {
       margin: 0;
-    }
-
-    .latest-label {
       color: #45d7ff;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
     .latest-title {
-      margin-top: 0.45rem;
+      margin: 0;
       font-size: 1rem;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
-    .latest-meta {
-      margin-top: 0.35rem;
-      color: #c2cae2;
-      font-size: 0.82rem;
-      font-weight: 700;
+    .latest-meta,
+    .events-home-desc {
+      margin: 0;
+      color: #d8e2fb;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
 
+    .events-home,
     .services {
       margin-top: 1.1rem;
-      display: grid;
-      gap: 0.95rem;
     }
 
     .events-home {
-      margin-top: 1.1rem;
       padding: 1.1rem;
       border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(171, 141, 255, 0.16);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
-        linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+        radial-gradient(420px 220px at 12% 10%, rgba(69, 215, 255, 0.08), transparent 68%),
+        radial-gradient(380px 220px at 88% 16%, rgba(255, 90, 191, 0.06), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        linear-gradient(160deg, rgba(90, 70, 180, 0.1), rgba(18, 12, 50, 0.12));
     }
 
     .events-home-copy {
       max-width: 42rem;
-      margin-bottom: 1rem;
+    }
+
+    .events-home h2 {
+      margin: 0.4rem 0 0;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .events-home-desc {
+      margin-top: 0.5rem;
     }
 
     .residency-highlight {
-      margin-bottom: 1rem;
-      padding: 1.05rem;
+      margin: 1rem 0;
+      padding: 1rem;
       border-radius: 22px;
-      border: 1px solid rgba(69, 215, 255, 0.18);
-      background:
-        radial-gradient(380px 180px at 12% 8%, rgba(69, 215, 255, 0.12), transparent 72%),
-        radial-gradient(320px 180px at 88% 12%, rgba(255, 90, 191, 0.12), transparent 74%),
-        linear-gradient(155deg, rgba(34, 67, 118, 0.32), rgba(16, 11, 38, 0.62));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      display: grid;
+      gap: 0.85rem;
     }
 
     .residency-highlight-copy {
       display: grid;
-      gap: 0.3rem;
+      gap: 0.24rem;
     }
 
-    .residency-label {
-      margin: 0;
-      color: #45d7ff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .residency-highlight strong {
+    .residency-highlight-copy strong {
       font-size: 1rem;
-      line-height: 1.3;
+      line-height: 1.2;
     }
 
-    .residency-highlight span {
-      color: #dbe5fd;
-      font-size: 0.86rem;
+    .residency-highlight-copy span {
+      color: #d8e2fb;
+      font-size: 0.84rem;
       line-height: 1.45;
     }
 
     .residency-highlight-actions {
-      margin-top: 1rem;
-      display: grid;
-      gap: 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
     }
 
     .quick-card-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 0.6rem 0.95rem;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
       border-radius: 999px;
       border: 1px solid rgba(69, 215, 255, 0.28);
       background: rgba(69, 215, 255, 0.08);
-      color: #fff;
+      color: var(--blue);
       font-size: 0.82rem;
       font-weight: 800;
       text-decoration: none;
     }
 
-    .events-home-kicker {
-      margin: 0;
-      color: #45d7ff;
-      font-size: 0.74rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .events-home h2 {
-      margin: 0.42rem 0 0;
-      font-size: 1.18rem;
-      line-height: 1.25;
-    }
-
-    .events-home-desc {
-      margin: 0.55rem 0 0;
-      color: #dde4f7;
-      font-size: 0.9rem;
-      line-height: 1.58;
+    .services {
+      display: grid;
+      gap: 0.85rem;
     }
 
     .service-card {
-      padding: 1.1rem;
-      border-radius: 24px;
+      padding: 1rem;
+      border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
@@ -735,91 +687,60 @@ const homepageSchema = {
 
     .service-card h2 {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       line-height: 1.28;
     }
 
     .service-card p {
-      margin: 0.5rem 0 0;
+      margin: 0.52rem 0 0;
       color: #dde4f7;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.58;
     }
 
-    .service-card-wide {
-      grid-column: 1 / -1;
-    }
-
-    @media (min-width: 900px) {
-      .quick-nav {
-        padding: 1.15rem 1.25rem 1.2rem;
+    @media (min-width: 960px) {
+      .quick-nav-grid,
+      .services {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .quick-nav-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-      }
-
-      .quick-card {
-        min-height: 132px;
-        align-content: start;
-      }
-
-      .hero {
-        padding: 1.2rem;
+      .quick-card-primary,
+      .service-card-wide {
+        grid-column: span 2;
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.72fr);
-      }
-
-      .hero-media {
-        min-height: 720px;
-      }
-
-      .hero-content {
-        padding: 1.35rem 1.35rem 1.5rem;
-      }
-
-      h1 {
-        max-width: 7.9ch;
-        font-size: clamp(3.3rem, 6vw, 5.2rem);
-      }
-
-      .lede {
-        max-width: 35rem;
-        font-size: 1.02rem;
+        grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
       }
 
       .stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+    }
 
-      .cta-row {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 36rem;
+    @media (max-width: 560px) {
+      .hero {
+        padding: 0.8rem;
+        border-radius: 28px;
       }
 
-      .cta,
-      .cta-secondary {
-        flex: 1 1 180px;
+      .hero-media {
+        min-height: 660px;
+        border-radius: 22px;
       }
 
-      .services {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .hero-content {
+        padding: 0.95rem 0.95rem 1.1rem;
       }
 
-      .residency-highlight {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 1rem;
-        align-items: end;
+      h1 {
+        max-width: 10.5ch;
       }
 
-      .residency-highlight-actions {
-        grid-template-columns: repeat(2, max-content);
-        justify-content: end;
-        margin-top: 0;
+      .quick-nav,
+      .events-home {
+        padding: 0.9rem;
+        border-radius: 22px;
       }
     }
   </style>

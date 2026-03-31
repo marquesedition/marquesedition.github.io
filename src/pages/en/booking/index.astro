@@ -1,173 +1,173 @@
 ---
-import SiteLayout from "../../layouts/SiteLayout.astro";
-import InnerPage from "../../components/layout/InnerPage.astro";
-import Footer from "../../components/layout/Footer.astro";
-import { getInnerPageNav } from "../../config/navigation";
-import { getLocaleHref } from "../../lib/i18n";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import InnerPage from "../../../components/layout/InnerPage.astro";
+import Footer from "../../../components/layout/Footer.astro";
+import { getInnerPageNav } from "../../../config/navigation";
+import { getLocaleHref } from "../../../lib/i18n";
 
-const navItems = getInnerPageNav("/booking/");
+const navItems = getInnerPageNav("/booking/", "en");
 ---
 
 <SiteLayout
   title="Marques Edition | Booking"
-  description="Booking de Marques Edition. Formulario guiado para clubs, bodas, marcas y eventos privados."
-  lang="es"
-  alternateHref={getLocaleHref("en", "/booking/")}
+  description="Booking page for Marques Edition. Guided form for clubs, weddings, brands and private events."
+  lang="en"
+  alternateHref={getLocaleHref("es", "/booking/")}
 >
   <InnerPage
-    ariaLabel="Booking de Marques Edition"
+    ariaLabel="Booking for Marques Edition"
     eyebrow="Booking"
-    title="Si quieres cerrar una fecha, aquí empieza la conversación."
-    description="Este espacio está pensado para clubs, bodas, marcas y eventos privados. Rellena el briefing, revisa el resumen y envía la solicitud con toda la información clara."
+    title="If you want to lock in a date, this is where the conversation starts."
+    description="This space is built for clubs, weddings, brands and private events. Fill in the brief, review the summary and send the request with everything clear from the first message."
     navItems={navItems}
   >
     <Fragment slot="main">
-      <div class="chip-row" aria-label="Formatos">
+      <div class="chip-row" aria-label="Formats">
         <span class="chip">Clubs</span>
-        <span class="chip">Bodas</span>
-        <span class="chip">Eventos privados</span>
-        <span class="chip">Marcas</span>
+        <span class="chip">Weddings</span>
+        <span class="chip">Private events</span>
+        <span class="chip">Brands</span>
         <span class="chip">Open format</span>
       </div>
 
       <section class="section" aria-labelledby="process-title">
-        <p class="section-kicker">Proceso</p>
-        <h2 id="process-title">La idea es ir rápido y con criterio.</h2>
+        <p class="section-kicker">Process</p>
+        <h2 id="process-title">The goal is to move quickly and keep things clear.</h2>
         <p class="section-copy">
-          Cuanto más claro llegue el contexto del evento, más fácil es responder con una propuesta
-          seria desde el primer mensaje.
+          The clearer the event context is from the start, the easier it is to reply with a solid
+          proposal in the first answer.
         </p>
 
-        <div class="steps" aria-label="Pasos para contratar">
+        <div class="steps" aria-label="Booking steps">
           <div class="step">
-            <strong>1. Rellena los datos clave</strong>
-            <span>Fecha, formato, lugar, horario, aforo y situación técnica.</span>
+            <strong>1. Fill in the key details</strong>
+            <span>Date, format, venue, time, capacity and technical situation.</span>
           </div>
           <div class="step">
-            <strong>2. Genera el resumen</strong>
-            <span>La web ordena todo y te enseña exactamente lo que se va a enviar.</span>
+            <strong>2. Build the summary</strong>
+            <span>The site organises everything and shows exactly what will be sent.</span>
           </div>
           <div class="step">
-            <strong>3. Confirma y envía</strong>
-            <span>La solicitud sale con un briefing limpio para seguir la conversación.</span>
+            <strong>3. Confirm and send</strong>
+            <span>The request goes out with a clean brief ready for the next conversation.</span>
           </div>
         </div>
       </section>
 
       <section class="contact-card" id="booking-form" aria-labelledby="booking-form-title">
-        <p class="section-kicker">Formulario</p>
-        <h2 id="booking-form-title">Cuéntame tu fecha y te respondo con propuesta</h2>
+        <p class="section-kicker">Form</p>
+        <h2 id="booking-form-title">Tell me about the date and I will reply with a proposal</h2>
         <p class="contact-note">
-          Rellena los datos clave del evento, genera el resumen y confirma el envío. Así me llega
-          un briefing claro desde el primer contacto.
+          Fill in the core event details, build the summary and confirm the submission. That way I
+          receive a clear brief from the first contact.
         </p>
 
         <form class="contact-form" id="booking-request-form" novalidate>
-          <input type="hidden" name="_subject" value="Nueva solicitud desde marquesedition.com" />
+          <input type="hidden" name="_subject" value="New request from marquesedition.com" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="event_summary" id="contact-summary-input" />
 
           <div class="contact-grid">
             <div class="form-field">
-              <label for="contact-name">Nombre</label>
-              <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre o nombre del promotor" required />
+              <label for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name or promoter name" required />
             </div>
 
             <div class="form-field">
               <label for="contact-email">Email</label>
-              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required />
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="name@company.com" required />
             </div>
 
             <div class="form-field">
-              <label for="contact-phone">Teléfono / WhatsApp</label>
+              <label for="contact-phone">Phone / WhatsApp</label>
               <input id="contact-phone" name="phone" type="text" autocomplete="tel" placeholder="+34 ..." />
             </div>
 
             <div class="form-field">
-              <label for="contact-event-type">Formato</label>
+              <label for="contact-event-type">Format</label>
               <select id="contact-event-type" name="event_type" required>
-                <option value="">Selecciona una opción</option>
+                <option value="">Choose one</option>
                 <option>Club</option>
-                <option>Evento privado</option>
-                <option>Boda</option>
-                <option>Marca</option>
-                <option>Otro</option>
+                <option>Private event</option>
+                <option>Wedding</option>
+                <option>Brand</option>
+                <option>Other</option>
               </select>
             </div>
 
             <div class="form-field">
-              <label for="contact-date">Fecha</label>
+              <label for="contact-date">Date</label>
               <input id="contact-date" name="event_date" type="date" required />
             </div>
 
             <div class="form-field">
-              <label for="contact-location">Ciudad / venue</label>
-              <input id="contact-location" name="location" type="text" autocomplete="address-level2" placeholder="Madrid / nombre del espacio" required />
+              <label for="contact-location">City / venue</label>
+              <input id="contact-location" name="location" type="text" autocomplete="address-level2" placeholder="Madrid / venue name" required />
             </div>
 
             <div class="form-field">
-              <label for="contact-start-time">Hora de inicio</label>
+              <label for="contact-start-time">Start time</label>
               <input id="contact-start-time" name="start_time" type="time" required />
             </div>
 
             <div class="form-field">
-              <label for="contact-set-length">Duración del set</label>
+              <label for="contact-set-length">Set length</label>
               <select id="contact-set-length" name="set_length" required>
-                <option value="">Selecciona una opción</option>
-                <option>1 hora</option>
-                <option>2 horas</option>
-                <option>3 horas</option>
-                <option>4 horas</option>
-                <option>5 horas o más</option>
-                <option>Sesión completa</option>
+                <option value="">Choose one</option>
+                <option>1 hour</option>
+                <option>2 hours</option>
+                <option>3 hours</option>
+                <option>4 hours</option>
+                <option>5 hours or more</option>
+                <option>Full session</option>
               </select>
             </div>
 
             <div class="form-field">
-              <label for="contact-audience">Aforo / invitados</label>
+              <label for="contact-audience">Capacity / guests</label>
               <select id="contact-audience" name="audience" required>
-                <option value="">Selecciona una opción</option>
-                <option>Hasta 80 personas</option>
-                <option>80 a 150 personas</option>
-                <option>150 a 300 personas</option>
-                <option>Más de 300 personas</option>
+                <option value="">Choose one</option>
+                <option>Up to 80 people</option>
+                <option>80 to 150 people</option>
+                <option>150 to 300 people</option>
+                <option>More than 300 people</option>
               </select>
             </div>
 
             <div class="form-field">
-              <label for="contact-setup">Producción / equipo</label>
+              <label for="contact-setup">Production / equipment</label>
               <select id="contact-setup" name="setup" required>
-                <option value="">Selecciona una opción</option>
-                <option>Equipo completo en venue</option>
-                <option>Cabina básica y sonido disponible</option>
-                <option>Necesitamos propuesta técnica</option>
-                <option>Aún por definir</option>
+                <option value="">Choose one</option>
+                <option>Full venue setup already in place</option>
+                <option>Basic booth and sound available</option>
+                <option>We need a technical proposal</option>
+                <option>Still to be defined</option>
               </select>
             </div>
 
             <div class="form-field form-field--full">
-              <label for="contact-notes">Notas extra</label>
-              <textarea id="contact-notes" name="notes" placeholder="Tipo de público, estilos clave, horario completo o cualquier detalle importante."></textarea>
+              <label for="contact-notes">Extra notes</label>
+              <textarea id="contact-notes" name="notes" placeholder="Audience profile, key styles, full schedule or any useful detail."></textarea>
             </div>
           </div>
 
           <div class="form-actions">
             <div class="summary-tools">
-              <button class="summary-build" id="build-summary" type="button">Generar resumen del evento</button>
+              <button class="summary-build" id="build-summary" type="button">Build event summary</button>
               <div class="summary-card" id="summary-card" data-ready="false">
-                <strong>Resumen antes de enviar</strong>
-                <p id="summary-preview">Todavía no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.</p>
+                <strong>Summary before sending</strong>
+                <p id="summary-preview">There is no summary yet. Fill in the fields and click “Build event summary”.</p>
               </div>
               <div class="confirm-row">
                 <input id="confirm-summary" name="confirm_summary" type="checkbox" value="yes" />
-                <label for="confirm-summary">He revisado el resumen y confirmo que estos datos son correctos para enviar la solicitud.</label>
+                <label for="confirm-summary">I have reviewed the summary and confirm these details are correct for sending the request.</label>
               </div>
             </div>
 
-            <button class="form-submit" type="submit" disabled>Confirmar y enviar solicitud</button>
+            <button class="form-submit" type="submit" disabled>Confirm and send request</button>
             <p class="form-status" id="form-status">
-              Completa los campos, genera el resumen y confirma el envío.
+              Complete the fields, build the summary and confirm the submission.
             </p>
           </div>
         </form>
@@ -176,79 +176,79 @@ const navItems = getInnerPageNav("/booking/");
 
     <Fragment slot="sidebar">
       <section class="side-card" aria-labelledby="fit-title">
-        <p class="side-kicker">Qué necesito</p>
-        <h2 id="fit-title">Lo que me ayuda a responder bien</h2>
+        <p class="side-kicker">What helps most</p>
+        <h2 id="fit-title">The details that make a proper reply possible</h2>
         <p>
-          Fecha, tipo de evento, aforo, horario y punto de partida técnico. Con eso ya se puede
-          valorar el encaje real.
+          Date, event type, capacity, schedule and technical starting point. With that, the real
+          fit can already be assessed properly.
         </p>
 
-        <div class="brief-points" aria-label="Datos para booking">
-          <p class="brief-point"><strong>Fecha:</strong> día confirmado del evento.</p>
-          <p class="brief-point"><strong>Venue:</strong> ciudad, espacio y formato.</p>
-          <p class="brief-point"><strong>Set:</strong> duración y hora de actuación.</p>
-          <p class="brief-point"><strong>Producción:</strong> qué hay montado y qué falta.</p>
+        <div class="brief-points" aria-label="Booking details">
+          <p class="brief-point"><strong>Date:</strong> confirmed event day.</p>
+          <p class="brief-point"><strong>Venue:</strong> city, space and format.</p>
+          <p class="brief-point"><strong>Set:</strong> duration and play time.</p>
+          <p class="brief-point"><strong>Production:</strong> what is already available and what is missing.</p>
         </div>
       </section>
 
       <section class="side-card" aria-labelledby="profile-title">
-        <p class="side-kicker">Perfil</p>
+        <p class="side-kicker">Profile</p>
         <h2 id="profile-title">Marques Edition</h2>
         <p>
-          DJ en Madrid con sets afro, latin y open format. Cabina pensada para leer la pista,
-          sostener la energía y adaptarse al formato sin perder identidad.
+          Madrid-based DJ with afro, latin and open format sets. A booth approach built around
+          reading the room, holding the energy and adapting without losing identity.
         </p>
 
-        <div class="facts" aria-label="Datos rápidos">
+        <div class="facts" aria-label="Quick facts">
           <span class="fact-chip">Base: Madrid</span>
           <span class="fact-chip">Afro / Latin / Open format</span>
-          <span class="fact-chip">Clubs / Bodas / Privados</span>
-          <span class="fact-chip">Residencia @pensionmimosas</span>
+          <span class="fact-chip">Clubs / Weddings / Private events</span>
+          <span class="fact-chip">Residency @pensionmimosas</span>
         </div>
       </section>
 
       <section class="side-card" aria-labelledby="genres-title">
-        <p class="side-kicker">Qué suele funcionar</p>
-        <h2 id="genres-title">Géneros que mejor conectan en España entre 18 y 50 años</h2>
+        <p class="side-kicker">What often works</p>
+        <h2 id="genres-title">Styles that usually connect with broad crowds in Spain</h2>
         <p>
-          Para público amplio, lo que mejor suele responder en pista es una mezcla bien medida de
-          pop, urbano latino, bloques latinos bailables y clásicos recientes.
+          For mixed audiences, the strongest response usually comes from a measured blend of pop,
+          latin urban, danceable latin blocks and recent classics.
         </p>
 
-        <div class="facts" aria-label="Géneros que suelen funcionar mejor">
-          <span class="fact-chip">Pop español</span>
-          <span class="fact-chip">Pop internacional</span>
-          <span class="fact-chip">Pop latino</span>
-          <span class="fact-chip">Rock / pop-rock español</span>
-          <span class="fact-chip">Rock / pop-rock internacional</span>
-          <span class="fact-chip">Reggaetón</span>
-          <span class="fact-chip">Urbano latino</span>
+        <div class="facts" aria-label="Genres that usually work best">
+          <span class="fact-chip">Spanish pop</span>
+          <span class="fact-chip">International pop</span>
+          <span class="fact-chip">Latin pop</span>
+          <span class="fact-chip">Spanish pop-rock</span>
+          <span class="fact-chip">International pop-rock</span>
+          <span class="fact-chip">Reggaeton</span>
+          <span class="fact-chip">Latin urban</span>
           <span class="fact-chip">Afrobeat / afropop</span>
           <span class="fact-chip">Bachata</span>
           <span class="fact-chip">Merengue / merenguetón</span>
-          <span class="fact-chip">Dance comercial</span>
-          <span class="fact-chip">Electrónica comercial</span>
+          <span class="fact-chip">Commercial dance</span>
+          <span class="fact-chip">Commercial electronic</span>
           <span class="fact-chip">Flamenco pop</span>
-          <span class="fact-chip">Canción española</span>
+          <span class="fact-chip">Spanish classics</span>
           <span class="fact-chip">Hits 2000s / 2010s / 2020s</span>
         </div>
       </section>
 
       <section class="side-card" aria-labelledby="links-title">
-        <p class="side-kicker">Navegación</p>
-        <h2 id="links-title">Antes o después del booking</h2>
+        <p class="side-kicker">Navigation</p>
+        <h2 id="links-title">Before or after booking</h2>
         <p>
-          Si primero quieres revisar trabajo o plataformas oficiales, tienes las rutas separadas y
-          preparadas para eso.
+          If you want to review work or official platforms first, those routes are separated and
+          ready for that.
         </p>
 
         <div class="side-stack">
-          <a class="side-link" href="/reels/">Ver reels ↗</a>
-          <a class="side-link" href="/streams/">Ver remixes ↗</a>
-          <a class="side-link" href="/sets/">Ver sets ↗</a>
-          <a class="side-link" href="/events/">Ver events ↗</a>
-          <a class="side-link" href="/media-links/">Abrir media-links ↗</a>
-          <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Abrir reels en Instagram ↗</a>
+          <a class="side-link" href="/reels/">See reels ↗</a>
+          <a class="side-link" href="/streams/">See remixes ↗</a>
+          <a class="side-link" href="/sets/">See sets ↗</a>
+          <a class="side-link" href="/events/">See events ↗</a>
+          <a class="side-link" href="/media-links/">Open media-links ↗</a>
+          <a class="side-link" href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">Open Instagram reels ↗</a>
         </div>
       </section>
     </Fragment>
@@ -279,11 +279,11 @@ const navItems = getInnerPageNav("/booking/");
       }
 
       function formatDate(dateValue) {
-        if (!dateValue) return "fecha pendiente";
+        if (!dateValue) return "date pending";
         const date = new Date(dateValue + "T12:00:00");
         if (Number.isNaN(date.getTime())) return dateValue;
 
-        return new Intl.DateTimeFormat("es-ES", {
+        return new Intl.DateTimeFormat("en-GB", {
           day: "numeric",
           month: "long",
           year: "numeric",
@@ -311,24 +311,24 @@ const navItems = getInnerPageNav("/booking/");
         const notes = bookingForm.elements.notes.value.trim();
 
         const lines = [
-          `Solicitud de ${name} para ${eventType.toLowerCase()}.`,
-          `Fecha: ${formatDate(eventDate)}.`,
-          `Lugar: ${location}.`,
-          `Inicio previsto: ${startTime}.`,
-          `Duración solicitada: ${setLength}.`,
-          `Aforo estimado: ${audience}.`,
-          `Producción disponible: ${setup}.`,
-          `Contacto: ${email}${phone ? " · " + phone : ""}.`,
+          `Request from ${name} for ${eventType.toLowerCase()}.`,
+          `Date: ${formatDate(eventDate)}.`,
+          `Location: ${location}.`,
+          `Planned start: ${startTime}.`,
+          `Requested set length: ${setLength}.`,
+          `Estimated capacity: ${audience}.`,
+          `Production available: ${setup}.`,
+          `Contact: ${email}${phone ? " · " + phone : ""}.`,
         ];
 
-        if (notes) lines.push(`Notas: ${notes}.`);
+        if (notes) lines.push(`Notes: ${notes}.`);
         return lines.join("\n");
       }
 
       function refreshSummary() {
         if (!bookingForm.reportValidity()) {
           formStatus.dataset.state = "error";
-          formStatus.textContent = "Completa los campos obligatorios para generar el resumen.";
+          formStatus.textContent = "Complete the required fields to build the summary.";
           return;
         }
 
@@ -342,7 +342,7 @@ const navItems = getInnerPageNav("/booking/");
         setSubmitState();
 
         formStatus.dataset.state = "success";
-        formStatus.textContent = "Resumen listo. Revísalo y marca la confirmación para enviar.";
+        formStatus.textContent = "Summary ready. Review it and confirm before sending.";
       }
 
       bookingForm.querySelectorAll("input, select, textarea").forEach((field) => {
@@ -361,7 +361,7 @@ const navItems = getInnerPageNav("/booking/");
 
           if (summaryConfirmed) {
             formStatus.dataset.state = "success";
-            formStatus.textContent = "Todo listo. Ya puedes enviar la solicitud.";
+            formStatus.textContent = "Everything is ready. You can send the request now.";
           }
         });
       }
@@ -371,25 +371,25 @@ const navItems = getInnerPageNav("/booking/");
 
         if (!bookingForm.reportValidity()) {
           formStatus.dataset.state = "error";
-          formStatus.textContent = "Revisa los campos marcados y vuelve a intentarlo.";
+          formStatus.textContent = "Check the highlighted fields and try again.";
           return;
         }
 
         if (!summaryInput || !summaryInput.value.trim()) {
           formStatus.dataset.state = "error";
-          formStatus.textContent = "Primero genera el resumen del evento.";
+          formStatus.textContent = "Build the event summary first.";
           return;
         }
 
         if (!confirmSummary || !confirmSummary.checked) {
           formStatus.dataset.state = "error";
-          formStatus.textContent = "Revisa el resumen y confirma antes de enviarlo.";
+          formStatus.textContent = "Review the summary and confirm it before sending.";
           return;
         }
 
         const formData = new FormData(bookingForm);
         formStatus.dataset.state = "loading";
-        formStatus.textContent = "Enviando solicitud...";
+        formStatus.textContent = "Sending request...";
         if (submitButton) submitButton.disabled = true;
 
         try {
@@ -403,17 +403,17 @@ const navItems = getInnerPageNav("/booking/");
 
           bookingForm.reset();
           if (summaryPreview) {
-            summaryPreview.textContent = "Todavía no hay resumen. Completa los campos y pulsa en “Generar resumen del evento”.";
+            summaryPreview.textContent = "There is no summary yet. Fill in the fields and click “Build event summary”.";
           }
           if (summaryInput) summaryInput.value = "";
           if (summaryCard) summaryCard.dataset.ready = "false";
           summaryConfirmed = false;
           setSubmitState();
           formStatus.dataset.state = "success";
-          formStatus.textContent = "Solicitud enviada. Te responderé en cuanto revise la fecha.";
+          formStatus.textContent = "Request sent. I will reply as soon as I review the date.";
         } catch {
           formStatus.dataset.state = "error";
-          formStatus.textContent = "Ahora mismo no he podido enviar el formulario. En cuanto tenga el correo de destino activo, este canal quedará operativo.";
+          formStatus.textContent = "The form could not be sent right now. The booking route remains static-friendly for GitHub Pages, so the email gateway needs to stay available.";
         } finally {
           if (submitButton) submitButton.disabled = false;
         }
@@ -524,97 +524,92 @@ const navItems = getInnerPageNav("/booking/");
       appearance: none;
     }
 
-    .summary-card p {
-      white-space: pre-line;
-    }
-
-    .summary-card[data-ready="false"] p {
-      color: #b8c2e0;
+    .form-field--full {
+      grid-column: 1 / -1;
     }
 
     .summary-build,
-    .side-link,
     .form-submit {
+      min-height: 48px;
+      border: 0;
+      border-radius: 16px;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        opacity 160ms ease;
+    }
+
+    .summary-build {
+      color: #160b34;
+      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+    }
+
+    .form-submit {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .summary-build:hover,
+    .summary-build:focus-visible,
+    .form-submit:hover:not(:disabled),
+    .form-submit:focus-visible:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(8, 3, 25, 0.34);
+      outline: none;
+    }
+
+    .confirm-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: start;
+    }
+
+    .confirm-row input {
+      margin-top: 0.2rem;
+    }
+
+    .confirm-row label,
+    .form-status {
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .form-status[data-state="success"] {
+      color: #8bf3cb;
+    }
+
+    .form-status[data-state="error"] {
+      color: #ffb2cc;
+    }
+
+    .side-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 0.82rem 1rem;
-      border-radius: 16px;
-      font: inherit;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
       font-weight: 800;
       text-decoration: none;
     }
 
-    .summary-build,
-    .side-link {
-      border: 1px solid rgba(69, 215, 255, 0.28);
-      background: rgba(69, 215, 255, 0.08);
-      color: var(--blue);
-    }
-
-    .confirm-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.72rem;
-      padding: 0.85rem 0.9rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .confirm-row input {
-      margin-top: 0.18rem;
-      width: 18px;
-      height: 18px;
-      accent-color: #45d7ff;
-    }
-
-    .confirm-row label {
-      color: #e9efff;
-      font-size: 0.84rem;
-      line-height: 1.5;
-    }
-
-    .form-submit {
-      border: 0;
-      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
-      color: #160b34;
-      cursor: pointer;
-    }
-
-    .form-submit:disabled {
-      opacity: 0.72;
-      cursor: wait;
-    }
-
-    .form-status {
-      min-height: 1.4rem;
-      margin: 0;
-      color: #d9e2fb;
-      font-size: 0.8rem;
-      line-height: 1.45;
-    }
-
-    .form-status[data-state="success"] {
-      color: #9ef8d8;
-    }
-
-    .form-status[data-state="error"] {
-      color: #ffd3e9;
-    }
-
-    .brief-point strong {
-      color: #fff;
-    }
-
-    @media (min-width: 920px) {
+    @media (min-width: 900px) {
       .contact-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .form-field--full {
-        grid-column: 1 / -1;
       }
     }
   </style>

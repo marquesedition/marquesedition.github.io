@@ -1,0 +1,210 @@
+---
+import profileImage from "../../../assets/profile.png";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import InnerPage from "../../../components/layout/InnerPage.astro";
+import Footer from "../../../components/layout/Footer.astro";
+import { buildAbsoluteUrl } from "../../../config/site";
+import { getInnerPageNav } from "../../../config/navigation";
+import { getLocaleHref } from "../../../lib/i18n";
+
+const navItems = getInnerPageNav("/about/", "en");
+const profileImageUrl = buildAbsoluteUrl(profileImage.src);
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marques Edition",
+  url: "https://www.marquesedition.com/en/about/",
+  image: profileImageUrl,
+  jobTitle: "DJ in Madrid crossover",
+  description:
+    "Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. The project blends afro, latin house, reggaeton and open format for clubs, weddings, brands and private events.",
+  homeLocation: {
+    "@type": "Place",
+    name: "Madrid, Spain",
+  },
+  knowsAbout: ["DJ in Madrid crossover", "Afro", "Latin House", "Reggaeton", "Open format"],
+  sameAs: [
+    "https://www.instagram.com/marquesedition/",
+    "https://www.tiktok.com/@marquesedition",
+    "https://www.youtube.com/@marquesedition",
+  ],
+};
+---
+
+<SiteLayout
+  title="Marques Edition - DJ in Madrid Crossover | Afro, Latin House, Reggaeton"
+  description="Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. Afro, Latin House, Reggaeton and open format for clubs, private events, brands and weddings."
+  lang="en"
+  alternateHref={getLocaleHref("es", "/about/")}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+  </Fragment>
+
+  <InnerPage
+    ariaLabel="About Marques Edition"
+    eyebrow="About"
+    title="Marques Edition, a crossover DJ in Madrid."
+    description="Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. The project blends Afro, Latin House, Reggaeton and open format for clubs, weddings, brands and private events."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <div class="chip-row" aria-label="Main keywords">
+        <span class="chip">DJ in Madrid</span>
+        <span class="chip">Madrid crossover DJ</span>
+        <span class="chip">Resident at Pension Mimosas</span>
+        <span class="chip">Afro</span>
+        <span class="chip">Latin House</span>
+        <span class="chip">Reggaeton</span>
+      </div>
+
+      <section class="section" aria-labelledby="about-title">
+        <p class="section-kicker">Profile</p>
+        <h2 id="about-title">A clear introduction for first-time visitors and search engines</h2>
+        <p class="section-copy">
+          Marques Edition is a crossover DJ in Madrid focused on identity, crowd reading and real
+          club energy. The residency at Pension Mimosas provides a steady booth base in the centre
+          of Madrid and a consistent presence for local, international and private-event crowds.
+        </p>
+        <p class="section-copy">
+          The sound blends Afro, Latin House, Reggaeton and crossover, with open format when the
+          event asks for it. The result is flexible, but still recognisable, and designed for
+          clubs, weddings, brands and private events in Madrid.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="keywords-title">
+        <p class="section-kicker">Keywords</p>
+        <h2 id="keywords-title">Short terms that define the project</h2>
+        <div class="keyword-grid" aria-label="SEO keywords">
+          <div class="keyword-card">
+            <strong>DJ in Madrid crossover</strong>
+            <span>A strong local signal for searches around bookings and live booth work.</span>
+          </div>
+          <div class="keyword-card">
+            <strong>Resident at Pension Mimosas</strong>
+            <span>A real residency that adds continuity and local proof in Madrid.</span>
+          </div>
+          <div class="keyword-card">
+            <strong>Afro, Latin House, Reggaeton and crossover</strong>
+            <span>Main styles with a direct dance-floor approach and live mixing focus.</span>
+          </div>
+        </div>
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="summary-title">
+        <p class="side-kicker">Summary</p>
+        <h2 id="summary-title">Marques Edition</h2>
+        <p>
+          A crossover DJ in Madrid with a residency at Pension Mimosas and a sound rooted in Afro,
+          Latin House and Reggaeton.
+        </p>
+
+        <div class="facts" aria-label="Quick facts">
+          <span class="fact-chip">Base: Madrid</span>
+          <span class="fact-chip">Residency: Pension Mimosas</span>
+          <span class="fact-chip">Afro / Latin House / Reggaeton / Crossover</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="actions-title">
+        <p class="side-kicker">Next step</p>
+        <h2 id="actions-title">Useful routes to keep exploring</h2>
+        <p>
+          If you want to see the work in action, reels and remixes show different sides of the
+          project. If you want to discuss a date, booking is ready.
+        </p>
+
+        <div class="side-stack">
+          <a class="side-link" href="/reels/">See reels ↗</a>
+          <a class="side-link" href="/streams/">See remixes ↗</a>
+          <a class="side-link" href="/events/">See events ↗</a>
+          <a class="side-link" href="/en/booking/">Go to booking ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <style>
+    .keyword-grid {
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .keyword-card {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .keyword-card strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .keyword-card span {
+      display: block;
+      margin-top: 0.28rem;
+      color: var(--muted-strong);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 560px) {
+      .keyword-grid {
+        margin-top: 0.75rem;
+        gap: 0.6rem;
+      }
+
+      .keyword-card {
+        padding: 0.85rem;
+        border-radius: 16px;
+      }
+
+      .keyword-card strong {
+        font-size: 0.9rem;
+        line-height: 1.25;
+      }
+
+      .keyword-card span {
+        font-size: 0.8rem;
+        line-height: 1.42;
+      }
+
+      .side-stack {
+        gap: 0.55rem;
+      }
+
+      .side-link {
+        min-height: 38px;
+        padding: 0.56rem 0.82rem;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</SiteLayout>

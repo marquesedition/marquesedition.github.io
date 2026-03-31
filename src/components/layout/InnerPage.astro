@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.png";
+import profileImage from "../../assets/profile.png";
 import NavPills from "./NavPills.astro";
 import type { NavItem } from "../../config/navigation";
 
@@ -16,8 +19,14 @@ const { ariaLabel, eyebrow, title, description, navItems } = Astro.props;
 <main class="app">
   <section class="card" aria-label={ariaLabel}>
     <div class="hero" aria-hidden="true">
-      <img class="hero-cover" src="/profile.png" alt="" loading="eager" decoding="async" />
-      <img class="avatar" src="/logo.png" alt="Logo de Marques Edition" loading="eager" decoding="async" />
+      <Image
+        class="hero-cover"
+        src={profileImage}
+        alt=""
+        loading="eager"
+        sizes="(max-width: 900px) 100vw, 1180px"
+      />
+      <Image class="avatar" src={logoImage} alt="Logo de Marques Edition" loading="eager" />
     </div>
 
     <div class="content">

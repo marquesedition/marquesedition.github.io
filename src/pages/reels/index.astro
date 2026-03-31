@@ -3,19 +3,18 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import InnerPage from "../../components/layout/InnerPage.astro";
 import Footer from "../../components/layout/Footer.astro";
 import ReelCard from "../../components/content/ReelCard.astro";
-import reelsPayload from "../../data/reels.json";
 import { getInnerPageNav } from "../../config/navigation";
+import { getReelsData } from "../../lib/content";
 import { formatShortSpanishDate } from "../../lib/format";
 
 const navItems = getInnerPageNav("/reels/");
 
-const reels = reelsPayload.reels;
-const profile = reelsPayload.profile;
+const { reels, profile, generatedAt } = await getReelsData();
 const latestReel = reels[0];
 const featuredReels = reels.slice(1, 5);
 const extraReels = reels.slice(5);
 
-const formatUpdated = formatShortSpanishDate(new Date(reelsPayload.generated_at));
+const formatUpdated = generatedAt ? formatShortSpanishDate(new Date(generatedAt)) : "";
 ---
 
 <SiteLayout
@@ -102,7 +101,7 @@ const formatUpdated = formatShortSpanishDate(new Date(reelsPayload.generated_at)
         <p>
           Esta página está pensada para enseñar cabina y ambiente. Si quiere escuchar más material
           o hablar de una fecha, estas son las rutas más útiles.
-        </div>
+        </p>
 
         <div class="facts" aria-label="Dónde encaja mejor">
           <div class="fact">
@@ -128,7 +127,7 @@ const formatUpdated = formatShortSpanishDate(new Date(reelsPayload.generated_at)
     <Footer slot="footer" />
   </InnerPage>
 
-  <p class="status-copy">
+      <p class="status-copy">
     {reels.length} reels · actualizado {formatUpdated} ·
     <a href="https://www.instagram.com/marquesedition/reels/" target="_blank" rel="noopener noreferrer">abrir perfil ↗</a>
   </p>

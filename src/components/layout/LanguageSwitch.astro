@@ -1,0 +1,67 @@
+---
+import type { SiteLocale } from "../../lib/i18n";
+
+interface Props {
+  locale: SiteLocale;
+  alternateHref?: string;
+}
+
+const { locale, alternateHref } = Astro.props;
+---
+
+{
+  alternateHref && (
+    <nav class="language-switch" aria-label="Selector de idioma" transition:persist>
+      {
+        locale === "es" ? (
+          <>
+            <span class="language-pill language-pill--active">ES</span>
+            <a class="language-pill" href={alternateHref} hreflang="en">
+              EN
+            </a>
+          </>
+        ) : (
+          <>
+            <a class="language-pill" href={alternateHref} hreflang="es">
+              ES
+            </a>
+            <span class="language-pill language-pill--active">EN</span>
+          </>
+        )
+      }
+    </nav>
+  )
+}
+
+<style>
+  .language-switch {
+    width: min(100%, 1180px);
+    margin: 0 auto 0.85rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.45rem;
+  }
+
+  .language-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.4rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(247, 243, 255, 0.78);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+    backdrop-filter: blur(16px);
+  }
+
+  .language-pill--active {
+    color: #160b34;
+    border-color: transparent;
+    background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+  }
+ </style>

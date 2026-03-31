@@ -4,6 +4,7 @@ import html
 import json
 import re
 import sys
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -29,6 +30,13 @@ def fetch_profile_payload():
 
     with urllib.request.urlopen(request, timeout=30) as response:
         return json.load(response)
+
+
+def load_existing_payload():
+    if not SOURCE_DATA_PATH.exists():
+        return None
+
+    return json.loads(SOURCE_DATA_PATH.read_text(encoding="utf-8"))
 
 
 def normalize_whitespace(text):
@@ -176,7 +184,26 @@ def build_reels_payload(profile_payload):
 
 
 def main():
-    payload = fetch_profile_payload()
+    try:
+        payload = fetch_profile_payload()
+    except Exception as exc:
+        existing_payload = load_existing_payload()
+        is_rate_limit = isinstance(exc, urllib.error.HTTPError) and exc.code == 429
+        is_temporary_network_error = isinstance(exc, urllib.error.URLError)
+
+        if existing_payload and (is_rate_limit or is_temporary_network_error):
+            reason = "HTTP 429 rate limit" if is_rate_limit else f"temporary network error: {exc}"
+            print(
+                f"Instagram reels refresh skipped due to {reason}. Keeping cached data from {SOURCE_DATA_PATH}.",
+                file=sys.stderr,
+            )
+            print(
+                f"Reused {len(existing_payload.get('reels', []))} cached reels from {SOURCE_DATA_PATH}"
+            )
+            return
+
+        raise
+
     clear_existing_thumbnails()
     reels_payload = build_reels_payload(payload)
 
