@@ -58,7 +58,7 @@ const alternateUrl = alternateHref ? new URL(alternateHref, Astro.site ?? canoni
     <slot name="head" />
   </head>
   <body>
-    <LanguageSwitch locale={lang} alternateHref={alternateHref} />
+    <LanguageSwitch locale={lang} currentHref={Astro.url.pathname} alternateHref={alternateHref} />
     <slot />
   </body>
 </html>
