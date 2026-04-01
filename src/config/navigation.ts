@@ -12,6 +12,7 @@ const INNER_PAGE_NAV_ITEMS = [
   { path: "/reels/", labels: { es: "Reels", en: "Reels" } },
   { path: "/streams/", labels: { es: "Remixes", en: "Remixes" } },
   { path: "/sets/", labels: { es: "Sets", en: "Sets" } },
+  { path: "/library/", labels: { es: "Library", en: "Library" } },
   { path: "/events/", labels: { es: "Events", en: "Events" } },
   { path: "/media-links/", labels: { es: "Media Links", en: "Media Links" } },
   { path: "/booking/", labels: { es: "Booking", en: "Booking" } },
