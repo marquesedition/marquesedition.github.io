@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-03T07:50:48.688630+02:00",
+  "generated_at": "2026-04-04T07:35:56.530886+02:00",
   "source": "recurring_residency",
   "source_url": "https://share.google/YZcMnADktdv1w7FEW",
   "artist": "Marques Edition",
@@ -15,24 +15,6 @@
     "venue_url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
   },
   "events": [
-    {
-      "month_id": "2026-04",
-      "month_label": "Abril de 2026",
-      "date_label": "Viernes 3 de abril de 2026",
-      "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
-      "offers": [
-        {
-          "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
-        },
-        {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
-        }
-      ]
-    },
     {
       "month_id": "2026-04",
       "month_label": "Abril de 2026",
@@ -361,6 +343,24 @@
       "month_id": "2026-06",
       "month_label": "Junio de 2026",
       "date_label": "Sábado 6 de junio de 2026",
+      "artist": "Marques Edition",
+      "location": "Sol / Centro, Madrid, España",
+      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://share.google/YZcMnADktdv1w7FEW"
+        },
+        {
+          "label": "Ver local",
+          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-06",
+      "month_label": "Junio de 2026",
+      "date_label": "Viernes 12 de junio de 2026",
       "artist": "Marques Edition",
       "location": "Sol / Centro, Madrid, España",
       "venue": "Pensión Mimosas · 21:00 - 02:30",
