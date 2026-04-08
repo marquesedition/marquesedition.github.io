@@ -17,6 +17,7 @@ const previewSeconds = Number(stats.preview_seconds ?? 60);
 const sourceUrl = libraryData.source_url;
 const supportUrl = "/booking/";
 const catalogEndpoint = "/media-links/library.json";
+
 const featuredCrates = [...(library.folders ?? [])]
   .sort((a, b) => b.track_count - a.track_count)
   .slice(0, 5)
@@ -27,23 +28,24 @@ const featuredCrates = [...(library.folders ?? [])]
     folderCount: folder.folder_count,
     sizeLabel: folder.total_size_label,
   }));
+
 const programRows = [
   {
     label: "Peak Latin",
-    detail: "Latin Urban, Pachanga, Tropical y edits de pista para bloques calientes.",
+    detail: "Latin Urban, Pachanga, Tropical y edits para franjas de máxima energía.",
   },
   {
     label: "Open Format",
-    detail: "80s, 90s, Cumbias, Folklore y herramientas para eventos mixtos.",
+    detail: "Cumbias, throwbacks y bloques mixtos para eventos largos y públicos variados.",
   },
   {
     label: "Club Utility",
-    detail: "Acapellas, Tools, intros, clean edits y armas rápidas para mezclar.",
+    detail: "Acapellas, intros, clean edits y herramientas rápidas para mezclar con intención.",
   },
 ];
 
 const summaryChips = [
-  `${stats.tracks} canciones`,
+  `${stats.tracks} tracks`,
   `${stats.folders} carpetas`,
   `${previewSeconds / 60} min preview`,
   `${previewTracks} previews listos`,
@@ -55,14 +57,14 @@ const librarySchema = {
   "@type": "CollectionPage",
   name: `${library.name} | DJ Library`,
   description:
-    "Recordpool digital de Marques Edition con categorías, búsqueda y previews locales comprimidos.",
+    "Recordpool digital de Marques Edition con búsqueda rápida, navegación ligera y previews locales protegidos.",
   url: "https://www.marquesedition.com/library/",
 };
 ---
 
 <SiteLayout
   title="Marques Edition | Recordpool"
-  description="Recordpool digital de Marques Edition con categorías, búsqueda y previews locales comprimidos de 1 minuto."
+  description="Recordpool digital de Marques Edition con navegación rápida, categorías por crate y previews locales protegidos de 1 minuto."
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(librarySchema)} />
@@ -71,45 +73,79 @@ const librarySchema = {
   <InnerPage
     ariaLabel="Recordpool de Marques Edition"
     eyebrow="Recordpool"
-    title="La library ya funciona como un recordpool."
-    description="La sección carga el catálogo por JSON, deja la web ligera y reproduce previews locales comprimidos de 1 minuto para proteger los temas."
+    title="Recordpool privado con lenguaje de club."
+    description="Crates prioritarios, búsqueda inmediata y previews de 60 segundos pensados para descubrir música sin comprometer el archivo original."
     navItems={navItems}
   >
     <Fragment slot="main">
-      <div class="chip-row" aria-label="Resumen del recordpool">
-        {summaryChips.map((chip) => <span class="chip">{chip}</span>)}
-      </div>
-
-      <section class="section library-hero" aria-labelledby="recordpool-title">
-        <p class="section-kicker">Recordpool privado</p>
-        <h2 id="recordpool-title">{library.name}</h2>
-        <p class="section-copy">
-          Esto ya no es una landing provisional. Ahora la sección se comporta como un recordpool:
-          categorías rápidas, búsqueda, resultados ligeros y previews servidos desde tu propio
-          dominio para que el audio funcione bien y la web vaya más ágil.
-        </p>
-
-        <div class="hero-panel">
-          <div class="hero-copy">
-            <strong>Cómo queda protegido</strong>
-            <p>
-              Cada tema usa un preview local de 1 minuto, comprimido y en mono. Así enseñas el
-              contenido sin regalar el archivo completo.
-            </p>
-          </div>
-
-          <div class="hero-actions">
-            <a class="cta-primary" href={sourceUrl} target="_blank" rel="noopener noreferrer">
-              Abrir carpeta en Drive ↗
-            </a>
-            <a class="cta-secondary" href={supportUrl}>Hacer una consulta ↗</a>
-          </div>
+      <section class="section stage" aria-labelledby="recordpool-title">
+        <div class="chip-row chip-row--ticker" aria-label="Resumen del recordpool">
+          {summaryChips.map((chip) => <span class="chip">{chip}</span>)}
         </div>
 
-        <div class="feature-grid">
+        <div class="stage-grid">
+          <div class="stage-copy">
+            <p class="section-kicker">Marques Edition recordpool</p>
+            <h2 id="recordpool-title">Selección rápida, browsing limpio y preview protegido.</h2>
+            <p class="section-copy">
+              La library deja de parecer un listado improvisado y pasa a sentirse como una
+              herramienta de trabajo: crates fuertes arriba, contexto editorial y un browser denso
+              para escuchar sin fricción.
+            </p>
+
+            <div class="hero-actions">
+              <a class="cta-primary" href={sourceUrl} target="_blank" rel="noopener noreferrer">
+                Abrir carpeta en Drive ↗
+              </a>
+              <a class="cta-secondary" href={supportUrl}>Solicitar acceso / consulta ↗</a>
+            </div>
+          </div>
+
+          <div class="stage-dashboard" aria-label="Panel del recordpool">
+            <article class="stage-stat">
+              <span class="stage-stat__label">Coverage</span>
+              <strong>{previewTracks}</strong>
+              <span class="stage-stat__caption">tracks con preview activo</span>
+              <p>
+                {stats.folders} carpetas ordenadas y {stats.total_size_label} de librería fuente
+                sincronizada.
+              </p>
+            </article>
+
+            <article class="stage-panel">
+              <p class="feature-kicker">Top crates</p>
+              <h3>Lo que más pesa en el catálogo</h3>
+              <div class="crate-stack">
+                {featuredCrates.slice(0, 3).map((crate) => (
+                  <article class="crate-strip">
+                    <span class="crate-rank">0{crate.rank}</span>
+                    <div>
+                      <strong>{crate.name}</strong>
+                      <span>
+                        {crate.trackCount} tracks
+                        {crate.folderCount > 0 ? ` · ${crate.folderCount} subcarpetas` : ""}
+                      </span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section editorial-board" aria-labelledby="editorial-title">
+        <p class="section-kicker">Selección</p>
+        <h2 id="editorial-title">Portada editorial arriba, browser técnico debajo</h2>
+        <p class="section-copy">
+          El objetivo es que la parte superior venda nivel y que el listado inferior sirva para
+          trabajar. Menos tarjeta genérica, más sensación de producto serio.
+        </p>
+
+        <div class="editorial-grid">
           <section class="feature-card feature-card--lead" aria-labelledby="featured-crates-title">
             <p class="feature-kicker">Crates destacados</p>
-            <h3 id="featured-crates-title">Los bloques con más peso del catálogo</h3>
+            <h3 id="featured-crates-title">Bloques con mayor volumen</h3>
             <div class="crate-grid">
               {featuredCrates.map((crate) => (
                 <article class="crate-card">
@@ -127,7 +163,7 @@ const librarySchema = {
 
           <section class="feature-card" aria-labelledby="program-title">
             <p class="feature-kicker">Programación</p>
-            <h3 id="program-title">Tres rutas para trabajar la pista</h3>
+            <h3 id="program-title">Tres rutas para leer la pista</h3>
             <div class="program-list">
               {programRows.map((row) => (
                 <article class="program-card">
@@ -137,18 +173,50 @@ const librarySchema = {
               ))}
             </div>
           </section>
+
+          <section class="feature-card feature-card--utility" aria-labelledby="protection-title">
+            <p class="feature-kicker">Protección</p>
+            <h3 id="protection-title">Qué protege la web y qué deja ver</h3>
+            <div class="utility-list">
+              <article class="utility-row">
+                <strong>Preview de 1 minuto</strong>
+                <span>Tiempo suficiente para valorar groove, arreglo y energía sin liberar el tema.</span>
+              </article>
+              <article class="utility-row">
+                <strong>Compresión agresiva</strong>
+                <span>Mono, bitrate bajo y tamaño ligero para servir rápido y proteger mejor.</span>
+              </article>
+              <article class="utility-row">
+                <strong>Drive como fuente</strong>
+                <span>La organización original sigue intacta; la web solo gestiona la escucha.</span>
+              </article>
+            </div>
+          </section>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="browser-title">
-        <p class="section-kicker">Catálogo</p>
-        <h2 id="browser-title">Buscar y navegar como recordpool</h2>
+      <section class="section catalog-section" aria-labelledby="browser-title">
+        <p class="section-kicker">Browser</p>
+        <h2 id="browser-title">Buscar, filtrar y escuchar como en un recordpool real</h2>
         <p class="section-copy">
-          La web carga el catálogo completo aparte y solo pinta los resultados necesarios. Eso
-          evita renderizar miles de filas de golpe y hace la navegación mucho más ligera.
+          Aquí manda la velocidad. El catálogo vive en JSON, el resultado se pinta bajo demanda y
+          cada fila concentra lo justo: identidad, tags, preview y acceso al archivo fuente.
         </p>
 
         <div class="recordpool-shell" id="recordpool-app" data-endpoint={catalogEndpoint}>
+          <div class="catalog-topline">
+            <div>
+              <p class="feature-kicker">Search / cue / move</p>
+              <h3>Navegador rápido de pistas</h3>
+            </div>
+
+            <div class="catalog-topline__facts">
+              <span class="fact-chip">{previewSeconds / 60} min preview</span>
+              <span class="fact-chip">JSON catalog</span>
+              <span class="fact-chip">compact DJ rows</span>
+            </div>
+          </div>
+
           <div class="recordpool-toolbar">
             <label class="search-box">
               <span>Buscar tema o carpeta</span>
@@ -182,11 +250,11 @@ const librarySchema = {
 
     <Fragment slot="sidebar">
       <section class="side-card" aria-labelledby="status-title">
-        <p class="side-kicker">Estado</p>
-        <h2 id="status-title">Recordpool listo para escalar</h2>
+        <p class="side-kicker">Pulse</p>
+        <h2 id="status-title">Más producto premium, menos placeholder</h2>
         <p>
-          El catálogo vive en JSON y los previews en ficheros ligeros. Esa combinación encaja
-          mucho mejor con una web estática que intentar reproducir directamente desde Drive.
+          La base técnica ya estaba bien orientada. Ahora la presentación también: más contraste,
+          mejores jerarquías y un ritmo visual que ayuda a percibir valor.
         </p>
 
         <div class="facts" aria-label="Estado del recordpool">
@@ -199,20 +267,20 @@ const librarySchema = {
       </section>
 
       <section class="side-card" aria-labelledby="notes-title">
-        <p class="side-kicker">Ventajas</p>
-        <h2 id="notes-title">Lo necesario para que funcione bien</h2>
+        <p class="side-kicker">Operativa</p>
+        <h2 id="notes-title">Reglas para que la sección funcione de verdad</h2>
         <div class="side-notes">
           <div class="note-card">
-            <strong>Web más ágil</strong>
-            <span>No renderiza las 1.989 canciones en el HTML inicial.</span>
+            <strong>UX de recordpool</strong>
+            <span>Filtrado rápido, lectura compacta y reproductor integrado en cada fila.</span>
           </div>
           <div class="note-card">
             <strong>Preview protegido</strong>
-            <span>1 minuto, mono y bitrate muy bajo para enseñar sin soltar el máster entero.</span>
+            <span>60 segundos comprimidos para enseñar el vibe sin regalar el archivo entero.</span>
           </div>
           <div class="note-card">
-            <strong>Drive como origen</strong>
-            <span>Drive sigue siendo la biblioteca fuente; la web usa sus propios previews.</span>
+            <strong>Fuente intacta</strong>
+            <span>Drive mantiene el orden y la web controla la experiencia de escucha.</span>
           </div>
         </div>
 
@@ -256,6 +324,48 @@ const librarySchema = {
         if (className) node.className = className;
         if (typeof text === "string") node.textContent = text;
         return node;
+      };
+
+      const formatTrail = (track) => {
+        const trail = Array.isArray(track.trail) ? [...track.trail] : [];
+        const normalizedTrail = trail[0] === track.categoryName ? trail.slice(1) : trail;
+        return normalizedTrail.length
+          ? `${track.categoryName} / ${normalizedTrail.join(" / ")}`
+          : track.categoryName;
+      };
+
+      const inferTags = (track) => {
+        const haystack = [
+          track.name,
+          track.categoryName,
+          track.folderName,
+          ...(track.trail || []),
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        const tagRules = [
+          ["acapella", "Acapella"],
+          ["intro", "Intro"],
+          ["clean", "Clean"],
+          ["dirty", "Dirty"],
+          ["tool", "Tool"],
+          ["remix", "Remix"],
+          ["edit", "Edit"],
+          ["latin", "Latin"],
+          ["reggaeton", "Reggaeton"],
+          ["dembow", "Dembow"],
+          ["cumbia", "Cumbia"],
+          ["bachata", "Bachata"],
+          ["merengue", "Merengue"],
+          ["house", "House"],
+          ["afro", "Afro"],
+        ];
+
+        return tagRules
+          .filter(([pattern]) => haystack.includes(pattern))
+          .map(([, label]) => label)
+          .slice(0, 3);
       };
 
       const collectTracks = (rootFolder) => {
@@ -360,24 +470,40 @@ const librarySchema = {
         });
       };
 
-      const renderTrackCard = (track) => {
+      const renderTrackCard = (track, index) => {
         const card = createElement("article", "track-row");
 
-        const copy = createElement("div", "track-row__copy");
-        const title = createElement("strong", "track-row__title", track.name);
-        const path = createElement(
-          "span",
-          "track-row__path",
-          `${track.categoryName} / ${(track.trail || []).join(" / ")}`
+        const slot = createElement(
+          "div",
+          `track-row__slot${track.preview_ready ? " is-ready" : " is-pending"}`,
+          String(index + 1).padStart(2, "0")
         );
+
+        const copy = createElement("div", "track-row__copy");
+        const badges = createElement("div", "track-row__badges");
+        const stateBadge = createElement(
+          "span",
+          `track-state${track.preview_ready ? " is-ready" : " is-pending"}`,
+          track.preview_ready ? "Preview ready" : "Pending"
+        );
+        badges.appendChild(stateBadge);
+
+        inferTags(track).forEach((tag) => {
+          badges.appendChild(createElement("span", "track-tag", tag));
+        });
+
+        const title = createElement("strong", "track-row__title", track.name);
+        const path = createElement("span", "track-row__path", formatTrail(track));
         const meta = createElement(
           "span",
           "track-row__meta",
           [track.size_label, track.modified_label].filter(Boolean).join(" · ")
         );
-        copy.append(title, path, meta);
+        copy.append(badges, title, path, meta);
 
         const playerWrap = createElement("div", "track-row__player");
+        playerWrap.appendChild(createElement("span", "player-label", "Escucha previa"));
+
         if (track.preview_ready && track.preview_url) {
           const audio = createElement("audio", "track-audio");
           audio.controls = true;
@@ -406,7 +532,7 @@ const librarySchema = {
         link.rel = "noopener noreferrer";
         actions.append(badge, link);
 
-        card.append(copy, playerWrap, actions);
+        card.append(slot, copy, playerWrap, actions);
         return card;
       };
 
@@ -423,12 +549,11 @@ const librarySchema = {
         const visibleTracks = filteredTracks.slice(0, state.limit);
         const fragment = document.createDocumentFragment();
 
-        visibleTracks.forEach((track) => {
-          fragment.appendChild(renderTrackCard(track));
+        visibleTracks.forEach((track, index) => {
+          fragment.appendChild(renderTrackCard(track, index));
         });
 
         resultsNode.appendChild(fragment);
-
         loadMoreButton.hidden = visibleTracks.length >= filteredTracks.length;
       };
 
@@ -487,77 +612,205 @@ const librarySchema = {
   </script>
 
   <style>
-    .hero-panel,
+    .chip-row--ticker,
     .hero-actions,
+    .stage-grid,
+    .stage-dashboard,
+    .crate-stack,
     .facts,
     .side-notes,
     .side-stack,
+    .editorial-grid,
     .recordpool-shell,
+    .catalog-topline,
     .recordpool-toolbar,
     .track-results,
     .recordpool-footer,
-    .feature-grid,
     .crate-grid,
-    .program-list {
+    .program-list,
+    .utility-list {
       display: grid;
-      gap: 0.85rem;
+      gap: 0.9rem;
     }
 
-    .hero-panel,
+    .stage,
     .feature-card,
+    .stage-stat,
+    .stage-panel,
     .note-card,
     .empty-state,
     .track-row {
-      padding: 1rem;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(167, 231, 255, 0.1);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 24px 60px rgba(0, 0, 0, 0.2);
     }
 
-    .library-hero {
+    .stage {
       position: relative;
       overflow: hidden;
+      padding: 1.2rem;
+      background:
+        linear-gradient(135deg, rgba(8, 14, 30, 0.96), rgba(5, 9, 22, 0.98)),
+        rgba(5, 9, 22, 0.98);
     }
 
-    .library-hero::before {
+    .stage::before {
       content: "";
       position: absolute;
       inset: 0;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at top left, rgba(255, 102, 168, 0.2), transparent 34%),
-        radial-gradient(circle at 80% 10%, rgba(69, 215, 255, 0.22), transparent 28%),
-        linear-gradient(180deg, rgba(11, 17, 34, 0.4), rgba(11, 17, 34, 0));
       pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(234, 108, 63, 0.28), transparent 32%),
+        radial-gradient(circle at 82% 16%, rgba(82, 232, 255, 0.22), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 42%);
     }
 
-    .hero-panel,
-    .feature-grid {
-      margin-top: 1rem;
+    .stage-grid,
+    .editorial-grid {
       position: relative;
       z-index: 1;
     }
 
-    .hero-copy strong,
+    .chip-row--ticker {
+      grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chip-row--ticker .chip {
+      border-color: rgba(82, 232, 255, 0.14);
+      background: rgba(8, 14, 30, 0.72);
+      color: #effaff;
+    }
+
+    .stage-copy h2 {
+      margin: 0.35rem 0 0;
+      max-width: 13ch;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+    }
+
+    .stage-copy .section-copy {
+      margin-top: 0.9rem;
+      max-width: 54ch;
+      font-size: 0.98rem;
+      color: rgba(231, 242, 255, 0.84);
+    }
+
+    .stage-stat,
+    .stage-panel,
+    .feature-card,
+    .note-card,
+    .track-row,
+    .empty-state {
+      padding: 1rem;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+        rgba(6, 10, 24, 0.8);
+    }
+
+    .stage-stat {
+      background:
+        linear-gradient(145deg, rgba(234, 108, 63, 0.2), rgba(82, 232, 255, 0.1)),
+        rgba(8, 12, 26, 0.96);
+    }
+
+    .stage-stat__label {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 30px;
+      align-items: center;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f2fbff;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stage-stat strong {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: clamp(2.5rem, 7vw, 4.1rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+    }
+
+    .stage-stat__caption {
+      display: block;
+      margin-top: 0.25rem;
+      color: #effbff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .stage-stat p {
+      margin: 0.6rem 0 0;
+      color: rgba(227, 240, 255, 0.76);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .feature-kicker,
+    .player-label,
+    .results-meta {
+      display: block;
+      color: #9cefff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stage-panel h3,
     .feature-card h3,
+    .catalog-topline h3 {
+      margin: 0.22rem 0 0;
+      font-size: 1.06rem;
+      line-height: 1.16;
+    }
+
+    .crate-strip {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .crate-strip:first-child {
+      padding-top: 0.25rem;
+      border-top: none;
+    }
+
+    .crate-strip strong,
     .crate-card strong,
     .program-card strong,
+    .utility-row strong,
     .note-card strong,
     .track-row__title {
       display: block;
       font-size: 0.95rem;
-      line-height: 1.34;
+      line-height: 1.35;
     }
 
-    .hero-copy p,
-    .feature-kicker,
+    .crate-strip span,
     .crate-card span,
     .crate-card em,
     .program-card span,
+    .utility-row span,
     .note-card span,
     .track-row__path,
     .track-row__meta,
-    .results-meta,
     .empty-state {
       display: block;
       color: var(--muted-strong);
@@ -565,47 +818,42 @@ const librarySchema = {
       line-height: 1.5;
     }
 
-    .hero-copy p,
+    .crate-card span,
+    .crate-card em,
+    .program-card span,
+    .utility-row span,
     .note-card span,
     .track-row__path,
-    .track-row__meta,
-    .program-card span {
-      margin-top: 0.22rem;
+    .track-row__meta {
+      margin-top: 0.2rem;
     }
 
     .feature-card--lead {
       background:
-        linear-gradient(145deg, rgba(255, 90, 191, 0.1), rgba(69, 215, 255, 0.06)),
-        rgba(255, 255, 255, 0.05);
+        linear-gradient(145deg, rgba(234, 108, 63, 0.14), rgba(82, 232, 255, 0.08)),
+        rgba(8, 12, 26, 0.9);
     }
 
-    .feature-kicker {
-      margin: 0;
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #7ce6ff;
-    }
-
-    .feature-card h3 {
-      margin: 0.22rem 0 0;
-      font-size: 1.05rem;
+    .feature-card--utility {
+      background:
+        linear-gradient(160deg, rgba(6, 16, 32, 0.94), rgba(8, 12, 26, 0.9)),
+        rgba(8, 12, 26, 0.9);
     }
 
     .crate-grid {
       margin-top: 0.85rem;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
     }
 
     .crate-card,
-    .program-card {
+    .program-card,
+    .utility-row {
       display: grid;
       gap: 0.25rem;
-      padding: 0.9rem;
+      padding: 0.92rem;
       border-radius: 18px;
-      background: rgba(9, 13, 28, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(9, 13, 28, 0.76);
     }
 
     .crate-rank {
@@ -614,25 +862,20 @@ const librarySchema = {
       justify-content: center;
       width: fit-content;
       min-height: 28px;
-      padding: 0.3rem 0.55rem;
+      padding: 0.3rem 0.58rem;
       border-radius: 999px;
-      background: rgba(255, 90, 191, 0.16);
-      color: #ff86ca;
+      background: rgba(234, 108, 63, 0.18);
+      color: #ffc3a7;
       font-size: 0.7rem;
       font-weight: 900;
       letter-spacing: 0.08em;
     }
 
     .crate-card em {
-      margin-top: 0.15rem;
       font-style: normal;
       color: #fff;
       font-size: 0.76rem;
       font-weight: 800;
-    }
-
-    .program-list {
-      margin-top: 0.85rem;
     }
 
     .cta-primary,
@@ -646,7 +889,7 @@ const librarySchema = {
       align-items: center;
       justify-content: center;
       min-height: 42px;
-      padding: 0.72rem 0.95rem;
+      padding: 0.74rem 0.96rem;
       border-radius: 999px;
       text-decoration: none;
       font-size: 0.8rem;
@@ -657,8 +900,8 @@ const librarySchema = {
 
     .cta-primary,
     .side-link--primary {
-      color: #160b34;
-      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+      color: #07111a;
+      background: linear-gradient(135deg, rgba(234, 108, 63, 0.98), rgba(82, 232, 255, 0.9));
     }
 
     .cta-secondary,
@@ -667,25 +910,36 @@ const librarySchema = {
     .category-pill,
     .load-more,
     .track-link {
-      border: 1px solid rgba(69, 215, 255, 0.28);
-      background: rgba(69, 215, 255, 0.08);
-      color: var(--blue);
+      border: 1px solid rgba(82, 232, 255, 0.18);
+      background: rgba(82, 232, 255, 0.07);
+      color: #a8f2ff;
     }
 
     .recordpool-shell {
       margin-top: 1rem;
       padding: 1rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
-        rgba(8, 11, 24, 0.72);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+        rgba(5, 9, 22, 0.84);
       backdrop-filter: blur(12px);
+    }
+
+    .catalog-topline {
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .catalog-topline__facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
     }
 
     .search-box {
       display: grid;
-      gap: 0.42rem;
+      gap: 0.45rem;
     }
 
     .search-box span {
@@ -696,20 +950,26 @@ const librarySchema = {
 
     .search-box input {
       width: 100%;
-      min-height: 48px;
-      padding: 0.85rem 1rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(9, 13, 28, 0.72);
+      min-height: 52px;
+      padding: 0.9rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(7, 12, 28, 0.95);
       color: #fff;
       font: inherit;
+    }
+
+    .search-box input:focus-visible {
+      outline: 2px solid rgba(82, 232, 255, 0.45);
+      outline-offset: 2px;
+      border-color: rgba(82, 232, 255, 0.32);
     }
 
     .category-strip {
       display: flex;
       flex-wrap: wrap;
       gap: 0.65rem;
-      padding-bottom: 0.1rem;
+      padding-top: 0.15rem;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -720,14 +980,97 @@ const librarySchema = {
 
     .category-pill.is-active,
     .toggle-pill.is-active {
-      color: #160b34;
-      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+      color: #07111a;
+      background: linear-gradient(135deg, rgba(234, 108, 63, 0.96), rgba(82, 232, 255, 0.9));
       border-color: transparent;
     }
 
     .track-row {
       display: grid;
       gap: 0.8rem;
+      position: relative;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(10, 16, 32, 0.95), rgba(7, 11, 24, 0.93)),
+        rgba(5, 10, 24, 0.88);
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
+    }
+
+    .track-row:hover {
+      transform: translateY(-1px);
+      border-color: rgba(82, 232, 255, 0.24);
+    }
+
+    .track-row__slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: #f3fbff;
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .track-row__slot.is-ready {
+      border-color: rgba(82, 232, 255, 0.24);
+      background: linear-gradient(135deg, rgba(234, 108, 63, 0.2), rgba(82, 232, 255, 0.18));
+    }
+
+    .track-row__slot.is-pending {
+      opacity: 0.7;
+    }
+
+    .track-row__copy {
+      min-width: 0;
+    }
+
+    .track-row__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.48rem;
+    }
+
+    .track-state,
+    .track-tag,
+    .preview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 28px;
+      padding: 0.3rem 0.62rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .track-state.is-ready {
+      border: 1px solid rgba(82, 232, 255, 0.16);
+      background: rgba(82, 232, 255, 0.12);
+      color: #9df1ff;
+    }
+
+    .track-state.is-pending {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(237, 244, 255, 0.82);
+    }
+
+    .track-tag {
+      border: 1px solid rgba(234, 108, 63, 0.16);
+      background: rgba(234, 108, 63, 0.12);
+      color: #ffc1a5;
     }
 
     .track-row__player,
@@ -736,46 +1079,51 @@ const librarySchema = {
       gap: 0.65rem;
     }
 
+    .player-label {
+      color: rgba(210, 237, 255, 0.72);
+    }
+
     .track-audio {
       width: 100%;
-      min-height: 48px;
+      min-height: 46px;
+      filter: saturate(0.86) brightness(0.96);
     }
 
     .track-audio--pending {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0.8rem;
+      padding: 0.85rem;
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.04);
       color: var(--muted-strong);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       text-align: center;
     }
 
     .preview-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 32px;
-      width: fit-content;
-      padding: 0.4rem 0.72rem;
-      border-radius: 999px;
-      background: rgba(255, 90, 191, 0.14);
-      color: #ff8ed2;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      border: 1px solid rgba(234, 108, 63, 0.14);
+      background: rgba(234, 108, 63, 0.14);
+      color: #ffbe9d;
     }
 
     @media (min-width: 820px) {
+      .stage-grid {
+        grid-template-columns: minmax(0, 1.22fr) minmax(320px, 0.82fr);
+        align-items: stretch;
+      }
+
       .hero-actions {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .feature-grid {
-        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.95fr);
+      .editorial-grid {
+        grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.82fr);
+        align-items: start;
+      }
+
+      .feature-card--lead {
+        grid-row: span 2;
       }
 
       .recordpool-toolbar {
@@ -790,12 +1138,27 @@ const librarySchema = {
       }
 
       .track-row {
-        grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.9fr) auto;
+        grid-template-columns: auto minmax(0, 1.42fr) minmax(270px, 0.92fr) auto;
         align-items: center;
       }
 
       .track-row__actions {
         justify-items: end;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .editorial-grid {
+        grid-template-columns: minmax(0, 1.15fr) minmax(250px, 0.74fr) minmax(250px, 0.74fr);
+      }
+
+      .feature-card--lead {
+        grid-row: auto;
+      }
+
+      .catalog-topline {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
       }
     }
   </style>
