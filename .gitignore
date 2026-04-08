@@ -7,3 +7,4 @@ dist/
 _astro/
 renders/
 .tmp-root-artifacts/
+.tmp/

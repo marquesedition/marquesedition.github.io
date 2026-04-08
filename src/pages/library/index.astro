@@ -3,171 +3,179 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import InnerPage from "../../components/layout/InnerPage.astro";
 import Footer from "../../components/layout/Footer.astro";
 import { getInnerPageNav } from "../../config/navigation";
+import { formatShortSpanishDate } from "../../lib/format";
+import libraryData from "../../data/library.json";
 
 const navItems = getInnerPageNav("/library/");
-const libraryTitle = "Marques Edition DJ Library";
-const checkoutUrl =
-  "mailto:bookings@marquesedition.com?subject=Quiero%20comprar%20la%20DJ%20Library";
+const library = libraryData.library;
+const stats = libraryData.stats;
+const generatedAt = libraryData.generated_at
+  ? formatShortSpanishDate(new Date(libraryData.generated_at))
+  : "";
+const previewTracks = Number(stats.preview_tracks ?? 0);
+const previewSeconds = Number(stats.preview_seconds ?? 60);
+const sourceUrl = libraryData.source_url;
 const supportUrl = "/booking/";
+const catalogEndpoint = "/media-links/library.json";
+const featuredCrates = [...(library.folders ?? [])]
+  .sort((a, b) => b.track_count - a.track_count)
+  .slice(0, 5)
+  .map((folder, index) => ({
+    rank: index + 1,
+    name: folder.name,
+    trackCount: folder.track_count,
+    folderCount: folder.folder_count,
+    sizeLabel: folder.total_size_label,
+  }));
+const programRows = [
+  {
+    label: "Peak Latin",
+    detail: "Latin Urban, Pachanga, Tropical y edits de pista para bloques calientes.",
+  },
+  {
+    label: "Open Format",
+    detail: "80s, 90s, Cumbias, Folklore y herramientas para eventos mixtos.",
+  },
+  {
+    label: "Club Utility",
+    detail: "Acapellas, Tools, intros, clean edits y armas rápidas para mezclar.",
+  },
+];
+
+const summaryChips = [
+  `${stats.tracks} canciones`,
+  `${stats.folders} carpetas`,
+  `${previewSeconds / 60} min preview`,
+  `${previewTracks} previews listos`,
+  stats.total_size_label || "",
+].filter(Boolean);
+
 const librarySchema = {
   "@context": "https://schema.org",
-  "@type": "Product",
-  name: libraryTitle,
-  category: "Digital music library",
-  brand: {
-    "@type": "Brand",
-    name: "Marques Edition",
-  },
+  "@type": "CollectionPage",
+  name: `${library.name} | DJ Library`,
   description:
-    "Librería digital para DJs con edits, herramientas de pista, remixes y material listo para clubs, bodas y eventos privados.",
+    "Recordpool digital de Marques Edition con categorías, búsqueda y previews locales comprimidos.",
   url: "https://www.marquesedition.com/library/",
 };
 ---
 
 <SiteLayout
-  title="Marques Edition | DJ Library"
-  description="Página de venta de la librería DJ de Marques Edition. Edits, remixes y herramientas de pista listas para cabina."
+  title="Marques Edition | Recordpool"
+  description="Recordpool digital de Marques Edition con categorías, búsqueda y previews locales comprimidos de 1 minuto."
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(librarySchema)} />
   </Fragment>
 
   <InnerPage
-    ariaLabel="DJ Library de Marques Edition"
-    eyebrow="Library"
-    title="Mi librería DJ ya tiene una página lista para vender."
-    description="Aquí irá toda la parte comercial de la librería: qué incluye, para quién está pensada, cómo se entrega y el acceso directo para comprarla."
+    ariaLabel="Recordpool de Marques Edition"
+    eyebrow="Recordpool"
+    title="La library ya funciona como un recordpool."
+    description="La sección carga el catálogo por JSON, deja la web ligera y reproduce previews locales comprimidos de 1 minuto para proteger los temas."
     navItems={navItems}
   >
     <Fragment slot="main">
-      <div class="chip-row" aria-label="Resumen de la librería">
-        <span class="chip">Edits</span>
-        <span class="chip">Remixes</span>
-        <span class="chip">Herramientas de pista</span>
-        <span class="chip">Club / bodas / privados</span>
-        <span class="chip">Acceso digital</span>
+      <div class="chip-row" aria-label="Resumen del recordpool">
+        {summaryChips.map((chip) => <span class="chip">{chip}</span>)}
       </div>
 
-      <section class="section library-hero" aria-labelledby="library-hero-title">
-        <p class="section-kicker">Producto digital</p>
-        <h2 id="library-hero-title">{libraryTitle}</h2>
+      <section class="section library-hero" aria-labelledby="recordpool-title">
+        <p class="section-kicker">Recordpool privado</p>
+        <h2 id="recordpool-title">{library.name}</h2>
         <p class="section-copy">
-          Esta página está pensada para vender su librería de DJ con una propuesta clara y sin
-          ruido. El foco está en enseñar el valor real del material: edits útiles, remixes para la
-          pista y herramientas de mezcla listas para sonar en cabina.
+          Esto ya no es una landing provisional. Ahora la sección se comporta como un recordpool:
+          categorías rápidas, búsqueda, resultados ligeros y previews servidos desde tu propio
+          dominio para que el audio funcione bien y la web vaya más ágil.
         </p>
 
-        <div class="library-panel">
-          <div class="library-copy">
-            <strong>Qué va a encontrar quien entre aquí</strong>
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <strong>Cómo queda protegido</strong>
             <p>
-              Material práctico para DJs que quieren ahorrar tiempo, subir el nivel de sus sets y
-              tener recursos que funcionen en clubs, bodas y eventos privados.
+              Cada tema usa un preview local de 1 minuto, comprimido y en mono. Así enseñas el
+              contenido sin regalar el archivo completo.
             </p>
           </div>
 
-          <div class="library-actions">
-            <a class="cta-primary" href={checkoutUrl}>Comprar la librería ↗</a>
+          <div class="hero-actions">
+            <a class="cta-primary" href={sourceUrl} target="_blank" rel="noopener noreferrer">
+              Abrir carpeta en Drive ↗
+            </a>
             <a class="cta-secondary" href={supportUrl}>Hacer una consulta ↗</a>
           </div>
         </div>
-      </section>
 
-      <section class="section" aria-labelledby="includes-title">
-        <p class="section-kicker">Contenido</p>
-        <h2 id="includes-title">Qué puede incluir la librería</h2>
-        <div class="feature-grid" aria-label="Qué incluye la librería">
-          <article class="feature-card">
-            <strong>Edits listos para pinchar</strong>
-            <span>Versiones pensadas para entrar rápido, mezclar mejor y sostener la energía.</span>
-          </article>
-          <article class="feature-card">
-            <strong>Remixes propios</strong>
-            <span>Material con su identidad, útil para diferenciar el set y no sonar genérico.</span>
-          </article>
-          <article class="feature-card">
-            <strong>Intro edits / outro edits</strong>
-            <span>Recursos pensados para cabinas reales, cambios de bloque y entradas limpias.</span>
-          </article>
-          <article class="feature-card">
-            <strong>Herramientas de pista</strong>
-            <span>Transiciones, cortes, boosts de energía y material útil para momentos clave.</span>
-          </article>
-          <article class="feature-card">
-            <strong>Selección pensada para Madrid</strong>
-            <span>Enfoque realista para público mixto, cabina latina, open format y eventos.</span>
-          </article>
-          <article class="feature-card">
-            <strong>Entrega digital inmediata</strong>
-            <span>Página ya preparada para conectarse a un checkout y a un acceso de descarga.</span>
-          </article>
+        <div class="feature-grid">
+          <section class="feature-card feature-card--lead" aria-labelledby="featured-crates-title">
+            <p class="feature-kicker">Crates destacados</p>
+            <h3 id="featured-crates-title">Los bloques con más peso del catálogo</h3>
+            <div class="crate-grid">
+              {featuredCrates.map((crate) => (
+                <article class="crate-card">
+                  <span class="crate-rank">0{crate.rank}</span>
+                  <strong>{crate.name}</strong>
+                  <span>
+                    {crate.trackCount} tracks
+                    {crate.folderCount > 0 ? ` · ${crate.folderCount} subcarpetas` : ""}
+                  </span>
+                  {crate.sizeLabel && <em>{crate.sizeLabel}</em>}
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="feature-card" aria-labelledby="program-title">
+            <p class="feature-kicker">Programación</p>
+            <h3 id="program-title">Tres rutas para trabajar la pista</h3>
+            <div class="program-list">
+              {programRows.map((row) => (
+                <article class="program-card">
+                  <strong>{row.label}</strong>
+                  <span>{row.detail}</span>
+                </article>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="fit-title">
-        <p class="section-kicker">Para quién es</p>
-        <h2 id="fit-title">Una librería pensada para DJs que trabajan de verdad la pista</h2>
+      <section class="section" aria-labelledby="browser-title">
+        <p class="section-kicker">Catálogo</p>
+        <h2 id="browser-title">Buscar y navegar como recordpool</h2>
         <p class="section-copy">
-          No está enfocada a coleccionar archivos por tener más carpetas, sino a tener menos
-          fricción en cabina y más recursos que ayuden a mantener el set arriba.
+          La web carga el catálogo completo aparte y solo pinta los resultados necesarios. Eso
+          evita renderizar miles de filas de golpe y hace la navegación mucho más ligera.
         </p>
 
-        <div class="fit-grid" aria-label="Tipos de DJ">
-          <div class="fit-card">
-            <strong>DJ de club</strong>
-            <span>Para quien necesita edits ágiles, cambios de energía y material con pegada.</span>
-          </div>
-          <div class="fit-card">
-            <strong>DJ de bodas</strong>
-            <span>Para quien mezcla públicos distintos y necesita transiciones más limpias.</span>
-          </div>
-          <div class="fit-card">
-            <strong>DJ open format</strong>
-            <span>Para quien quiere herramientas flexibles sin perder color ni personalidad.</span>
-          </div>
-        </div>
-      </section>
+        <div class="recordpool-shell" id="recordpool-app" data-endpoint={catalogEndpoint}>
+          <div class="recordpool-toolbar">
+            <label class="search-box">
+              <span>Buscar tema o carpeta</span>
+              <input
+                type="search"
+                placeholder="Ejemplo: Daddy Yankee, Acapella, Tropical..."
+                autocomplete="off"
+                data-role="search"
+              />
+            </label>
 
-      <section class="section" aria-labelledby="delivery-title">
-        <p class="section-kicker">Compra y entrega</p>
-        <h2 id="delivery-title">Cómo queda montado el flujo de compra</h2>
-        <div class="delivery-steps" aria-label="Flujo de compra">
-          <div class="delivery-step">
-            <strong>1. El usuario entra en esta página</strong>
-            <span>Ve el producto, entiende el valor y tiene un CTA de compra claro.</span>
+            <div class="toolbar-actions">
+              <button class="toggle-pill" type="button" data-role="ready-toggle">
+                Solo con preview
+              </button>
+              <p class="results-meta" data-role="meta">Cargando catálogo...</p>
+            </div>
           </div>
-          <div class="delivery-step">
-            <strong>2. Pulsa en comprar</strong>
-            <span>
-              El botón ya está preparado para conectarse a su pasarela favorita con un solo enlace.
-            </span>
-          </div>
-          <div class="delivery-step">
-            <strong>3. Recibe acceso al material</strong>
-            <span>
-              Después del pago, puede llevar a descarga directa, carpeta privada o plataforma
-              externa según cómo quiera venderla.
-            </span>
-          </div>
-        </div>
-      </section>
 
-      <section class="section" aria-labelledby="faq-title">
-        <p class="section-kicker">FAQ</p>
-        <h2 id="faq-title">Preguntas que ayudan a vender mejor</h2>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>¿Qué formato tendrá la librería?</summary>
-            <p>La página está preparada para vender packs digitales descargables por enlace o carpeta privada.</p>
-          </details>
-          <details class="faq-item">
-            <summary>¿Se puede actualizar con nuevos archivos?</summary>
-            <p>Sí. La estructura admite versiones futuras, bonus packs o acceso renovable sin rehacer la página.</p>
-          </details>
-          <details class="faq-item">
-            <summary>¿Se puede conectar a Gumroad, Stripe o Payhip?</summary>
-            <p>Sí. Solo hay que sustituir el enlace del botón principal por el checkout que quiera usar.</p>
-          </details>
+          <div class="category-strip" data-role="categories"></div>
+          <div class="track-results" data-role="results"></div>
+
+          <div class="recordpool-footer">
+            <button class="load-more" type="button" data-role="load-more" hidden>
+              Cargar más
+            </button>
+          </div>
         </div>
       </section>
     </Fragment>
@@ -175,32 +183,45 @@ const librarySchema = {
     <Fragment slot="sidebar">
       <section class="side-card" aria-labelledby="status-title">
         <p class="side-kicker">Estado</p>
-        <h2 id="status-title">Página lista para activar la venta</h2>
+        <h2 id="status-title">Recordpool listo para escalar</h2>
         <p>
-          La estructura comercial ya está montada. Lo único que falta para tener compra automática
-          es su enlace final de checkout.
+          El catálogo vive en JSON y los previews en ficheros ligeros. Esa combinación encaja
+          mucho mejor con una web estática que intentar reproducir directamente desde Drive.
         </p>
 
-        <div class="facts" aria-label="Estado de la venta">
-          <span class="fact-chip">Página de venta creada</span>
-          <span class="fact-chip">CTA de compra visible</span>
-          <span class="fact-chip">Flujo de entrega definido</span>
-          <span class="fact-chip">Checkout enchufable</span>
+        <div class="facts" aria-label="Estado del recordpool">
+          <span class="fact-chip">{stats.tracks} canciones</span>
+          <span class="fact-chip">{stats.folders} carpetas</span>
+          <span class="fact-chip">{previewTracks} previews listos</span>
+          <span class="fact-chip">{previewSeconds / 60} min por preview</span>
+          {generatedAt && <span class="fact-chip">Actualizado {generatedAt}</span>}
         </div>
       </section>
 
-      <section class="side-card" aria-labelledby="next-title">
-        <p class="side-kicker">Siguiente paso</p>
-        <h2 id="next-title">Lo que falta para cerrar la venta real</h2>
-        <p>
-          Cuando tenga el enlace de pago, se cambia una sola URL y la página queda lista para
-          vender de forma directa.
-        </p>
+      <section class="side-card" aria-labelledby="notes-title">
+        <p class="side-kicker">Ventajas</p>
+        <h2 id="notes-title">Lo necesario para que funcione bien</h2>
+        <div class="side-notes">
+          <div class="note-card">
+            <strong>Web más ágil</strong>
+            <span>No renderiza las 1.989 canciones en el HTML inicial.</span>
+          </div>
+          <div class="note-card">
+            <strong>Preview protegido</strong>
+            <span>1 minuto, mono y bitrate muy bajo para enseñar sin soltar el máster entero.</span>
+          </div>
+          <div class="note-card">
+            <strong>Drive como origen</strong>
+            <span>Drive sigue siendo la biblioteca fuente; la web usa sus propios previews.</span>
+          </div>
+        </div>
 
         <div class="side-stack">
-          <a class="side-link side-link--primary" href={checkoutUrl}>Comprar la librería ↗</a>
-          <a class="side-link" href={supportUrl}>Hablar de la librería ↗</a>
-          <a class="side-link" href="/media-links/">Ver media links ↗</a>
+          <a class="side-link side-link--primary" href={sourceUrl} target="_blank" rel="noopener noreferrer">
+            Abrir en Google Drive ↗
+          </a>
+          <a class="side-link" href="/media-links/library.json">Ver JSON del catálogo ↗</a>
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
         </div>
       </section>
     </Fragment>
@@ -208,65 +229,430 @@ const librarySchema = {
     <Footer slot="footer" />
   </InnerPage>
 
+  <script is:inline>
+    (() => {
+      const app = document.getElementById("recordpool-app");
+      if (!app) return;
+
+      const endpoint = app.getAttribute("data-endpoint");
+      const searchInput = app.querySelector('[data-role="search"]');
+      const metaNode = app.querySelector('[data-role="meta"]');
+      const categoriesNode = app.querySelector('[data-role="categories"]');
+      const resultsNode = app.querySelector('[data-role="results"]');
+      const loadMoreButton = app.querySelector('[data-role="load-more"]');
+      const readyToggle = app.querySelector('[data-role="ready-toggle"]');
+
+      const state = {
+        query: "",
+        category: "all",
+        onlyReady: false,
+        limit: 40,
+        categories: [],
+        tracks: [],
+      };
+
+      const createElement = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (typeof text === "string") node.textContent = text;
+        return node;
+      };
+
+      const collectTracks = (rootFolder) => {
+        const categories = [];
+        const tracks = [];
+
+        const walkFolder = (folder, category, trail) => {
+          const nextTrail = [...trail, folder.name];
+
+          (folder.tracks || []).forEach((track) => {
+            tracks.push({
+              ...track,
+              categoryId: category.id,
+              categoryName: category.name,
+              folderName: folder.name,
+              trail: nextTrail,
+            });
+          });
+
+          (folder.folders || []).forEach((child) => walkFolder(child, category, nextTrail));
+        };
+
+        (rootFolder.folders || []).forEach((folder) => {
+          const category = {
+            id: folder.id,
+            name: folder.name,
+            trackCount: folder.track_count || 0,
+          };
+          categories.push(category);
+          walkFolder(folder, category, []);
+        });
+
+        (rootFolder.tracks || []).forEach((track) => {
+          tracks.push({
+            ...track,
+            categoryId: "root",
+            categoryName: "Sueltos",
+            folderName: "Sueltos",
+            trail: ["Sueltos"],
+          });
+        });
+
+        if ((rootFolder.tracks || []).length > 0) {
+          categories.unshift({
+            id: "root",
+            name: "Sueltos",
+            trackCount: rootFolder.tracks.length,
+          });
+        }
+
+        tracks.sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
+
+        return { categories, tracks };
+      };
+
+      const getFilteredTracks = () => {
+        const query = state.query.trim().toLowerCase();
+
+        return state.tracks.filter((track) => {
+          if (state.category !== "all" && track.categoryId !== state.category) return false;
+          if (state.onlyReady && !track.preview_ready) return false;
+          if (!query) return true;
+
+          const haystack = [
+            track.name,
+            track.categoryName,
+            track.folderName,
+            ...(track.trail || []),
+          ]
+            .join(" ")
+            .toLowerCase();
+
+          return haystack.includes(query);
+        });
+      };
+
+      const renderCategories = () => {
+        categoriesNode.innerHTML = "";
+
+        const allButton = createElement("button", "category-pill");
+        allButton.type = "button";
+        allButton.textContent = `Todas (${state.tracks.length})`;
+        if (state.category === "all") allButton.classList.add("is-active");
+        allButton.addEventListener("click", () => {
+          state.category = "all";
+          state.limit = 40;
+          render();
+        });
+        categoriesNode.appendChild(allButton);
+
+        state.categories.forEach((category) => {
+          const button = createElement("button", "category-pill");
+          button.type = "button";
+          button.textContent = `${category.name} (${category.trackCount})`;
+          if (state.category === category.id) button.classList.add("is-active");
+          button.addEventListener("click", () => {
+            state.category = category.id;
+            state.limit = 40;
+            render();
+          });
+          categoriesNode.appendChild(button);
+        });
+      };
+
+      const renderTrackCard = (track) => {
+        const card = createElement("article", "track-row");
+
+        const copy = createElement("div", "track-row__copy");
+        const title = createElement("strong", "track-row__title", track.name);
+        const path = createElement(
+          "span",
+          "track-row__path",
+          `${track.categoryName} / ${(track.trail || []).join(" / ")}`
+        );
+        const meta = createElement(
+          "span",
+          "track-row__meta",
+          [track.size_label, track.modified_label].filter(Boolean).join(" · ")
+        );
+        copy.append(title, path, meta);
+
+        const playerWrap = createElement("div", "track-row__player");
+        if (track.preview_ready && track.preview_url) {
+          const audio = createElement("audio", "track-audio");
+          audio.controls = true;
+          audio.preload = "none";
+          audio.setAttribute("controlslist", "nodownload noplaybackrate");
+
+          const source = document.createElement("source");
+          source.src = track.preview_url;
+          source.type = "audio/mpeg";
+          audio.appendChild(source);
+          playerWrap.appendChild(audio);
+        } else {
+          const pending = createElement(
+            "div",
+            "track-audio track-audio--pending",
+            "Preview pendiente"
+          );
+          playerWrap.appendChild(pending);
+        }
+
+        const actions = createElement("div", "track-row__actions");
+        const badge = createElement("span", "preview-badge", "Preview 1 min");
+        const link = createElement("a", "track-link", "Abrir en Drive ↗");
+        link.href = track.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        actions.append(badge, link);
+
+        card.append(copy, playerWrap, actions);
+        return card;
+      };
+
+      const renderResults = (filteredTracks) => {
+        resultsNode.innerHTML = "";
+
+        if (filteredTracks.length === 0) {
+          resultsNode.appendChild(
+            createElement("div", "empty-state", "No hay resultados para este filtro.")
+          );
+          return;
+        }
+
+        const visibleTracks = filteredTracks.slice(0, state.limit);
+        const fragment = document.createDocumentFragment();
+
+        visibleTracks.forEach((track) => {
+          fragment.appendChild(renderTrackCard(track));
+        });
+
+        resultsNode.appendChild(fragment);
+
+        loadMoreButton.hidden = visibleTracks.length >= filteredTracks.length;
+      };
+
+      const render = () => {
+        const filteredTracks = getFilteredTracks();
+        renderCategories();
+        renderResults(filteredTracks);
+
+        metaNode.textContent = `${filteredTracks.length} resultados · ${state.onlyReady ? "solo con preview" : "todo el catálogo"}`;
+        readyToggle.classList.toggle("is-active", state.onlyReady);
+      };
+
+      const boot = async () => {
+        try {
+          const response = await fetch(endpoint, { cache: "no-store" });
+          if (!response.ok) throw new Error("No se pudo cargar el catálogo.");
+
+          const payload = await response.json();
+          const normalized = collectTracks(payload.library);
+          state.categories = normalized.categories;
+          state.tracks = normalized.tracks;
+
+          render();
+        } catch (error) {
+          resultsNode.innerHTML = "";
+          resultsNode.appendChild(
+            createElement(
+              "div",
+              "empty-state",
+              "No se pudo cargar el catálogo ahora mismo. Prueba a recargar la página."
+            )
+          );
+          metaNode.textContent = "Error al cargar el catálogo";
+        }
+      };
+
+      searchInput.addEventListener("input", (event) => {
+        state.query = event.currentTarget.value;
+        state.limit = 40;
+        render();
+      });
+
+      readyToggle.addEventListener("click", () => {
+        state.onlyReady = !state.onlyReady;
+        state.limit = 40;
+        render();
+      });
+
+      loadMoreButton.addEventListener("click", () => {
+        state.limit += 40;
+        render();
+      });
+
+      boot();
+    })();
+  </script>
+
   <style>
-    .library-panel,
+    .hero-panel,
+    .hero-actions,
+    .facts,
+    .side-notes,
+    .side-stack,
+    .recordpool-shell,
+    .recordpool-toolbar,
+    .track-results,
+    .recordpool-footer,
     .feature-grid,
-    .fit-grid,
-    .delivery-steps,
-    .faq-list,
-    .library-actions,
-    .side-stack {
+    .crate-grid,
+    .program-list {
       display: grid;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
-    .library-panel,
+    .hero-panel,
     .feature-card,
-    .fit-card,
-    .delivery-step {
-      padding: 0.98rem;
-      border-radius: 18px;
+    .note-card,
+    .empty-state,
+    .track-row {
+      padding: 1rem;
+      border-radius: 20px;
       background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .library-panel {
-      margin-top: 0.95rem;
-      gap: 0.95rem;
+    .library-hero {
+      position: relative;
+      overflow: hidden;
     }
 
-    .library-copy strong,
-    .feature-card strong,
-    .fit-card strong,
-    .delivery-step strong {
+    .library-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 102, 168, 0.2), transparent 34%),
+        radial-gradient(circle at 80% 10%, rgba(69, 215, 255, 0.22), transparent 28%),
+        linear-gradient(180deg, rgba(11, 17, 34, 0.4), rgba(11, 17, 34, 0));
+      pointer-events: none;
+    }
+
+    .hero-panel,
+    .feature-grid {
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy strong,
+    .feature-card h3,
+    .crate-card strong,
+    .program-card strong,
+    .note-card strong,
+    .track-row__title {
       display: block;
       font-size: 0.95rem;
-      line-height: 1.28;
+      line-height: 1.34;
     }
 
-    .library-copy p,
-    .feature-card span,
-    .fit-card span,
-    .delivery-step span {
+    .hero-copy p,
+    .feature-kicker,
+    .crate-card span,
+    .crate-card em,
+    .program-card span,
+    .note-card span,
+    .track-row__path,
+    .track-row__meta,
+    .results-meta,
+    .empty-state {
       display: block;
-      margin-top: 0.28rem;
       color: var(--muted-strong);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       line-height: 1.5;
+    }
+
+    .hero-copy p,
+    .note-card span,
+    .track-row__path,
+    .track-row__meta,
+    .program-card span {
+      margin-top: 0.22rem;
+    }
+
+    .feature-card--lead {
+      background:
+        linear-gradient(145deg, rgba(255, 90, 191, 0.1), rgba(69, 215, 255, 0.06)),
+        rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-kicker {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7ce6ff;
+    }
+
+    .feature-card h3 {
+      margin: 0.22rem 0 0;
+      font-size: 1.05rem;
+    }
+
+    .crate-grid {
+      margin-top: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .crate-card,
+    .program-card {
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.9rem;
+      border-radius: 18px;
+      background: rgba(9, 13, 28, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .crate-rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 28px;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(255, 90, 191, 0.16);
+      color: #ff86ca;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .crate-card em {
+      margin-top: 0.15rem;
+      font-style: normal;
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .program-list {
+      margin-top: 0.85rem;
     }
 
     .cta-primary,
     .cta-secondary,
-    .side-link {
+    .side-link,
+    .toggle-pill,
+    .category-pill,
+    .load-more,
+    .track-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
-      padding: 0.78rem 1rem;
+      min-height: 42px;
+      padding: 0.72rem 0.95rem;
       border-radius: 999px;
       text-decoration: none;
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       font-weight: 900;
       text-align: center;
+      cursor: pointer;
     }
 
     .cta-primary,
@@ -276,50 +662,140 @@ const librarySchema = {
     }
 
     .cta-secondary,
-    .side-link {
+    .side-link,
+    .toggle-pill,
+    .category-pill,
+    .load-more,
+    .track-link {
       border: 1px solid rgba(69, 215, 255, 0.28);
       background: rgba(69, 215, 255, 0.08);
       color: var(--blue);
     }
 
-    .faq-item {
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
-      overflow: hidden;
-    }
-
-    .faq-item summary {
-      cursor: pointer;
-      list-style: none;
+    .recordpool-shell {
+      margin-top: 1rem;
       padding: 1rem;
-      font-size: 0.92rem;
-      font-weight: 800;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+        rgba(8, 11, 24, 0.72);
+      backdrop-filter: blur(12px);
     }
 
-    .faq-item summary::-webkit-details-marker {
+    .search-box {
+      display: grid;
+      gap: 0.42rem;
+    }
+
+    .search-box span {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-height: 48px;
+      padding: 0.85rem 1rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(9, 13, 28, 0.72);
+      color: #fff;
+      font: inherit;
+    }
+
+    .category-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      padding-bottom: 0.1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .category-strip::-webkit-scrollbar {
       display: none;
     }
 
-    .faq-item p {
-      margin: 0;
-      padding: 0 1rem 1rem;
+    .category-pill.is-active,
+    .toggle-pill.is-active {
+      color: #160b34;
+      background: linear-gradient(135deg, rgba(255, 90, 191, 0.96), rgba(69, 215, 255, 0.9));
+      border-color: transparent;
+    }
+
+    .track-row {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .track-row__player,
+    .track-row__actions {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .track-audio {
+      width: 100%;
+      min-height: 48px;
+    }
+
+    .track-audio--pending {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
       color: var(--muted-strong);
-      font-size: 0.84rem;
-      line-height: 1.55;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .preview-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      width: fit-content;
+      padding: 0.4rem 0.72rem;
+      border-radius: 999px;
+      background: rgba(255, 90, 191, 0.14);
+      color: #ff8ed2;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     @media (min-width: 820px) {
+      .hero-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .feature-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.95fr);
       }
 
-      .fit-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .recordpool-toolbar {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
       }
 
-      .library-actions {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .toolbar-actions {
+        display: grid;
+        justify-items: end;
+        gap: 0.6rem;
+      }
+
+      .track-row {
+        grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.9fr) auto;
+        align-items: center;
+      }
+
+      .track-row__actions {
+        justify-items: end;
       }
     }
   </style>

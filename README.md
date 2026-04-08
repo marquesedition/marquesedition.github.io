@@ -17,6 +17,8 @@ Web oficial de Marques Edition migrada a Astro.
 - `scripts/content/update_reels.py`: refresca datos desde Instagram
 - `scripts/content/update_streams.py`: refresca datos desde YouTube
 - `scripts/content/update_events.py`: genera la agenda recurrente
+- `scripts/content/update_library.py`: sincroniza la library pública de Google Drive a JSON
+- `scripts/content/generate_library_previews.py`: crea previews locales de 1 minuto y baja calidad para proteger los temas
 - `scripts/events/import_bandsintown_events.py`: importa un bloque HTML de Bandsintown a eventos
 
 ### Publicación
@@ -51,6 +53,13 @@ npm run build:site
 ## Actualizar streams
 ```bash
 python3 scripts/content/update_streams.py
+npm run build:site
+```
+
+## Actualizar library
+```bash
+python3 scripts/content/update_library.py
+python3 scripts/content/generate_library_previews.py
 npm run build:site
 ```
 

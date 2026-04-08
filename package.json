@@ -9,9 +9,11 @@
     "build:site": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "refresh:events": "python3 scripts/content/update_events.py",
+    "refresh:library": "python3 scripts/content/update_library.py",
+    "refresh:library-previews": "python3 scripts/content/generate_library_previews.py",
     "refresh:reels": "python3 scripts/content/update_reels.py",
     "refresh:streams": "python3 scripts/content/update_streams.py",
-    "refresh:content": "python3 scripts/content/update_events.py && python3 scripts/content/update_reels.py && python3 scripts/content/update_streams.py",
+    "refresh:content": "python3 scripts/content/update_events.py && python3 scripts/content/update_reels.py && python3 scripts/content/update_streams.py && python3 scripts/content/update_library.py",
     "import:events": "python3 scripts/events/import_bandsintown_events.py"
   },
   "dependencies": {
