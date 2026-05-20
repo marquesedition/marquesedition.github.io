@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 CHANNEL_HANDLE = "@marquesedition"
 CHANNEL_URL = f"https://www.youtube.com/{CHANNEL_HANDLE}"
 STREAMS_URL = f"{CHANNEL_URL}/streams"
+VIDEOS_URL = f"{CHANNEL_URL}/videos"
 SOURCE_URL = f"{STREAMS_URL}?ucbcb=1"
+FALLBACK_SOURCE_URL = f"{VIDEOS_URL}?ucbcb=1"
 SOURCE_DATA_PATH = ROOT / "src" / "data" / "streams.json"
 USER_AGENT = "Mozilla/5.0"
 
@@ -55,8 +57,14 @@ def shorten(text, limit):
 def text_from_runs(value):
     if not value:
         return ""
+    if isinstance(value, str):
+        return normalize_whitespace(value)
+    if not isinstance(value, dict):
+        return ""
     if "simpleText" in value:
         return normalize_whitespace(value["simpleText"])
+    if isinstance(value.get("content"), str):
+        return normalize_whitespace(value["content"])
     return normalize_whitespace("".join(run.get("text", "") for run in value.get("runs", [])))
 
 
@@ -136,6 +144,95 @@ def find_continuation_token(node):
     return None
 
 
+def load_cached_streams():
+    try:
+        payload = json.loads(SOURCE_DATA_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+    return {
+        stream.get("video_id"): stream
+        for stream in payload.get("streams", [])
+        if stream.get("video_id")
+    }
+
+
+def metadata_texts_from_lockup(lockup):
+    metadata_rows = (
+        lockup.get("metadata", {})
+        .get("lockupMetadataViewModel", {})
+        .get("metadata", {})
+        .get("contentMetadataViewModel", {})
+        .get("metadataRows", [])
+    )
+
+    texts = []
+    for row in metadata_rows:
+        for part in row.get("metadataParts", []):
+            text = text_from_runs(part.get("text"))
+            if text:
+                texts.append(text)
+
+    return texts
+
+
+def duration_from_lockup(lockup):
+    overlays = (
+        lockup.get("contentImage", {})
+        .get("thumbnailViewModel", {})
+        .get("overlays", [])
+    )
+
+    for overlay in overlays:
+        badges = overlay.get("thumbnailBottomOverlayViewModel", {}).get("badges", [])
+        for badge in badges:
+            text = badge.get("thumbnailBadgeViewModel", {}).get("text")
+            if text:
+                return normalize_whitespace(text)
+
+    return ""
+
+
+def video_from_lockup(lockup):
+    if lockup.get("contentType") != "LOCKUP_CONTENT_TYPE_VIDEO":
+        return None
+
+    video_id = lockup.get("contentId")
+    if not video_id:
+        video_id = (
+            lockup.get("rendererContext", {})
+            .get("commandContext", {})
+            .get("onTap", {})
+            .get("innertubeCommand", {})
+            .get("watchEndpoint", {})
+            .get("videoId")
+        )
+
+    if not video_id:
+        return None
+
+    metadata = lockup.get("metadata", {}).get("lockupMetadataViewModel", {})
+    title = text_from_runs(metadata.get("title")) or f"Stream {video_id}"
+    thumbnails = (
+        lockup.get("contentImage", {})
+        .get("thumbnailViewModel", {})
+        .get("image", {})
+        .get("sources", [])
+    )
+    metadata_texts = metadata_texts_from_lockup(lockup)
+    view_count_text = metadata_texts[0] if metadata_texts else ""
+    published_text = metadata_texts[1] if len(metadata_texts) > 1 else ""
+
+    return {
+        "videoId": video_id,
+        "title": {"simpleText": title},
+        "thumbnail": {"thumbnails": thumbnails},
+        "publishedTimeText": {"simpleText": published_text},
+        "viewCountText": {"simpleText": view_count_text},
+        "lengthText": {"simpleText": duration_from_lockup(lockup)},
+    }
+
+
 def extract_video_renderers(contents):
     videos = []
     continuation = None
@@ -143,8 +240,16 @@ def extract_video_renderers(contents):
     for item in contents:
         if "richItemRenderer" in item:
             content = item["richItemRenderer"].get("content", {})
-            video = content.get("videoRenderer")
+            video = content.get("videoRenderer") or content.get("gridVideoRenderer")
             if video and video.get("videoId"):
+                videos.append(video)
+            else:
+                video = video_from_lockup(content.get("lockupViewModel", {}))
+                if video:
+                    videos.append(video)
+        elif "lockupViewModel" in item:
+            video = video_from_lockup(item["lockupViewModel"])
+            if video:
                 videos.append(video)
 
         continuation = continuation or find_continuation_token(item)
@@ -167,8 +272,8 @@ def extract_continuation_items(payload):
     return items
 
 
-def fetch_stream_page():
-    document = fetch_text(SOURCE_URL)
+def fetch_stream_page(source_url=SOURCE_URL):
+    document = fetch_text(source_url)
     initial_data = extract_json_assignment(document, "var ytInitialData = ")
     api_key = extract_ytcfg_value(document, "INNERTUBE_API_KEY")
     client_version = extract_ytcfg_value(document, "INNERTUBE_CLIENT_VERSION")
@@ -182,6 +287,7 @@ def fetch_stream_page():
         "client_version": client_version,
         "hl": hl,
         "gl": gl,
+        "source_url": source_url.split("?", 1)[0],
     }
 
 
@@ -257,9 +363,14 @@ def inspect_embed(video_id):
     }
 
 
-def stream_from_video(video):
+def stream_from_video(video, cached_stream=None):
+    cached_stream = cached_stream or {}
     title = text_from_runs(video.get("title")) or f"Stream {video['videoId']}"
-    summary = text_from_runs(video.get("descriptionSnippet")) or "Stream de Marques Edition en YouTube."
+    summary = (
+        text_from_runs(video.get("descriptionSnippet"))
+        or cached_stream.get("summary", "")
+        or "Stream de Marques Edition en YouTube."
+    )
     video_id = video["videoId"]
     thumbnails = video.get("thumbnail", {}).get("thumbnails", [])
     thumbnail_url = thumbnails[-1]["url"] if thumbnails else f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
@@ -316,12 +427,38 @@ def build_profile(initial_data):
     }
 
 
-def build_streams_payload():
-    page = fetch_stream_page()
-    initial_data = page["initial_data"]
+def selected_tab_grid(initial_data):
     tabs = initial_data["contents"]["twoColumnBrowseResultsRenderer"]["tabs"]
-    stream_tab = next(tab["tabRenderer"] for tab in tabs if tab.get("tabRenderer", {}).get("selected"))
-    grid = stream_tab["content"]["richGridRenderer"]["contents"]
+    selected_tab = next(
+        tab["tabRenderer"]
+        for tab in tabs
+        if tab.get("tabRenderer", {}).get("selected")
+    )
+    grid = selected_tab.get("content", {}).get("richGridRenderer")
+    if not grid:
+        return None
+
+    return grid.get("contents", [])
+
+
+def fetch_stream_grid_page():
+    attempted_urls = []
+
+    for source_url in (SOURCE_URL, FALLBACK_SOURCE_URL):
+        attempted_urls.append(source_url.split("?", 1)[0])
+        page = fetch_stream_page(source_url)
+        grid = selected_tab_grid(page["initial_data"])
+        if grid is not None:
+            page["grid"] = grid
+            return page
+
+    raise ValueError(f"Could not find a YouTube video grid in: {', '.join(attempted_urls)}")
+
+
+def build_streams_payload():
+    page = fetch_stream_grid_page()
+    initial_data = page["initial_data"]
+    grid = page["grid"]
 
     videos, continuation = extract_video_renderers(grid)
 
@@ -349,12 +486,17 @@ def build_streams_payload():
         seen_video_ids.add(video_id)
         unique_videos.append(video)
 
+    cached_streams = load_cached_streams()
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_profile": CHANNEL_HANDLE,
-        "source_url": STREAMS_URL,
+        "source_url": page["source_url"],
         "profile": build_profile(initial_data),
-        "streams": [stream_from_video(video) for video in unique_videos],
+        "streams": [
+            stream_from_video(video, cached_streams.get(video.get("videoId")))
+            for video in unique_videos
+        ],
     }
 
 
