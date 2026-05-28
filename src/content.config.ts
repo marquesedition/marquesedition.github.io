@@ -197,6 +197,8 @@ const eventsMeta = defineCollection({
         time_label: string;
         map_url: string;
         venue_url: string;
+        instagram_url?: string;
+        phone?: string;
       };
     }>("./data/events.json");
 
@@ -227,6 +229,8 @@ const eventsMeta = defineCollection({
         time_label: z.string(),
         map_url: z.string().url(),
         venue_url: z.string().url(),
+        instagram_url: z.string().url().optional(),
+        phone: z.string().optional(),
       })
       .optional(),
   }),

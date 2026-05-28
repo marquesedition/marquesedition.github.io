@@ -27,7 +27,7 @@ const homepageSchema = {
   image: profileImageUrl,
   jobTitle: "DJ en Madrid crossover",
   description:
-    "Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Mezcla afro, latin, reggaeton y open format para clubs, bodas y eventos privados.",
+    "Marques Edition es DJ en Madrid crossover y residente en Studio54 Madrid. Mezcla afro, latin, reggaeton y open format para clubs, bodas y eventos privados.",
   homeLocation: {
     "@type": "Place",
     name: "Madrid, Spain",
@@ -45,7 +45,7 @@ const homepageSchema = {
 
 <SiteLayout
   title="Marques Edition | DJ en Madrid Crossover"
-  description="Marques Edition es DJ en Madrid crossover y residente en Pensión Mimosas. Afro, latin, reggaeton y open format para clubs, bodas y eventos privados."
+  description="Marques Edition es DJ en Madrid crossover y residente en Studio54 Madrid. Afro, latin, reggaeton y open format para clubs, bodas y eventos privados."
   lang="es"
   alternateHref={getLocaleHref("en", "/")}
 >
@@ -65,6 +65,12 @@ const homepageSchema = {
           <span class="quick-card-kicker">Trabajo real</span>
           <strong>Reels</strong>
           <span class="quick-card-copy">Pista, mezcla y cabina en acción.</span>
+        </a>
+
+        <a class="quick-card" href="/historial/">
+          <span class="quick-card-kicker">Archivo visual</span>
+          <strong>Historial</strong>
+          <span class="quick-card-copy">Flyers de fiestas realizadas y noches pasadas.</span>
         </a>
 
         <a class="quick-card" href="/media-links/">
@@ -126,7 +132,7 @@ const homepageSchema = {
                 <span class="chip">Crossover</span>
                 <span class="chip">Open format</span>
                 <span class="chip">Cabina en vivo</span>
-                <span class="chip">Residente @pensionmimosas</span>
+                <span class="chip">Residente @studio54_madrid</span>
               </div>
 
               <div class="cta-row">
@@ -204,11 +210,14 @@ const homepageSchema = {
               <strong>{residency.schedule_label}</strong>
               <span>{residency.venue} · {residency.time_label}</span>
               <span>{residency.address}</span>
+              {residency.phone && <span>Tel. {residency.phone}</span>}
             </div>
 
             <div class="residency-highlight-actions">
               <a class="quick-card-link" href="/events/">Ver agenda ↗</a>
               <a class="quick-card-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a>
+              <a class="quick-card-link" href={residency.venue_url} target="_blank" rel="noopener noreferrer">Web local ↗</a>
+              {residency.instagram_url && <a class="quick-card-link" href={residency.instagram_url} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}
             </div>
           </div>
         )
@@ -232,7 +241,7 @@ const homepageSchema = {
           energía medidos según el público.
         </p>
         <p>
-          La base está en Madrid y la residencia en Pensión Mimosas refuerza una presencia real en
+          La base está en Madrid y la residencia en Studio54 Madrid refuerza una presencia real en
           cabina. La idea es adaptar el set con criterio a cada formato sin perder identidad.
         </p>
       </article>

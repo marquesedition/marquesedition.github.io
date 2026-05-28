@@ -10,6 +10,7 @@ const INNER_PAGE_NAV_ITEMS = [
   { path: "/", labels: { es: "Inicio", en: "Home" } },
   { path: "/about/", labels: { es: "About", en: "About" } },
   { path: "/reels/", labels: { es: "Reels", en: "Reels" } },
+  { path: "/historial/", labels: { es: "Historial", en: "History" } },
   { path: "/streams/", labels: { es: "Remixes", en: "Remixes" } },
   { path: "/sets/", labels: { es: "Sets", en: "Sets" } },
   { path: "/events/", labels: { es: "Events", en: "Events" } },

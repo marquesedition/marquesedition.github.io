@@ -27,7 +27,7 @@ const homepageSchema = {
   image: profileImageUrl,
   jobTitle: "DJ in Madrid crossover",
   description:
-    "Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. Afro, latin, reggaeton and open format for clubs, weddings and private events.",
+    "Marques Edition is a crossover DJ in Madrid and resident at Studio54 Madrid. Afro, latin, reggaeton and open format for clubs, weddings and private events.",
   homeLocation: {
     "@type": "Place",
     name: "Madrid, Spain",
@@ -44,7 +44,7 @@ const homepageSchema = {
 
 <SiteLayout
   title="Marques Edition | DJ in Madrid Crossover"
-  description="Marques Edition is a crossover DJ in Madrid and resident at Pension Mimosas. Afro, latin, reggaeton and open format for clubs, weddings and private events."
+  description="Marques Edition is a crossover DJ in Madrid and resident at Studio54 Madrid. Afro, latin, reggaeton and open format for clubs, weddings and private events."
   lang="en"
   alternateHref={getLocaleHref("es", "/")}
 >
@@ -64,6 +64,12 @@ const homepageSchema = {
           <span class="quick-card-kicker">Live work</span>
           <strong>Reels</strong>
           <span class="quick-card-copy">Real booth moments, crowd energy and transitions.</span>
+        </a>
+
+        <a class="quick-card" href="/historial/">
+          <span class="quick-card-kicker">Visual archive</span>
+          <strong>History</strong>
+          <span class="quick-card-copy">Flyers from past parties and completed nights.</span>
         </a>
 
         <a class="quick-card" href="/media-links/">
@@ -125,7 +131,7 @@ const homepageSchema = {
                 <span class="chip">Crossover</span>
                 <span class="chip">Open format</span>
                 <span class="chip">Live booth energy</span>
-                <span class="chip">Resident @pensionmimosas</span>
+                <span class="chip">Resident @studio54_madrid</span>
               </div>
 
               <div class="cta-row">
@@ -203,11 +209,14 @@ const homepageSchema = {
               <strong>{residency.schedule_label}</strong>
               <span>{residency.venue} · {residency.time_label}</span>
               <span>{residency.address}</span>
+              {residency.phone && <span>Tel. {residency.phone}</span>}
             </div>
 
             <div class="residency-highlight-actions">
               <a class="quick-card-link" href="/events/">See schedule ↗</a>
               <a class="quick-card-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Directions ↗</a>
+              <a class="quick-card-link" href={residency.venue_url} target="_blank" rel="noopener noreferrer">Venue ↗</a>
+              {residency.instagram_url && <a class="quick-card-link" href={residency.instagram_url} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}
             </div>
           </div>
         )
@@ -232,7 +241,7 @@ const homepageSchema = {
           energy changes shaped around the room.
         </p>
         <p>
-          The base is Madrid and the residency at Pension Mimosas reinforces a real presence in
+          The base is Madrid and the residency at Studio54 Madrid reinforces a real presence in
           the booth. The goal is to adapt each set without losing identity.
         </p>
       </article>

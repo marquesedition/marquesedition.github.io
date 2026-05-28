@@ -1,18 +1,20 @@
 {
   "generated_at": "2026-05-28T10:11:57.953233+02:00",
   "source": "recurring_residency",
-  "source_url": "https://share.google/YZcMnADktdv1w7FEW",
+  "source_url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid",
   "artist": "Marques Edition",
   "featured_residency": {
-    "title": "Residencia fija en Pensión Mimosas",
-    "venue": "Pensión Mimosas",
+    "title": "Residencia fija en Studio54 Madrid",
+    "venue": "Studio54 Madrid",
     "location": "Madrid, España",
-    "area": "Sol / Centro",
-    "address": "C. del Marqués Viudo de Pontejos, 9, 28012 Madrid",
+    "area": "Chueca / Centro",
+    "address": "C. de Barbieri, 7, Centro, 28004 Madrid",
     "schedule_label": "Todos los viernes y sábados",
-    "time_label": "21:00 - 02:30",
-    "map_url": "https://share.google/YZcMnADktdv1w7FEW",
-    "venue_url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+    "time_label": "22:00 - 03:30",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid",
+    "venue_url": "https://www.studio54madrid.com/",
+    "instagram_url": "https://www.instagram.com/studio54_madrid/",
+    "phone": "615 12 68 07"
   },
   "events": [
     {
@@ -20,16 +22,20 @@
       "month_label": "Mayo de 2026",
       "date_label": "Viernes 29 de mayo de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -38,16 +44,20 @@
       "month_label": "Mayo de 2026",
       "date_label": "Sábado 30 de mayo de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -56,16 +66,20 @@
       "month_label": "Junio de 2026",
       "date_label": "Viernes 5 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -74,16 +88,20 @@
       "month_label": "Junio de 2026",
       "date_label": "Sábado 6 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -92,16 +110,20 @@
       "month_label": "Junio de 2026",
       "date_label": "Viernes 12 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -110,16 +132,20 @@
       "month_label": "Junio de 2026",
       "date_label": "Sábado 13 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -128,16 +154,20 @@
       "month_label": "Junio de 2026",
       "date_label": "Viernes 19 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },
@@ -146,16 +176,284 @@
       "month_label": "Junio de 2026",
       "date_label": "Sábado 20 de junio de 2026",
       "artist": "Marques Edition",
-      "location": "Sol / Centro, Madrid, España",
-      "venue": "Pensión Mimosas · 21:00 - 02:30",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
       "offers": [
         {
           "label": "Cómo llegar",
-          "url": "https://share.google/YZcMnADktdv1w7FEW"
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
         },
         {
-          "label": "Ver local",
-          "url": "https://www.esmadrid.com/en/nightlife/pension-mimosas"
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-06",
+      "month_label": "Junio de 2026",
+      "date_label": "Viernes 26 de junio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-06",
+      "month_label": "Junio de 2026",
+      "date_label": "Sábado 27 de junio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Viernes 3 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Sábado 4 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Viernes 10 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Sábado 11 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Viernes 17 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Sábado 18 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Viernes 24 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Sábado 25 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-07",
+      "month_label": "Julio de 2026",
+      "date_label": "Viernes 31 de julio de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-08",
+      "month_label": "Agosto de 2026",
+      "date_label": "Sábado 1 de agosto de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
         }
       ]
     },

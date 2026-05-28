@@ -11,16 +11,18 @@ OUTPUT_PATH = ROOT / "src" / "data" / "events.json"
 TIMEZONE = ZoneInfo("Europe/Madrid")
 
 RESIDENCY = {
-    "title": "Residencia fija en Pensión Mimosas",
-    "venue": "Pensión Mimosas",
-    "address": "C. del Marqués Viudo de Pontejos, 9, 28012 Madrid",
+    "title": "Residencia fija en Studio54 Madrid",
+    "venue": "Studio54 Madrid",
+    "address": "C. de Barbieri, 7, Centro, 28004 Madrid",
     "location": "Madrid, España",
-    "area": "Sol / Centro",
+    "area": "Chueca / Centro",
     "days_of_week": [4, 5],  # Friday, Saturday
-    "start_time": "21:00",
-    "end_time": "02:30",
-    "map_url": "https://share.google/YZcMnADktdv1w7FEW",
-    "venue_url": "https://www.esmadrid.com/en/nightlife/pension-mimosas",
+    "start_time": "22:00",
+    "end_time": "03:30",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid",
+    "venue_url": "https://www.studio54madrid.com/",
+    "instagram_url": "https://www.instagram.com/studio54_madrid/",
+    "phone": "615 12 68 07",
     "artist": "Marques Edition",
     "count": 20,
 }
@@ -90,7 +92,8 @@ def generate_residency_events():
                 "venue": f"{RESIDENCY['venue']} · {RESIDENCY['start_time']} - {RESIDENCY['end_time']}",
                 "offers": [
                     {"label": "Cómo llegar", "url": RESIDENCY["map_url"]},
-                    {"label": "Ver local", "url": RESIDENCY["venue_url"]},
+                    {"label": "Web local", "url": RESIDENCY["venue_url"]},
+                    {"label": "Instagram", "url": RESIDENCY["instagram_url"]},
                 ],
             }
         )
@@ -115,6 +118,8 @@ def build_payload():
             "time_label": f"{RESIDENCY['start_time']} - {RESIDENCY['end_time']}",
             "map_url": RESIDENCY["map_url"],
             "venue_url": RESIDENCY["venue_url"],
+            "instagram_url": RESIDENCY["instagram_url"],
+            "phone": RESIDENCY["phone"],
         },
         "events": generate_residency_events(),
     }

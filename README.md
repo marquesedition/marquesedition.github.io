@@ -15,6 +15,7 @@ Web oficial de Marques Edition migrada a Astro.
 
 ### Scripts
 - `scripts/content/update_reels.py`: refresca datos desde Instagram
+- `scripts/content/update_flyers.py`: refresca flyers de fiestas realizadas desde Instagram
 - `scripts/content/update_streams.py`: refresca datos desde YouTube
 - `scripts/content/update_events.py`: genera la agenda recurrente
 - `scripts/content/update_library.py`: sincroniza la library pública de Google Drive a JSON
@@ -47,6 +48,12 @@ Esto genera `dist/` con Astro. La publicación de GitHub Pages se hace desde Git
 ## Actualizar reels
 ```bash
 python3 scripts/content/update_reels.py
+npm run build:site
+```
+
+## Actualizar historial de flyers
+```bash
+python3 scripts/content/update_flyers.py
 npm run build:site
 ```
 
@@ -86,4 +93,4 @@ También puedes pegar el bloque HTML por `stdin`:
 pbpaste | npm run import:events
 ```
 
-El workflow `.github/workflows/update-reels.yml` hace este proceso automáticamente para events, reels y streams.
+El workflow `.github/workflows/update-reels.yml` hace este proceso automáticamente cada hora para events, reels y streams.

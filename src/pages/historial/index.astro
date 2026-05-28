@@ -1,0 +1,243 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import InnerPage from "../../components/layout/InnerPage.astro";
+import Footer from "../../components/layout/Footer.astro";
+import { getInnerPageNav } from "../../config/navigation";
+import { formatShortSpanishDate } from "../../lib/format";
+import flyersPayload from "../../data/flyers.json";
+
+const navItems = getInnerPageNav("/historial/");
+const flyers = [...flyersPayload.flyers].sort((a, b) => b.timestamp - a.timestamp);
+const latestFlyer = flyers[0];
+const formatUpdated = flyersPayload.generated_at
+  ? formatShortSpanishDate(new Date(flyersPayload.generated_at))
+  : "";
+---
+
+<SiteLayout
+  title="Marques Edition | Historial de fiestas"
+  description="Historial visual de fiestas realizadas por Marques Edition. Flyers, fechas pasadas y noches en Studio54 Madrid."
+>
+  <InnerPage
+    ariaLabel="Historial de fiestas realizadas por Marques Edition"
+    eyebrow="Historial"
+    title="Flyers de fiestas realizadas."
+    description="Un archivo visual de noches que ya pasaron: flyers, fechas y recuerdos de la residencia y eventos realizados."
+    navItems={navItems}
+  >
+    <Fragment slot="main">
+      <section class="section history-hero" aria-labelledby="history-title">
+        <p class="section-kicker">Archivo visual</p>
+        <h2 id="history-title">Fiestas que ya tuvieron pista, cabina y público.</h2>
+        <p class="section-copy">
+          Esta página funciona como historial: no enseña próximas fechas, sino flyers de eventos
+          realizados para dejar constancia visual de la actividad en sala.
+        </p>
+
+        <div class="history-stats" aria-label="Resumen del historial">
+          <span>{flyers.length} flyers</span>
+          {latestFlyer && <span>Último: {formatShortSpanishDate(latestFlyer.date)}</span>}
+          <span>Studio54 Madrid</span>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="flyers-title">
+        <p class="section-kicker">Flyers</p>
+        <h2 id="flyers-title">Historial de fiestas realizadas</h2>
+
+        {
+          flyers.length > 0 ? (
+            <div class="flyer-grid">
+              {flyers.map((flyer) => (
+                <article class="flyer-card">
+                  <a href={flyer.url} target="_blank" rel="noopener noreferrer" aria-label={`Abrir flyer en Instagram: ${flyer.title}`}>
+                    <figure>
+                      <img src={flyer.image_url} alt={`Flyer de ${flyer.title}`} loading="lazy" decoding="async" />
+                      <figcaption>
+                        <span>{formatShortSpanishDate(flyer.date)}</span>
+                        <strong>{flyer.title}</strong>
+                        <small>{flyer.venue} · {flyer.label}</small>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div class="empty-history">
+              <strong>Todavía no hay flyers cargados.</strong>
+              <p>Cuando se añadan imágenes al historial, aparecerán aquí ordenadas por fecha.</p>
+            </div>
+          )
+        }
+      </section>
+    </Fragment>
+
+    <Fragment slot="sidebar">
+      <section class="side-card" aria-labelledby="source-title">
+        <p class="side-kicker">Fuente</p>
+        <h2 id="source-title">Instagram y archivo local</h2>
+        <p>
+          Los flyers se guardan en la web para que el historial no dependa de que Instagram cargue
+          cada imagen en directo.
+        </p>
+
+        <div class="facts" aria-label="Datos del archivo">
+          <span class="fact-chip">{flyers.length} flyers cargados</span>
+          {formatUpdated && <span class="fact-chip">Actualizado {formatUpdated}</span>}
+          <span class="fact-chip">Historial realizado</span>
+        </div>
+      </section>
+
+      <section class="side-card" aria-labelledby="next-title">
+        <p class="side-kicker">Siguiente paso</p>
+        <h2 id="next-title">Ver presente o cerrar fecha</h2>
+        <p>
+          El historial enseña lo que ya pasó. Para próximas fechas o contratación, estas rutas van
+          directas al punto correcto.
+        </p>
+
+        <div class="side-stack">
+          <a class="side-link" href="/events/">Ver agenda ↗</a>
+          <a class="side-link" href="/booking/">Ir a booking ↗</a>
+          <a class="side-link" href="https://www.instagram.com/marquesedition/" target="_blank" rel="noopener noreferrer">Abrir Instagram ↗</a>
+        </div>
+      </section>
+    </Fragment>
+
+    <Footer slot="footer" />
+  </InnerPage>
+
+  <style>
+    .history-hero {
+      overflow: hidden;
+    }
+
+    .history-stats {
+      margin-top: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .history-stats span,
+    .fact-chip {
+      min-height: 38px;
+      padding: 0.6rem 0.86rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.24);
+      background: rgba(69, 215, 255, 0.08);
+      color: #dff6ff;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .flyer-grid {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .flyer-card {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+        linear-gradient(160deg, rgba(90, 70, 180, 0.12), rgba(18, 12, 50, 0.16));
+    }
+
+    .flyer-card a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .flyer-card figure {
+      margin: 0;
+      display: grid;
+    }
+
+    .flyer-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .flyer-card figcaption {
+      display: grid;
+      gap: 0.28rem;
+      padding: 0.9rem;
+    }
+
+    .flyer-card span {
+      color: var(--blue);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .flyer-card strong {
+      font-size: 0.96rem;
+      line-height: 1.3;
+    }
+
+    .flyer-card small {
+      color: var(--muted-strong);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .empty-history {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .empty-history strong,
+    .empty-history p {
+      margin: 0;
+    }
+
+    .empty-history p {
+      margin-top: 0.35rem;
+      color: var(--muted-strong);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .facts,
+    .side-stack {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .facts {
+      margin-top: 0.85rem;
+    }
+
+    .side-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(69, 215, 255, 0.28);
+      background: rgba(69, 215, 255, 0.08);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (min-width: 640px) {
+      .flyer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</SiteLayout>

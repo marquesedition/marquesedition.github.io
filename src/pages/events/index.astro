@@ -43,11 +43,13 @@ const formatUpdated = generatedAt ? formatShortSpanishDate(new Date(generatedAt)
                 <strong>{residency.title}</strong>
                 <span>{residency.time_label}</span>
                 <span>{residency.address}</span>
+                {residency.phone && <span>Tel. {residency.phone}</span>}
               </div>
 
               <div class="residency-actions">
                 <a class="side-link" href={residency.map_url} target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a>
-                <a class="side-link" href={residency.venue_url} target="_blank" rel="noopener noreferrer">Ver local ↗</a>
+                <a class="side-link" href={residency.venue_url} target="_blank" rel="noopener noreferrer">Web local ↗</a>
+                {residency.instagram_url && <a class="side-link" href={residency.instagram_url} target="_blank" rel="noopener noreferrer">Instagram ↗</a>}
               </div>
             </div>
           </section>
@@ -223,7 +225,7 @@ const formatUpdated = generatedAt ? formatShortSpanishDate(new Date(generatedAt)
       }
 
       .residency-actions {
-        grid-template-columns: repeat(2, max-content);
+        grid-template-columns: repeat(3, max-content);
         justify-content: end;
       }
     }

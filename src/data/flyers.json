@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-05-28T10:11:44.286189+00:00",
+  "source_profile": "marquesedition",
+  "source_url": "https://www.instagram.com/marquesedition/",
+  "source": "seed_flyers",
+  "source_complete": false,
+  "source_items_scanned": 0,
+  "flyers": [
+    {
+      "shortcode": "DYZ3xTOKZ0r",
+      "url": "https://www.instagram.com/p/DYZ3xTOKZ0r/",
+      "image_url": "/flyers/DYZ3xTOKZ0r.jpg",
+      "date": "2026-05-16",
+      "timestamp": 1778944616,
+      "title": "Esta noche Madrid se prende en Studio 54 Madrid.",
+      "summary": "Esta noche Madrid se prende en Studio 54 Madrid.",
+      "venue": "Studio54 Madrid",
+      "label": "Fiesta realizada",
+      "caption": "Esta noche Madrid se prende en Studio 54 Madrid."
+    },
+    {
+      "shortcode": "DYSaBiGqicM",
+      "url": "https://www.instagram.com/p/DYSaBiGqicM/",
+      "image_url": "/flyers/DYSaBiGqicM.jpg",
+      "date": "2026-05-13",
+      "timestamp": 1778694197,
+      "title": "Este viernes la noche se viste de DISCO en Studio 54 Madrid.",
+      "summary": "Este viernes la noche se viste de DISCO en Studio 54 Madrid.",
+      "venue": "Studio54 Madrid",
+      "label": "Fiesta realizada",
+      "caption": "Este viernes la noche se viste de DISCO en Studio 54 Madrid."
+    },
+    {
+      "shortcode": "DYIRkUMis9m",
+      "url": "https://www.instagram.com/p/DYIRkUMis9m/",
+      "image_url": "/flyers/DYIRkUMis9m.jpg",
+      "date": "2026-05-09",
+      "timestamp": 1778354282,
+      "title": "FIESTA NEON en Studio 54 Madrid.",
+      "summary": "FIESTA NEON en Studio 54 Madrid.",
+      "venue": "Studio54 Madrid",
+      "label": "Fiesta realizada",
+      "caption": "FIESTA NEON en Studio 54 Madrid."
+    }
+  ]
+}
