@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05T22:55:19.859995+02:00",
+  "generated_at": "2026-06-06T00:35:06.084239+02:00",
   "source": "recurring_residency",
   "source_url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid",
   "artist": "Marques Edition",
@@ -17,28 +17,6 @@
     "phone": "615 12 68 07"
   },
   "events": [
-    {
-      "month_id": "2026-06",
-      "month_label": "Junio de 2026",
-      "date_label": "Viernes 5 de junio de 2026",
-      "artist": "Marques Edition",
-      "location": "Chueca / Centro, Madrid, España",
-      "venue": "Studio54 Madrid · 22:00 - 03:30",
-      "offers": [
-        {
-          "label": "Cómo llegar",
-          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
-        },
-        {
-          "label": "Web local",
-          "url": "https://www.studio54madrid.com/"
-        },
-        {
-          "label": "Instagram",
-          "url": "https://www.instagram.com/studio54_madrid/"
-        }
-      ]
-    },
     {
       "month_id": "2026-06",
       "month_label": "Junio de 2026",
@@ -439,6 +417,28 @@
       "month_id": "2026-08",
       "month_label": "Agosto de 2026",
       "date_label": "Sábado 8 de agosto de 2026",
+      "artist": "Marques Edition",
+      "location": "Chueca / Centro, Madrid, España",
+      "venue": "Studio54 Madrid · 22:00 - 03:30",
+      "offers": [
+        {
+          "label": "Cómo llegar",
+          "url": "https://www.google.com/maps/search/?api=1&query=C.%20de%20Barbieri%2C%207%2C%20Centro%2C%2028004%20Madrid"
+        },
+        {
+          "label": "Web local",
+          "url": "https://www.studio54madrid.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/studio54_madrid/"
+        }
+      ]
+    },
+    {
+      "month_id": "2026-08",
+      "month_label": "Agosto de 2026",
+      "date_label": "Viernes 14 de agosto de 2026",
       "artist": "Marques Edition",
       "location": "Chueca / Centro, Madrid, España",
       "venue": "Studio54 Madrid · 22:00 - 03:30",
